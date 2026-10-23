@@ -1,0 +1,30 @@
+{
+  "order": 4,
+  "name": "Achiote",
+  "scientificName": "Bixa orellana",
+  "region": "amazonia",
+  "regionDetail": "Amazonía y valles cálidos",
+  "partUsed": "Semillas",
+  "altitude": { "typical": 300, "min": 0, "max": 1500 },
+  "molecule": { "name": "bixina", "formula": "C25H30O4" },
+  "science": {
+    "title": "Color con antioxidantes",
+    "paragraphs": [
+      "Sus semillas tienen bixina y norbixina, carotenoides con actividad antioxidante, y tocotrienoles, una forma de vitamina E.",
+      "Es uno de los colorantes naturales más usados en el mundo (código alimentario E160b)."
+    ],
+    "sources": "Codex Alimentarius, E160b. Revisiones sobre carotenoides de Bixa orellana, Food Research International."
+  },
+  "tradition": {
+    "title": "El rojo de los pueblos amazónicos",
+    "paragraphs": [
+      "Pueblos amazónicos lo usan para pintar el rostro y el cuerpo en fiestas y ceremonias, y como protección contra el sol y los insectos.",
+      "En la cocina de la selva tiñe de rojo guisos, arroces y pescados."
+    ]
+  },
+  "usage": {
+    "traditional": "semillas molidas en la cocina",
+    "withExtract": "En bebidas, batidos o en tu cocina, para dar color y antioxidantes."
+  },
+  "lot": { "origin": "Pucallpa, Ucayali" }
+}

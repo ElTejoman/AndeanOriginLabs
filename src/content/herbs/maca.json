@@ -1,0 +1,30 @@
+{
+  "order": 8,
+  "name": "Maca",
+  "scientificName": "Lepidium meyenii",
+  "region": "andes",
+  "regionDetail": "Meseta de Bombón · Junín, Pasco",
+  "partUsed": "Raíz (hipocótilo)",
+  "altitude": { "typical": 4200, "min": 3800, "max": 4500 },
+  "molecule": { "name": "macamida", "formula": "C23H39NO" },
+  "science": {
+    "title": "La hierba peruana más estudiada",
+    "paragraphs": [
+      "Contiene macamidas, glucosinolatos y alcaloides que no se encuentran en otras plantas.",
+      "Ensayos clínicos, varios de la Universidad Peruana Cayetano Heredia, sugieren mejoras en el deseo sexual y el estado de ánimo. Los resultados son prometedores, aunque los estudios son pequeños."
+    ],
+    "sources": "Gonzales G.F. et al., Andrologia, 2002; Gonzales G.F., Evidence-Based Complementary and Alternative Medicine, 2012."
+  },
+  "tradition": {
+    "title": "Alimento de fuerza en la puna",
+    "paragraphs": [
+      "Se cultiva hace más de 2,000 años en la puna de Junín, donde casi nada más crece.",
+      "Se seca al sol y se come cocida en mazamorra, jugos y emoliente como alimento de fuerza y fertilidad."
+    ]
+  },
+  "usage": {
+    "traditional": "raíz seca en mazamorra y jugos",
+    "withExtract": "En jugo, batido, avena o emoliente, como se toma en Junín."
+  },
+  "lot": { "origin": "Carhuamayo, Junín", "code": "AOL-MAC-001", "altitude": 4100, "harvest": "junio" }
+}

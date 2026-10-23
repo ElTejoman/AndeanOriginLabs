@@ -1,0 +1,293 @@
+---
+import Jar from "@/components/ui/Jar.astro";
+import Section from "@/components/ui/Section.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
+import { PRODUCT_SPECS, RITUAL_STEPS } from "@/data/content";
+import { formatNumber } from "@/lib/format";
+import { getHerb, type Herb } from "@/lib/herbs";
+
+type Props = { herbs: Herb[] };
+const { herbs } = Astro.props;
+
+const maca = getHerb(herbs, "maca");
+const muna = getHerb(herbs, "muna");
+const lot = maca.lot;
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<Section id="producto" flushTop>
+  <div class="wrap">
+    <SectionHeader eyebrow="El producto">
+      La planta, <em>en una cucharita</em>
+      <p slot="aside">
+        Sin hervir cortezas ni macerar por semanas. Lo que se preparaba en la cocina, listo en un frasco de extracto en
+        polvo.
+      </p>
+    </SectionHeader>
+
+    <div class="bento" data-reveal>
+      <div class="tile tile--show">
+        <div class="tile__blob" aria-hidden="true"></div>
+        <div class="eyebrow">Primera línea · {herbs.length} frascos</div>
+        <div class="tile__jars" role="img" aria-label={`Frascos de extracto en polvo de ${maca.name.toLowerCase()} y ${muna.name.toLowerCase()}`}>
+          <Jar herb={maca} width={230} />
+          <span class="tile__side-jar"><Jar herb={muna} width={140} /></span>
+        </div>
+      </div>
+
+      <div class="tile tile--spec">
+        <div class="eyebrow">Formato</div>
+        <h3>Extracto en polvo, no hierba molida</h3>
+        <p>
+          Se extraen los compuestos de la planta, como en un cocimiento o una maceración, y se secan. Más concentrado y
+          fácil de disolver.
+        </p>
+        <dl class="spec">
+          {
+            PRODUCT_SPECS.map((spec) => (
+              <>
+                <dt>{spec.term}</dt>
+                <dd>{spec.detail}</dd>
+              </>
+            ))
+          }
+        </dl>
+      </div>
+
+      <div class="tile tile--science">
+        <div class="eyebrow">Ciencia</div>
+        <h3>La especie correcta, verificada</h3>
+        <p>Nombre científico en la etiqueta y lote identificado con muestra de herbario.</p>
+      </div>
+
+      <div class="tile tile--tradition">
+        <div class="eyebrow">Tradición</div>
+        <h3>Su historia, impresa</h3>
+        <p>Pueblo, región y receta tradicional en cada frasco.</p>
+      </div>
+
+      <div class="tile tile--origin">
+        <div class="eyebrow">Origen</div>
+        <h3>Lote trazable</h3>
+        <div class="lot-code">
+          <b>{lot.code}</b><br />
+          {lot.origin} · {formatNumber(lot.altitude ?? maca.altitude.typical)} msnm<br />
+          Cosecha: {lot.harvest}
+        </div>
+      </div>
+
+      <div class="tile tile--ritual night">
+        <div class="eyebrow">Cómo se toma</div>
+        <ol class="ritual">
+          {
+            RITUAL_STEPS.map((step, i) => (
+              <li>
+                <span class="ritual__n">{pad(i + 1)}</span>
+                <h4>{step.title}</h4>
+                <p>{step.text}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .tile {
+    border-radius: var(--r-lg);
+    padding: 32px;
+    background: var(--surface-000);
+    border: 1px solid var(--line);
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tile h3 {
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-top: 14px;
+    color: var(--tile-accent, inherit);
+  }
+
+  .tile p {
+    color: var(--ink-muted);
+    margin-top: 12px;
+    font-size: 16px;
+  }
+
+  .tile--show {
+    grid-column: span 5;
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--surface-200);
+  }
+
+  .tile--show > :not(.tile__blob) {
+    position: relative;
+  }
+
+  .tile__blob {
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    left: 50%;
+    top: 56%;
+    transform: translate(-50%, -50%);
+    border-radius: 40px 200px 40px 200px;
+    background: var(--verde-tenue);
+  }
+
+  .tile__jars {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 14px;
+    padding-top: 24px;
+  }
+
+  .tile--spec {
+    grid-column: span 7;
+  }
+
+  .spec {
+    margin: 24px 0 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    font-size: 15px;
+  }
+
+  .spec dt,
+  .spec dd {
+    padding-block: 12px;
+    border-top: 1px solid var(--line);
+    margin: 0;
+  }
+
+  .spec dt {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding-right: 24px;
+    padding-top: 15px;
+  }
+
+  .tile--science {
+    --tile-accent: var(--verde-hoja);
+    --eyebrow-color: var(--verde-hoja);
+    grid-column: span 4;
+    background: var(--verde-tenue);
+    border-color: transparent;
+  }
+
+  .tile--tradition {
+    --tile-accent: var(--rojo-achiote);
+    --eyebrow-color: var(--rojo-achiote);
+    grid-column: span 3;
+    background: var(--rojo-tenue);
+    border-color: transparent;
+  }
+
+  .tile--origin {
+    grid-column: span 4;
+  }
+
+  .lot-code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-top: 20px;
+    padding: 14px;
+    border: 1px dashed var(--line);
+    border-radius: var(--r-md);
+    line-height: 1.8;
+  }
+
+  .lot-code b {
+    font-weight: 500;
+  }
+
+  .tile--ritual {
+    grid-column: span 8;
+    background: var(--noche);
+    border-color: transparent;
+  }
+
+  .ritual {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ritual li {
+    border-top: 1px solid var(--noche-line);
+    padding-top: 16px;
+    min-width: 0;
+  }
+
+  .ritual__n {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--achiote-luz);
+  }
+
+  .ritual h4 {
+    font-size: 22px;
+    margin-top: 10px;
+    line-height: 1.2;
+  }
+
+  .ritual p {
+    font-size: 15px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 1000px) {
+    .tile--show,
+    .tile--spec,
+    .tile--origin,
+    .tile--ritual {
+      grid-column: span 12;
+      grid-row: auto;
+    }
+
+    .tile--science,
+    .tile--tradition {
+      grid-column: span 6;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .tile--science,
+    .tile--tradition {
+      grid-column: span 12;
+    }
+
+    .ritual {
+      grid-template-columns: 1fr;
+    }
+
+    .tile {
+      padding: 24px;
+    }
+
+    .tile__side-jar {
+      display: none;
+    }
+  }
+</style>

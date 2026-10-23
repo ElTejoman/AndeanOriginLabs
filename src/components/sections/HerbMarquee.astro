@@ -1,0 +1,80 @@
+---
+import ChemicalFormula from "@/components/ui/ChemicalFormula.astro";
+import type { Herb } from "@/lib/herbs";
+
+/** Cinta infinita con las hierbas y sus fórmulas. Decorativa: el contenido está en la colección. */
+type Props = { herbs: Herb[] };
+const { herbs } = Astro.props;
+// La lista se repite dos veces para que el desplazamiento de -50% empalme sin cortes.
+const loop = [...herbs, ...herbs];
+---
+
+<div class="marquee night" aria-hidden="true">
+  <div class="marquee__track">
+    {
+      loop.map((herb) => (
+        <span class="marquee__item">
+          <i />
+          <b>{herb.name}</b>
+          <span>
+            <ChemicalFormula formula={herb.molecule.formula} />
+          </span>
+        </span>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .marquee {
+    border-block: 1px solid var(--noche-line);
+    overflow: hidden;
+    padding-block: 18px;
+    position: relative;
+  }
+
+  .marquee__track {
+    display: flex;
+    gap: 48px;
+    width: max-content;
+    animation: marquee-slide 48s linear infinite;
+  }
+
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+
+  .marquee__item {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    white-space: nowrap;
+  }
+
+  .marquee__item b {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 26px;
+  }
+
+  .marquee__item span {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--on-noche-muted);
+  }
+
+  .marquee__item i {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-radius: var(--leaf);
+    background: var(--achiote-luz);
+    transform: translateY(-4px);
+  }
+
+  @keyframes marquee-slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

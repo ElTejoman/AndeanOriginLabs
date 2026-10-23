@@ -1,0 +1,137 @@
+---
+import FormulaPill from "@/components/ui/FormulaPill.astro";
+import Jar from "@/components/ui/Jar.astro";
+import { regionLabel, type Herb } from "@/lib/herbs";
+
+type Props = { herb: Herb; selected: boolean };
+const { herb, selected } = Astro.props;
+---
+
+<button
+  class="herb-card"
+  type="button"
+  data-herb-card={herb.id}
+  data-region={herb.region}
+  aria-current={selected}
+  aria-controls={`ficha-${herb.id}`}
+>
+  <span class="herb-card__stage">
+    <span class="herb-card__region">{regionLabel(herb.region)}</span>
+    <span class:list={["herb-card__dot", `herb-card__dot--${herb.region}`]} aria-hidden="true"></span>
+    <span class="herb-card__jar"><Jar herb={herb} variant="mini" width={96} /></span>
+  </span>
+  <span class="herb-card__info">
+    <span class="herb-card__name">{herb.name}</span>
+    <em class="sci herb-card__sci">{herb.scientificName}</em>
+    <span class="herb-card__formula"><FormulaPill formula={herb.molecule.formula} name={herb.molecule.name} /></span>
+  </span>
+</button>
+
+<style>
+  .herb-card {
+    all: unset;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface-000);
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    overflow: hidden;
+    min-width: 0;
+    transition:
+      border-color 0.25s,
+      transform 0.35s var(--ease),
+      box-shadow 0.35s;
+  }
+
+  .herb-card[hidden] {
+    display: none;
+  }
+
+  .herb-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 40px -28px rgb(10 30 15 / 0.45);
+  }
+
+  .herb-card[aria-current="true"] {
+    border-color: var(--verde-selva);
+    box-shadow: inset 0 0 0 1px var(--verde-selva);
+  }
+
+  .herb-card:focus-visible {
+    outline: 2px solid var(--rojo-achiote);
+    outline-offset: 3px;
+  }
+
+  .herb-card__stage {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 178px;
+    padding-top: 16px;
+    background: var(--surface-200);
+    position: relative;
+  }
+
+  .herb-card__region {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .herb-card__dot {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 12px;
+    height: 12px;
+    border-radius: var(--leaf);
+  }
+
+  .herb-card__dot--amazonia {
+    background: var(--verde-hoja);
+  }
+
+  .herb-card__dot--andes {
+    background: var(--ocre-maca);
+  }
+
+  .herb-card__jar {
+    display: block;
+    transition: transform 0.45s var(--ease);
+  }
+
+  .herb-card:hover .herb-card__jar {
+    transform: translateY(-8px) rotate(-3deg);
+  }
+
+  .herb-card__info {
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .herb-card__name {
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .herb-card__sci {
+    color: var(--ink-muted);
+    font-size: 15px;
+  }
+
+  .herb-card__formula {
+    margin-top: 12px;
+    align-self: flex-start;
+  }
+</style>

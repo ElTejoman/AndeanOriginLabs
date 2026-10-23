@@ -1,0 +1,30 @@
+{
+  "order": 3,
+  "name": "Chuchuhuasi",
+  "scientificName": "Maytenus macrocarpa",
+  "region": "amazonia",
+  "regionDetail": "Loreto, Ucayali, San Martín",
+  "partUsed": "Corteza",
+  "altitude": { "typical": 180, "min": 100, "max": 500 },
+  "molecule": { "name": "dihidroagarofurano", "formula": "C15H26O" },
+  "science": {
+    "title": "En estudio",
+    "paragraphs": [
+      "La corteza contiene triterpenos y sesquiterpenos característicos de su familia (Celastraceae).",
+      "Estudios de laboratorio exploran su actividad antiinflamatoria y analgésica. La evidencia en personas todavía es escasa."
+    ],
+    "sources": "Revisiones fitoquímicas del género Maytenus (Celastraceae). Evidencia principalmente preclínica."
+  },
+  "tradition": {
+    "title": "El levantador de la selva",
+    "paragraphs": [
+      "La corteza se macera en aguardiente de caña durante semanas. Se toma en copitas para el reumatismo, el dolor de espalda y el cansancio.",
+      "En Iquitos es infaltable en los bares de tragos amazónicos, junto al siete raíces y el rompe calzón."
+    ]
+  },
+  "usage": {
+    "traditional": "corteza macerada en aguardiente",
+    "withExtract": "En agua tibia o en tu bebida favorita. La fuerza de la corteza, sin alcohol."
+  },
+  "lot": { "origin": "Nauta, Loreto" }
+}

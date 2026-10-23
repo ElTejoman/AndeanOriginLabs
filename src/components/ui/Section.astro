@@ -1,0 +1,49 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+/**
+ * Contenedor de sección con el padding vertical estándar.
+ * `surface` elige el fondo: libreta (default), papel milimetrado, papel alterno o banda nocturna.
+ */
+type Props = HTMLAttributes<"section"> & {
+  surface?: "plain" | "grid" | "grid-alt" | "night";
+  flushTop?: boolean;
+};
+const { surface = "plain", flushTop = false, class: className, ...rest } = Astro.props;
+---
+
+<section
+  class:list={[
+    "section",
+    {
+      "lab-grid": surface === "grid" || surface === "grid-alt",
+      "surface-alt": surface === "grid-alt",
+      "night night-grid": surface === "night",
+      "section--flush-top": flushTop,
+    },
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</section>
+
+<style>
+  .section {
+    padding-block: 120px;
+  }
+
+  .section--flush-top {
+    padding-top: 0;
+  }
+
+  @media (max-width: 640px) {
+    .section {
+      padding-block: 80px;
+    }
+
+    .section--flush-top {
+      padding-top: 0;
+    }
+  }
+</style>

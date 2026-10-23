@@ -1,0 +1,42 @@
+/*
+ * Estados iniciales de las animaciones.
+ * <html class="motion"> se agrega en el <head> solo si hay JS y el usuario no pidió menos movimiento,
+ * así los elementos parten ocultos (sin parpadeo) y anime.js los revela. Sin JS, todo se ve normal.
+ * Al terminar cada entrada, el elemento recibe .is-revealed y se limpian los estilos en línea,
+ * para que los :hover con transform sigan funcionando.
+ */
+.motion [data-reveal]:not(.is-revealed) > *,
+.motion [data-reveal-self]:not(.is-revealed),
+.motion [data-intro]:not(.is-revealed) {
+  opacity: 0;
+}
+
+/* El titular del hero se oculta hasta dividirse en letras; luego las letras parten ocultas. */
+.motion [data-hero-title]:not(.is-split),
+.motion [data-hero-title]:not(.is-revealed) .split-char {
+  opacity: 0;
+}
+
+.motion [data-rail-fill]:not(.is-revealed) {
+  transform: scaleX(0);
+}
+
+/* Titular dividido en palabras y letras por scripts/motion/splitText.ts */
+.split-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.split-char {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}

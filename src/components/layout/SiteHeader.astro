@@ -1,0 +1,75 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Logo from "@/components/ui/Logo.astro";
+import { NAV_LINKS, WAITLIST_ANCHOR } from "@/data/site";
+---
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <Logo />
+    <nav class="site-nav" aria-label="Secciones">
+      {NAV_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+    <Button href={WAITLIST_ANCHOR} size="sm" class="site-header__cta">
+      <span class="cta-long">Reserva tu frasco</span><span class="cta-short">Reservar</span>
+    </Button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 30;
+    background: rgb(11 24 16 / 0.94);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    color: var(--on-noche);
+    border-bottom: 1px solid var(--noche-line);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 12px;
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 30px;
+    font-size: 14px;
+  }
+
+  .site-nav a {
+    text-decoration: none;
+    color: var(--on-noche-muted);
+    transition: color 0.2s;
+  }
+
+  .site-nav a:hover {
+    color: var(--on-noche);
+  }
+
+  .cta-short {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .site-nav {
+      display: none;
+    }
+  }
+
+  /* En pantallas muy angostas el CTA se acorta para que entre junto al logo */
+  @media (max-width: 400px) {
+    .cta-long {
+      display: none;
+    }
+
+    .cta-short {
+      display: inline;
+    }
+  }
+</style>

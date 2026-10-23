@@ -1,0 +1,166 @@
+---
+import Section from "@/components/ui/Section.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
+import { TWO_KNOWLEDGES } from "@/data/content";
+
+const PANELS = [
+  { ...TWO_KNOWLEDGES.science, tone: "science" },
+  { ...TWO_KNOWLEDGES.tradition, tone: "tradition" },
+] as const;
+---
+
+<Section surface="grid" aria-label="Dos saberes">
+  <div class="wrap">
+    <SectionHeader eyebrow="Nuestra idea">
+      Dos saberes, <em>un solo frasco</em>
+      <p slot="aside">No elegimos entre el laboratorio y la abuela. Cada hierba se cuenta desde los dos lados, siempre juntos.</p>
+    </SectionHeader>
+
+    <div class="knowledges" data-reveal>
+      {
+        PANELS.map((panel, i) => (
+          <>
+            {i === 1 && (
+              <div class="knowledges__plus" aria-hidden="true">
+                +
+              </div>
+            )}
+            <div class:list={["panel", `panel--${panel.tone}`]}>
+              {panel.tone === "science" ? (
+                <svg class="panel__deco" viewBox="0 0 100 100" aria-hidden="true">
+                  <g fill="none" stroke="#fff" stroke-width="2">
+                    <polygon points="50,8 86,29 86,71 50,92 14,71 14,29" />
+                    <polygon points="50,24 72,37 72,63 50,76 28,63 28,37" />
+                  </g>
+                </svg>
+              ) : (
+                <svg class="panel__deco" viewBox="0 0 100 100" aria-hidden="true">
+                  <path d="M10 90 A80 80 0 0 1 90 10 A80 80 0 0 1 10 90Z" fill="none" stroke="#fff" stroke-width="2" />
+                  <path d="M10 90 L90 10" stroke="#fff" stroke-width="2" />
+                </svg>
+              )}
+              <div class="eyebrow">{panel.eyebrow}</div>
+              <h3>{panel.title}</h3>
+              <p>{panel.text}</p>
+              <ul>
+                {panel.items.map((item) => (
+                  <li>
+                    {item.label}
+                    <span>{item.note}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .knowledges {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .panel {
+    --eyebrow-color: rgb(255 255 255 / 0.75);
+    border-radius: var(--r-lg);
+    padding: 48px;
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .panel--science {
+    background: var(--verde-selva);
+  }
+
+  .panel--tradition {
+    background: var(--rojo-chuchuhuasi);
+  }
+
+  .panel h3 {
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 300;
+    margin-top: 18px;
+  }
+
+  .panel p {
+    margin-top: 16px;
+    opacity: 0.88;
+    max-width: 28em;
+  }
+
+  .panel ul {
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .panel li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 12px;
+    border-top: 1px solid rgb(255 255 255 / 0.18);
+    font-size: 15px;
+  }
+
+  .panel li span {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  .panel__deco {
+    position: absolute;
+    right: -60px;
+    bottom: -60px;
+    width: 220px;
+    height: 220px;
+    opacity: 0.14;
+  }
+
+  .knowledges__plus {
+    position: absolute;
+    /* centrado con márgenes (no con transform) para que la animación de entrada no lo desplace */
+    left: 50%;
+    top: 50%;
+    width: 72px;
+    height: 72px;
+    margin: -36px 0 0 -36px;
+    border-radius: 50%;
+    background: var(--surface-100);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 34px;
+    color: var(--ink);
+    z-index: 2;
+    border: 1px solid var(--line);
+  }
+
+  @media (max-width: 820px) {
+    .knowledges {
+      grid-template-columns: 1fr;
+    }
+
+    .panel {
+      padding: 32px;
+    }
+
+    .knowledges__plus {
+      width: 56px;
+      height: 56px;
+      margin: -28px 0 0 -28px;
+      font-size: 28px;
+    }
+  }
+</style>

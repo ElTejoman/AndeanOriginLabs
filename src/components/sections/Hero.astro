@@ -1,0 +1,354 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Jar from "@/components/ui/Jar.astro";
+import { WAITLIST_ANCHOR } from "@/data/site";
+import { formatNumber, formulaToUnicode } from "@/lib/format";
+import { getHerb, highestAltitude, type Herb } from "@/lib/herbs";
+
+type Props = { herbs: Herb[] };
+const { herbs } = Astro.props;
+
+/** La hierba que protagoniza el espécimen (nota de la hoja y de la molécula). */
+const featured = getHerb(herbs, "una-de-gato");
+const moleculeName = featured.molecule.name.charAt(0).toUpperCase() + featured.molecule.name.slice(1);
+
+const STAGES = [
+  {
+    step: "01 · Tradición",
+    title: "La hoja",
+    noteTitle: featured.scientificName,
+    noteText: `${featured.lot.origin} · ${formatNumber(featured.altitude.typical)} msnm`,
+  },
+  {
+    step: "02 · Ciencia",
+    title: "La molécula",
+    noteTitle: `${moleculeName} · ${formulaToUnicode(featured.molecule.formula)}`,
+    noteText: featured.molecule.family ?? "",
+  },
+  { step: "03 · Producto", title: "El frasco", noteTitle: "Extracto en polvo", noteText: "Lote 001 · próximamente" },
+];
+
+const STATS = [
+  { value: herbs.length, label: "Hierbas peruanas", animate: true },
+  { value: highestAltitude(herbs), label: "msnm, la más alta", animate: true },
+  { value: 2, label: "Saberes por frasco", animate: false },
+];
+
+const TITLE = "Ciencia que nace de la tradición.";
+---
+
+<section class="hero night night-grid" aria-labelledby="hero-title">
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <div class="eyebrow">Próximamente · Extractos en polvo · Hecho en Perú</div>
+      <h1 id="hero-title" class="hero__title" aria-label={TITLE} data-hero-title>
+        Ciencia que nace de la <em>tradición.</em>
+      </h1>
+      <p class="hero__lead" data-intro>
+        Las hierbas medicinales del Ande y la Amazonía en un frasco de extracto en polvo. En cada etiqueta, dos saberes:
+        lo que la ciencia ha estudiado y lo que nuestras comunidades han sabido siempre.
+      </p>
+      <div class="hero__ctas" data-intro>
+        <Button href={WAITLIST_ANCHOR} arrow>Reserva tu primer frasco</Button>
+        <Button href="#producto" variant="line">Conoce el frasco</Button>
+      </div>
+      <dl class="hero__stats" data-intro>
+        {
+          STATS.map((stat) => (
+            <div>
+              <dt>{stat.label}</dt>
+              <dd data-count={stat.animate ? stat.value : undefined}>{formatNumber(stat.value)}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div
+      class="specimen"
+      data-specimen
+      role="group"
+      aria-label="Animación: una hoja que se transforma en molécula y luego en el frasco del producto"
+    >
+      <div class="specimen__stage" data-specimen-stage>
+        <div class="specimen__fallback" data-specimen-fallback hidden>
+          <Jar herb={featured} width={220} />
+        </div>
+      </div>
+      <div class="specimen__ring" aria-hidden="true"></div>
+      <div class="specimen__note" aria-live="polite">
+        {
+          STAGES.map((stage, i) => (
+            <p data-stage-note hidden={i !== 0}>
+              <b>{stage.noteTitle}</b>
+              <br />
+              {stage.noteText}
+            </p>
+          ))
+        }
+      </div>
+      <div class="specimen__stages" role="group" aria-label="Etapas">
+        {
+          STAGES.map((stage, i) => (
+            <button type="button" data-stage-button aria-pressed={i === 0}>
+              <i data-stage-progress />
+              {stage.step}
+              <b>{stage.title}</b>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { mustQs } from "@/scripts/core/dom";
+  import { playHeroIntro } from "@/scripts/motion/heroIntro";
+  import { initSpecimen } from "@/scripts/specimen/initSpecimen";
+
+  const hero = mustQs(".hero");
+  playHeroIntro(hero);
+  void initSpecimen(mustQs("[data-specimen]", hero));
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+    padding-block: 56px 72px;
+    min-height: min(760px, 92vh);
+  }
+
+  .hero__copy {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+  }
+
+  .hero__title {
+    font-size: clamp(46px, 7.2vw, 104px);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    font-weight: 300;
+    margin-top: 22px;
+    font-variation-settings: "opsz" 144;
+  }
+
+  .hero__title em {
+    font-style: italic;
+    color: var(--achiote-luz);
+  }
+
+  .hero__lead {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--on-noche-muted);
+    max-width: 30em;
+    margin-top: 28px;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .hero__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+    margin: 52px 0 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--noche-line);
+  }
+
+  .hero__stats div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 4px;
+  }
+
+  .hero__stats dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 38px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero__stats dt {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--on-noche-muted);
+  }
+
+  /* ───── espécimen 3D ───── */
+
+  .specimen {
+    position: relative;
+    height: 620px;
+    min-width: 0;
+  }
+
+  .specimen__stage {
+    position: absolute;
+    inset: 0 0 64px;
+  }
+
+  .specimen__stage :global(.specimen__canvas) {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
+
+  .specimen__fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .specimen__fallback[hidden] {
+    display: none;
+  }
+
+  .specimen__ring {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 440px;
+    height: 440px;
+    max-width: 90%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 1px dashed var(--noche-line);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .specimen__ring::before {
+    content: "";
+    position: absolute;
+    inset: 44px;
+    border: 1px solid var(--noche-line);
+    border-radius: 50%;
+  }
+
+  .specimen__note {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--on-noche-muted);
+  }
+
+  .specimen__note b {
+    color: var(--on-noche);
+    font-weight: 500;
+  }
+
+  .specimen__stages {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .specimen__stages button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 12px;
+    position: relative;
+    color: var(--on-noche-muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .specimen__stages button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--noche-line);
+  }
+
+  .specimen__stages i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background: var(--achiote-luz);
+  }
+
+  .specimen__stages b {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--on-noche);
+    opacity: 0.55;
+    transition: opacity 0.3s;
+  }
+
+  .specimen__stages button[aria-pressed="true"] {
+    color: var(--achiote-luz);
+  }
+
+  .specimen__stages button[aria-pressed="true"] b {
+    opacity: 1;
+  }
+
+  .specimen__stages button:focus-visible {
+    outline: 2px solid var(--achiote-luz);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 960px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      padding-block: 24px 56px;
+    }
+
+    .specimen {
+      height: 420px;
+      order: -1;
+    }
+
+    .hero__stats {
+      gap: 24px;
+      margin-top: 40px;
+    }
+  }
+</style>

@@ -1,0 +1,9 @@
+---
+import { splitFormula } from "@/lib/format";
+
+/** Fórmula molecular con subíndices: C21H24N2O4 → C₂₁H₂₄N₂O₄ */
+type Props = { formula: string };
+const parts = splitFormula(Astro.props.formula);
+---
+
+{parts.map((part) => (part.sub ? <sub>{part.text}</sub> : part.text))}

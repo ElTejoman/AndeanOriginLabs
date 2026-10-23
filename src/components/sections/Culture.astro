@@ -1,0 +1,124 @@
+---
+import Section from "@/components/ui/Section.astro";
+import { GLOSSARY } from "@/data/content";
+---
+
+<Section id="cultura" surface="grid-alt" aria-labelledby="cultura-titulo">
+  <div class="wrap culture">
+    <div>
+      <div class="eyebrow" id="cultura-titulo">Cultura</div>
+      <blockquote>Antes de “fitoterapia”, en el Ande se decía <em>hampi.</em></blockquote>
+      <p class="culture__note">
+        Queremos que estas palabras vuelvan a usarse. Son parte de la marca porque son parte del Perú.
+      </p>
+    </div>
+    <dl class="words" data-reveal>
+      {
+        GLOSSARY.map((entry) => (
+          <div class="word">
+            <dt>
+              <b>{entry.word}</b>
+              <small>{entry.origin}</small>
+            </dt>
+            <dd>{entry.meaning}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</Section>
+
+<style>
+  .culture {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  blockquote {
+    margin: 16px 0 0;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(34px, 4.4vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  blockquote em {
+    color: var(--rojo-achiote);
+  }
+
+  .culture__note {
+    color: var(--ink-muted);
+    margin-top: 24px;
+    max-width: 28em;
+  }
+
+  .words {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 0;
+  }
+
+  .word {
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    padding: 24px;
+    min-width: 0;
+    background: var(--surface-000);
+    transition:
+      background 0.3s,
+      color 0.3s;
+  }
+
+  .word:hover {
+    background: var(--verde-selva);
+    color: #fff;
+  }
+
+  .word b {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .word small {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rojo-achiote);
+    margin-top: 10px;
+  }
+
+  .word dd {
+    margin: 10px 0 0;
+    color: var(--ink-muted);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .word:hover small,
+  .word:hover dd {
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  @media (max-width: 900px) {
+    .culture {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .words {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

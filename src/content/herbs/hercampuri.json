@@ -1,0 +1,30 @@
+{
+  "order": 7,
+  "name": "Hercampuri",
+  "scientificName": "Gentianella alborosea",
+  "region": "andes",
+  "regionDetail": "Junín, Huancavelica, Lima (sierra)",
+  "partUsed": "Planta entera",
+  "altitude": { "typical": 3900, "min": 3500, "max": 4500 },
+  "molecule": { "name": "xantona (núcleo)", "formula": "C13H8O2" },
+  "science": {
+    "title": "Estudios iniciales",
+    "paragraphs": [
+      "Contiene xantonas y compuestos amargos propios de las gencianas.",
+      "Estudios en animales sugieren un efecto protector del hígado y sobre el colesterol. Faltan ensayos en personas."
+    ],
+    "sources": "Estudios preclínicos sobre Gentianella alborosea. Evidencia limitada en humanos."
+  },
+  "tradition": {
+    "title": "El depurativo de la puna",
+    "paragraphs": [
+      "Infusión amarga muy conocida en la sierra central para el hígado y la vesícula.",
+      "Se toma en ayunas y también para ayudar a bajar de peso."
+    ]
+  },
+  "usage": {
+    "traditional": "infusión amarga en ayunas",
+    "withExtract": "En agua tibia por la mañana, como se toma en la sierra central."
+  },
+  "lot": { "origin": "Jauja, Junín" }
+}

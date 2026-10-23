@@ -1,0 +1,30 @@
+{
+  "order": 5,
+  "name": "Matico",
+  "scientificName": "Piper aduncum",
+  "region": "amazonia",
+  "regionDetail": "Selva alta · Huánuco, Pasco, Cusco",
+  "partUsed": "Hojas",
+  "altitude": { "typical": 1500, "min": 500, "max": 2000 },
+  "molecule": { "name": "dilapiol", "formula": "C12H14O4" },
+  "science": {
+    "title": "Antimicrobiano en laboratorio",
+    "paragraphs": [
+      "Sus hojas contienen dilapiol y otros fenilpropanoides.",
+      "En pruebas de laboratorio estos compuestos muestran actividad contra bacterias, hongos e insectos."
+    ],
+    "sources": "Estudios sobre el aceite esencial de Piper aduncum, Journal of Ethnopharmacology y Phytochemistry."
+  },
+  "tradition": {
+    "title": "Hoja para las heridas",
+    "paragraphs": [
+      "Las hojas se machacan o se hierven para lavar heridas, llagas y picaduras.",
+      "En infusión se toma para el dolor de estómago."
+    ]
+  },
+  "usage": {
+    "traditional": "infusión de hojas",
+    "withExtract": "En agua caliente, como la infusión de siempre."
+  },
+  "lot": { "origin": "Oxapampa, Pasco" }
+}

@@ -1,0 +1,132 @@
+---
+/**
+ * Isotipo de Andean Origin Labs (vectorizado de Logo_AOL.jpeg):
+ * a la izquierda, el Ande con nieve y curvas de nivel; a la derecha, la Amazonía con su bosque;
+ * encima, una red molecular cuyos nodos en rojo achiote marcan el origen.
+ * Los colores salen de --logo-line, --logo-snow, --logo-node y --logo-forest.
+ */
+type Props = { height?: number; class?: string };
+const { height = 34, class: className } = Astro.props;
+const width = Math.round((height * 720) / 370);
+
+const NETWORK: ReadonlyArray<readonly [number, number, number, number]> = [
+  [360, 22, 395, 125], [460, 90, 395, 125], [395, 125, 360, 172], [395, 125, 410, 212],
+  [360, 172, 410, 212], [460, 90, 410, 212], [460, 90, 555, 300], [410, 212, 435, 298],
+  [360, 172, 435, 298], [435, 298, 463, 322], [410, 212, 463, 322], [463, 322, 555, 300],
+  [410, 212, 555, 300], [463, 322, 330, 362], [463, 322, 520, 362], [555, 300, 640, 362],
+];
+const RED_NODES = [[360, 22], [460, 90], [360, 172], [463, 322]] as const;
+const GREEN_NODES = [[395, 125], [410, 212], [435, 298], [555, 300]] as const;
+const TREES = [
+  { x: 482, y: 182, rx: 38, ry: 13, base: 312 },
+  { x: 562, y: 206, rx: 34, ry: 12, base: 330 },
+  { x: 452, y: 250, rx: 30, ry: 11, base: 330 },
+  { x: 604, y: 242, rx: 28, ry: 10, base: 338 },
+  { x: 646, y: 284, rx: 22, ry: 9, base: 346 },
+] as const;
+---
+
+<svg
+  class:list={["logo-mark", className]}
+  width={width}
+  height={height}
+  viewBox="0 0 720 370"
+  aria-hidden="true"
+  focusable="false"
+>
+  <!-- nieve del Ande -->
+  <path
+    class="snow"
+    d="M150 232 L232 70 L268 60 L300 84 L332 72 L345 108 L340 150 L312 168 L282 150 L250 188 L205 202 Z"
+  />
+  <path class="line thin" d="M268 60 C282 96 300 118 296 150 M300 84 C318 104 330 120 340 150 M232 70 C228 120 210 160 186 196" />
+
+  <!-- curvas de nivel -->
+  <g class="line thin">
+    <path d="M40 328 C90 318 120 345 180 338 S270 320 308 336" />
+    <path d="M62 298 C110 280 150 312 205 300 S280 286 324 302" />
+    <path d="M85 268 C130 252 160 282 210 272 C250 264 280 250 336 270" />
+    <path d="M108 238 C150 222 175 250 220 244 C262 238 300 220 346 238" />
+    <path d="M130 208 C165 196 195 216 240 210 C280 205 310 192 352 205" />
+    <path d="M70 350 C70 325 105 315 125 330 C140 342 120 356 95 356" />
+  </g>
+
+  <!-- red molecular -->
+  <g class="line thin">
+    {NETWORK.map(([x1, y1, x2, y2]) => <line x1={x1} y1={y1} x2={x2} y2={y2} />)}
+  </g>
+
+  <!-- bosque amazónico -->
+  <g class="forest">
+    {
+      TREES.map((t) => (
+        <>
+          <line class="trunk" x1={t.x} y1={t.y + t.ry - 4} x2={t.x - 3} y2={t.base} />
+          <ellipse cx={t.x} cy={t.y} rx={t.rx} ry={t.ry} />
+          <ellipse cx={t.x - t.rx * 0.4} cy={t.y - t.ry * 0.7} rx={t.rx * 0.5} ry={t.ry * 0.7} />
+        </>
+      ))
+    }
+    <path d="M380 362 L398 300 L416 362Z M520 362 L536 290 L552 362Z M600 362 L612 318 L624 362Z" />
+    <path
+      d="M292 362 C320 340 340 350 360 336 C380 345 400 330 430 342 C460 330 490 345 520 335 C560 345 600 330 640 340 C670 335 690 345 705 362 Z"
+    />
+  </g>
+
+  <!-- silueta: Ande a la izquierda, Amazonía a la derecha, divididos por la cresta -->
+  <path class="line" d="M14 362 L232 70 L268 60 L360 22 L425 108 L460 90 L705 362" />
+  <path
+    class="line"
+    d="M360 22 C350 55 340 85 352 110 C364 135 350 150 360 172 C368 195 352 225 342 262 C334 295 312 330 292 362"
+  />
+  <path class="line" d="M292 362 L705 362" />
+
+  <g class="node node--red">
+    {RED_NODES.map(([cx, cy]) => <circle cx={cx} cy={cy} r="15" />)}
+  </g>
+  <g class="node node--green">
+    {GREEN_NODES.map(([cx, cy]) => <circle cx={cx} cy={cy} r="11" />)}
+  </g>
+</svg>
+
+<style>
+  .logo-mark {
+    flex: none;
+    overflow: visible;
+  }
+
+  .line {
+    fill: none;
+    stroke: var(--logo-line);
+    stroke-width: 9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .line.thin {
+    stroke-width: 5;
+  }
+
+  .snow {
+    fill: var(--logo-snow);
+    opacity: 0.75;
+  }
+
+  .forest {
+    fill: var(--logo-forest);
+  }
+
+  .forest .trunk {
+    stroke: var(--logo-forest);
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+
+  .node--red {
+    fill: var(--logo-node);
+  }
+
+  .node--green {
+    fill: var(--logo-forest);
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import ChemicalFormula from "@/components/ui/ChemicalFormula.astro";
+
+/** Píldora mono con la fórmula molecular y el nombre del compuesto. */
+type Props = { formula: string; name: string; class?: string };
+const { formula, name, class: className } = Astro.props;
+---
+
+<span class:list={["formula-pill", className]}>
+  <b><ChemicalFormula formula={formula} /></b>{name}
+</span>
+
+<style>
+  .formula-pill {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 5px 10px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  b {
+    color: var(--ink);
+    font-weight: 500;
+  }
+</style>

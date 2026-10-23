@@ -1,0 +1,47 @@
+---
+import Logo from "@/components/ui/Logo.astro";
+import { LEGAL_NOTICE } from "@/data/content";
+import { SITE } from "@/data/site";
+---
+
+<footer class="site-footer night">
+  <div class="wrap site-footer__inner">
+    <div>
+      <Logo markHeight={40} />
+      <p class="site-footer__place">{SITE.location} · {SITE.tagline}</p>
+    </div>
+    <div class="site-footer__legal">
+      {LEGAL_NOTICE.map((text) => <p>{text}</p>)}
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: 56px;
+    font-size: 14px;
+    color: var(--on-noche-muted);
+    border-top: 1px solid var(--noche-line);
+  }
+
+  .site-footer__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 40px;
+  }
+
+  .site-footer__place {
+    margin-top: 14px;
+  }
+
+  .site-footer__legal p + p {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 760px) {
+    .site-footer__inner {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+</style>

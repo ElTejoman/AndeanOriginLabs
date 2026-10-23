@@ -1,0 +1,226 @@
+---
+import Section from "@/components/ui/Section.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
+import { buildAltitudeProfile, VIEWBOX } from "@/lib/altitudeProfile";
+import { formatNumber, formatRange } from "@/lib/format";
+import { highestAltitude, regionLabel, type Herb } from "@/lib/herbs";
+
+type Props = { herbs: Herb[] };
+const { herbs } = Astro.props;
+
+const profile = buildAltitudeProfile(herbs);
+const { plot } = profile;
+const highest = highestAltitude(herbs);
+/** La silueta del terreno empieza en el llano amazónico. */
+const LOWEST_SHOWN = 150;
+---
+
+<Section id="altitud" surface="night">
+  <div class="wrap">
+    <SectionHeader eyebrow="Origen">
+      Del llano amazónico <em>a la puna</em>
+      <p slot="aside">
+        Cada hierba crece a su altura, entre los {formatNumber(LOWEST_SHOWN)} y los {formatNumber(highest)} metros.
+        Toca un punto para ver su ficha.
+      </p>
+    </SectionHeader>
+
+    <div class="profile">
+      <svg
+        viewBox={`0 0 ${VIEWBOX.width} ${VIEWBOX.height}`}
+        role="group"
+        aria-label={`Perfil de altitud con la ubicación de cada hierba, de ${formatNumber(LOWEST_SHOWN)} a ${formatNumber(highest)} metros sobre el nivel del mar`}
+        data-altitude-profile
+      >
+        <defs>
+          <linearGradient id="terrain-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#8fd19b" stop-opacity=".28"></stop>
+            <stop offset="1" stop-color="#8fd19b" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
+
+        {
+          profile.gridLines.map((line) => (
+            <>
+              <line class="grid-line" x1={plot.left} x2={plot.right} y1={line.y} y2={line.y} />
+              <text class="tick" x={plot.left - 10} y={line.y + 4} text-anchor="end">
+                {formatNumber(line.altitude)}
+              </text>
+            </>
+          ))
+        }
+        <text class="tick" x={plot.left - 10} y={plot.top - 16} text-anchor="end">msnm</text>
+
+        <path class="terrain" d={profile.terrainPath}></path>
+        <path class="ridge" d={profile.ridgePath} data-ridge data-reveal-self></path>
+
+        {
+          profile.zones.map((zone) => (
+            <text class="zone" x={zone.x} y={zone.y} text-anchor="middle">
+              {zone.label}
+            </text>
+          ))
+        }
+
+        {
+          profile.pins.map((pin) => (
+            <g
+              class:list={["pin", `pin--${pin.region}`]}
+              tabindex="0"
+              role="button"
+              aria-label={`${pin.herb.name}, ${formatRange(pin.herb.altitude.min, pin.herb.altitude.max)} metros. Ver ficha`}
+              data-pin={pin.herb.id}
+              data-reveal-self
+            >
+              <line class="pin__lead" x1={pin.x} x2={pin.x} y1={pin.labelY + 22} y2={pin.y - 10} />
+              <text class="pin__name" x={pin.x} y={pin.labelY} text-anchor="middle">
+                {pin.herb.name}
+              </text>
+              <text class="pin__altitude" x={pin.x} y={pin.labelY + 16} text-anchor="middle">
+                {formatNumber(pin.herb.altitude.typical)} m
+              </text>
+              <circle class="pin__halo" cx={pin.x} cy={pin.y} r="14" data-halo />
+              <circle class="pin__dot" cx={pin.x} cy={pin.y} r="7" />
+            </g>
+          ))
+        }
+      </svg>
+    </div>
+
+    <div class="legend">
+      <span><i class="legend__dot legend__dot--amazonia"></i>{regionLabel("amazonia")}</span>
+      <span><i class="legend__dot legend__dot--andes"></i>{regionLabel("andes")}</span>
+      <span>Altitud típica del hábitat · msnm</span>
+    </div>
+  </div>
+</Section>
+
+<script>
+  import { initAltitudeProfile } from "@/scripts/collection/initAltitudeProfile";
+  import { mustQs } from "@/scripts/core/dom";
+
+  initAltitudeProfile(mustQs<SVGSVGElement>("[data-altitude-profile]"));
+</script>
+
+<style>
+  .profile {
+    overflow-x: auto;
+    border: 1px solid var(--noche-line);
+    border-radius: var(--r-lg);
+    padding: 20px 8px 8px;
+    background: rgb(255 255 255 / 0.02);
+  }
+
+  svg {
+    display: block;
+    min-width: 760px;
+    width: 100%;
+    height: auto;
+  }
+
+  .grid-line {
+    stroke: var(--noche-line);
+    stroke-width: 1;
+  }
+
+  .tick {
+    fill: var(--on-noche-muted);
+    font: 11px var(--font-mono);
+  }
+
+  .terrain {
+    fill: url(#terrain-fill);
+  }
+
+  .ridge {
+    fill: none;
+    stroke: var(--hoja-luz);
+    stroke-width: 2;
+  }
+
+  .zone {
+    fill: var(--on-noche-muted);
+    font: 500 11px var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .pin {
+    --pin-color: var(--hoja-luz);
+    cursor: pointer;
+  }
+
+  .pin--andes {
+    --pin-color: var(--maca-luz);
+  }
+
+  .pin:focus {
+    outline: none;
+  }
+
+  .pin__lead {
+    stroke: var(--on-noche-muted);
+    stroke-width: 1;
+    stroke-dasharray: 2 4;
+    opacity: 0.7;
+  }
+
+  .pin__name {
+    fill: var(--on-noche);
+    font: 400 15px var(--font-display);
+  }
+
+  .pin:hover .pin__name,
+  .pin:focus-visible .pin__name {
+    fill: var(--achiote-luz);
+  }
+
+  .pin__altitude {
+    fill: var(--on-noche-muted);
+    font: 400 11px var(--font-mono);
+  }
+
+  .pin__dot {
+    fill: var(--pin-color);
+    stroke: var(--noche);
+    stroke-width: 3;
+  }
+
+  .pin__halo {
+    fill: none;
+    stroke: var(--pin-color);
+    stroke-width: 1;
+    opacity: 0.5;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--on-noche-muted);
+  }
+
+  .legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend__dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .legend__dot--amazonia {
+    background: var(--hoja-luz);
+  }
+
+  .legend__dot--andes {
+    background: var(--maca-luz);
+  }
+</style>

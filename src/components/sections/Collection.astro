@@ -1,0 +1,94 @@
+---
+import HerbCard from "@/components/collection/HerbCard.astro";
+import HerbDetail from "@/components/collection/HerbDetail.astro";
+import Section from "@/components/ui/Section.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
+import { regionLabel, type Herb } from "@/lib/herbs";
+
+type Props = { herbs: Herb[] };
+const { herbs } = Astro.props;
+
+const selectedId = herbs[0]?.id;
+const FILTERS = [
+  { value: "todas", label: "Todas" },
+  { value: "amazonia", label: regionLabel("amazonia") },
+  { value: "andes", label: regionLabel("andes") },
+] as const;
+const numberWords: Record<number, string> = { 8: "Ocho", 9: "Nueve", 10: "Diez", 12: "Doce" };
+const countWord = numberWords[herbs.length] ?? String(herbs.length);
+---
+
+<Section id="hierbas" surface="grid-alt" data-collection>
+  <div class="wrap">
+    <SectionHeader eyebrow="La colección">
+      {countWord} hierbas, <em>{countWord.toLowerCase()} frascos</em>
+      <div slot="aside" class="filters" role="group" aria-label="Filtrar por región">
+        {
+          FILTERS.map((filter, i) => (
+            <button type="button" data-filter={filter.value} aria-pressed={i === 0}>
+              {filter.label}
+            </button>
+          ))
+        }
+      </div>
+    </SectionHeader>
+
+    <div class="herb-grid" data-herb-grid data-reveal>
+      {herbs.map((herb) => <HerbCard herb={herb} selected={herb.id === selectedId} />)}
+    </div>
+
+    {herbs.map((herb) => <HerbDetail herb={herb} active={herb.id === selectedId} />)}
+  </div>
+</Section>
+
+<script>
+  import { initCollection } from "@/scripts/collection/initCollection";
+  import { mustQs } from "@/scripts/core/dom";
+
+  initCollection(mustQs("[data-collection]"));
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filters button {
+    font: 500 14px/1 var(--font-sans);
+    padding: 11px 18px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line);
+    background: var(--surface-000);
+    color: var(--ink);
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+
+  .filters button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--surface-100);
+    border-color: var(--ink);
+  }
+
+  .herb-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  @media (max-width: 1000px) {
+    .herb-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 460px) {
+    .herb-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,56 @@
+---
+/**
+ * Cabecera de sección: eyebrow + título a la izquierda, y a la derecha el slot "aside"
+ * (bajada de texto, filtros…). El <em> del título toma --heading-accent.
+ */
+type Props = { eyebrow: string; stacked?: boolean; headingId?: string };
+const { eyebrow, stacked = false, headingId } = Astro.props;
+---
+
+<div class:list={["section-header", { "section-header--stacked": stacked }]}>
+  <div>
+    <div class="eyebrow">{eyebrow}</div>
+    <h2 id={headingId}><slot /></h2>
+  </div>
+  {Astro.slots.has("aside") && <slot name="aside" />}
+</div>
+
+<style>
+  .section-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px 48px;
+    margin-bottom: 56px;
+  }
+
+  .section-header--stacked {
+    display: block;
+  }
+
+  h2 {
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-weight: 300;
+    margin-top: 16px;
+    font-variation-settings: "opsz" 144;
+  }
+
+  h2 :global(em) {
+    font-style: italic;
+    color: var(--heading-accent, var(--rojo-achiote));
+  }
+
+  .section-header > :global(p) {
+    color: var(--ink-muted);
+    max-width: 30em;
+  }
+
+  @media (max-width: 640px) {
+    .section-header {
+      margin-bottom: 40px;
+    }
+  }
+</style>

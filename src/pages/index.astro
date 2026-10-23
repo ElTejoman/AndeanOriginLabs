@@ -1,0 +1,43 @@
+---
+import SiteFooter from "@/components/layout/SiteFooter.astro";
+import SiteHeader from "@/components/layout/SiteHeader.astro";
+import AltitudeProfile from "@/components/sections/AltitudeProfile.astro";
+import Collection from "@/components/sections/Collection.astro";
+import Culture from "@/components/sections/Culture.astro";
+import Faq from "@/components/sections/Faq.astro";
+import HerbMarquee from "@/components/sections/HerbMarquee.astro";
+import Hero from "@/components/sections/Hero.astro";
+import Process from "@/components/sections/Process.astro";
+import ProductBento from "@/components/sections/ProductBento.astro";
+import TwoKnowledges from "@/components/sections/TwoKnowledges.astro";
+import Waitlist from "@/components/sections/Waitlist.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getHerbs } from "@/lib/herbs";
+
+const herbs = await getHerbs();
+---
+
+<BaseLayout>
+  <SiteHeader />
+  <main id="inicio">
+    <Hero herbs={herbs} />
+    <HerbMarquee herbs={herbs} />
+    <TwoKnowledges />
+    <ProductBento herbs={herbs} />
+    <Collection herbs={herbs} />
+    <AltitudeProfile herbs={herbs} />
+    <Process />
+    <Culture />
+    <Faq />
+    <Waitlist herbs={herbs} />
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<script>
+  import { markMotionReady } from "@/scripts/motion/motion";
+  import { initScrollReveal } from "@/scripts/motion/reveal";
+
+  initScrollReveal();
+  markMotionReady();
+</script>

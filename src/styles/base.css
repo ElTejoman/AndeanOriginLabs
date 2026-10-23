@@ -1,0 +1,132 @@
+/* Reset mínimo, tipografía y utilidades compartidas por todas las secciones. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);
+}
+
+body {
+  margin: 0;
+  background: var(--surface-100);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+sub {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--achiote-luz);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ───── utilidades de layout ───── */
+
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding-left: var(--gutter-left);
+  padding-right: var(--gutter-right);
+}
+
+/* ───── tipografía de marca ───── */
+
+/* Nombre científico */
+.sci {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* Etiqueta en mono con guion previo. El color se ajusta con --eyebrow-color. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--eyebrow-color, var(--ink-muted));
+}
+
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* ───── superficies ───── */
+
+/* Papel milimetrado de la libreta de campo */
+.lab-grid {
+  background-image:
+    linear-gradient(var(--grid-ink) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Banda nocturna del laboratorio: redefine la tinta para que los componentes se adapten solos */
+.night {
+  --ink: var(--on-noche);
+  --ink-muted: var(--on-noche-muted);
+  --line: var(--noche-line);
+  --heading-accent: var(--achiote-luz);
+  background: var(--noche);
+  color: var(--on-noche);
+}
+
+.night-grid {
+  background-image:
+    linear-gradient(var(--noche-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--noche-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.surface-alt {
+  background-color: var(--surface-200);
+}

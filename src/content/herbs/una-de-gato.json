@@ -1,0 +1,30 @@
+{
+  "order": 1,
+  "name": "Uña de gato",
+  "scientificName": "Uncaria tomentosa",
+  "region": "amazonia",
+  "regionDetail": "Selva central · Junín, Pasco, Ucayali",
+  "partUsed": "Corteza",
+  "altitude": { "typical": 600, "min": 200, "max": 800 },
+  "molecule": { "name": "pteropodina", "formula": "C21H24N2O4", "family": "alcaloide oxindólico" },
+  "science": {
+    "title": "Antiinflamatorio estudiado",
+    "paragraphs": [
+      "La corteza contiene alcaloides oxindólicos pentacíclicos y polifenoles.",
+      "Estudios de laboratorio muestran que reduce la actividad del factor NF-κB, una de las llaves de la inflamación. Un ensayo clínico pequeño en artrosis de rodilla reportó menos dolor al moverse."
+    ],
+    "sources": "Piscoya J. et al., Inflammation Research, 2001. Sandoval M. et al., Free Radical Biology & Medicine, 2000."
+  },
+  "tradition": {
+    "title": "La medicina de los Asháninka",
+    "paragraphs": [
+      "Los pueblos Asháninka y Yanesha preparan la corteza en cocimiento para los dolores del cuerpo y para recuperar fuerzas después de una enfermedad.",
+      "Se le dice uña de gato por sus espinas curvas, que le permiten trepar hasta la copa de los árboles."
+    ]
+  },
+  "usage": {
+    "traditional": "cocimiento de corteza",
+    "withExtract": "Una porción disuelta en agua tibia, como un mate de corteza sin las horas de hervor."
+  },
+  "lot": { "origin": "Satipo, Junín" }
+}

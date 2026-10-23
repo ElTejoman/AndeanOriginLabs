@@ -1,0 +1,30 @@
+{
+  "order": 2,
+  "name": "Sangre de grado",
+  "scientificName": "Croton lechleri",
+  "region": "amazonia",
+  "regionDetail": "Madre de Dios, Ucayali, San Martín",
+  "partUsed": "Látex (resina)",
+  "altitude": { "typical": 400, "min": 100, "max": 1200 },
+  "molecule": { "name": "taspina", "formula": "C20H19NO6" },
+  "science": {
+    "title": "De la selva a un medicamento aprobado",
+    "paragraphs": [
+      "Su látex rojo es rico en proantocianidinas y contiene el alcaloide taspina, estudiado por su papel en la cicatrización.",
+      "De esta planta se desarrolló el crofelemer, aprobado por la FDA de Estados Unidos en 2012 para la diarrea en personas con VIH."
+    ],
+    "sources": "US FDA, aprobación de crofelemer, 2012. Vaisberg A. et al., Planta Medica, 1989."
+  },
+  "tradition": {
+    "title": "Unas gotas sobre la herida",
+    "paragraphs": [
+      "Se frota unas gotas sobre cortes y raspones: el látex se vuelve una crema clara que cubre la herida como una segunda piel.",
+      "En la selva también se toma, diluida en agua, para las molestias del estómago."
+    ]
+  },
+  "usage": {
+    "traditional": "gotas de látex diluidas",
+    "withExtract": "Una porción en agua, como se toma diluida en la selva."
+  },
+  "lot": { "origin": "Tambopata, Madre de Dios" }
+}

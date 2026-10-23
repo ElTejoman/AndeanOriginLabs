@@ -1,0 +1,30 @@
+{
+  "order": 6,
+  "name": "Muña",
+  "scientificName": "Minthostachys mollis",
+  "region": "andes",
+  "regionDetail": "Cusco, Ayacucho, Junín, Huancavelica",
+  "partUsed": "Hojas y tallos",
+  "altitude": { "typical": 3200, "min": 2500, "max": 3500 },
+  "molecule": { "name": "pulegona", "formula": "C10H16O" },
+  "science": {
+    "title": "Digestiva y antimicrobiana",
+    "paragraphs": [
+      "Su aceite esencial es rico en pulegona y mentona, parientes de los compuestos de la menta.",
+      "Estudios de laboratorio muestran actividad antimicrobiana y relajante del músculo intestinal, lo que respalda su uso digestivo."
+    ],
+    "sources": "Estudios sobre el aceite esencial de Minthostachys mollis, Revista Peruana de Biología."
+  },
+  "tradition": {
+    "title": "El mate de después de comer",
+    "paragraphs": [
+      "Se toma en infusión después de las comidas y contra el soroche.",
+      "Los campesinos ponen ramas de muña entre las papas almacenadas para protegerlas de las plagas."
+    ]
+  },
+  "usage": {
+    "traditional": "mate después de comer",
+    "withExtract": "En agua caliente después de las comidas, como el mate de muña de la sierra."
+  },
+  "lot": { "origin": "Anta, Cusco" }
+}

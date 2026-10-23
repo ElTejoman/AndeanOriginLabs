@@ -1,0 +1,86 @@
+/*
+ * Tokens de diseño de Andean Origin Labs.
+ * Concepto: "laboratorio en la selva" — bandas nocturnas verde-noche con retícula de laboratorio,
+ * alternadas con secciones blanco cálido de libreta de campo sobre papel milimetrado.
+ *
+ * Los colores que cambian con el tema usan light-dark(): el tema sigue al sistema
+ * y puede forzarse con <html data-theme="light|dark">.
+ */
+:root {
+  color-scheme: light dark;
+
+  /* superficies y tinta */
+  --surface-000: light-dark(#ffffff, #18201a);
+  --surface-100: light-dark(#faf7f1, #0f150f);
+  --surface-200: light-dark(#f1ebe0, #151d16);
+  --ink: light-dark(#1a1f1a, #f2efe7);
+  --ink-muted: light-dark(#5b625a, #a9b0a6);
+  --line: light-dark(#e2dacb, #2a332b);
+
+  /* marca */
+  --verde-selva: light-dark(#1f4d2e, #3b7a4b);
+  --verde-hoja: light-dark(#3f7d4a, #8fd19b);
+  --verde-tenue: light-dark(#e3ece0, #1b281d);
+  --rojo-achiote: light-dark(#b8321f, #f07a5c);
+  --rojo-chuchuhuasi: light-dark(#7a2318, #a8412f);
+  --rojo-tenue: light-dark(#f6e3dc, #2c1a16);
+  --ocre-maca: light-dark(#c98a2b, #e3b05c);
+  --on-brand: #ffffff;
+  --grid-ink: light-dark(rgb(31 77 46 / 0.07), rgb(214 235 214 / 0.05));
+
+  /* bandas nocturnas: un solo aspecto en ambos temas */
+  --noche: #0b1810;
+  --noche-2: #122519;
+  --noche-line: rgb(214 235 214 / 0.12);
+  --on-noche: #eef3ea;
+  --on-noche-muted: #a3b6a5;
+  --achiote-luz: #f07a5c;
+  --hoja-luz: #8fd19b;
+  --maca-luz: #e3b05c;
+
+  /* el frasco es un objeto físico: no cambia con el tema */
+  --jar-body: #1d4a2c;
+  --jar-shade: #102b19;
+  --jar-label: #f4efe4;
+  --jar-ink: #1a1f1a;
+  --jar-muted: #5b625a;
+  --jar-band: #1f4d2e;
+  --jar-lid: #8a2a1c;
+
+  /* logo (ver components/ui/Logo.astro) */
+  --logo-line: var(--verde-selva);
+  --logo-snow: #b9ccd6;
+  --logo-node: #c8412b;
+  --logo-forest: var(--verde-selva);
+
+  /* tipografía */
+  --font-display: "Fraunces Variable", "Fraunces", Georgia, serif;
+  --font-sans: "DM Sans Variable", "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* forma */
+  --r-sm: 6px;
+  --r-md: 14px;
+  --r-lg: 28px;
+  --r-card: 22px;
+  --r-pill: 999px;
+  /* la "hoja": esquinas opuestas redondeadas, motivo recurrente de la marca */
+  --leaf: 0 999px 0 999px;
+
+  /* layout */
+  --wrap-max: 1240px;
+  --gutter-left: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-right: max(16px, env(safe-area-inset-right, 0px));
+  --header-offset: 90px;
+
+  /* movimiento */
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}

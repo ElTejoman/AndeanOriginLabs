@@ -1,0 +1,80 @@
+---
+import Section from "@/components/ui/Section.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
+import { FAQ } from "@/data/content";
+---
+
+<Section id="preguntas">
+  <div class="wrap faq-layout">
+    <SectionHeader eyebrow="Antes de tu primer frasco" stacked>Preguntas <em>frecuentes</em></SectionHeader>
+    <div class="faq">
+      {
+        FAQ.map((item, i) => (
+          <details open={i === 0}>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .faq-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 64px;
+  }
+
+  details {
+    border-top: 1px solid var(--line);
+    padding-block: 24px;
+  }
+
+  details:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: "+";
+    font-family: var(--font-mono);
+    color: var(--rojo-achiote);
+    font-size: 22px;
+    line-height: 1;
+    transition: transform 0.3s var(--ease);
+  }
+
+  details[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  details p {
+    color: var(--ink-muted);
+    margin-top: 12px;
+    max-width: 40em;
+  }
+
+  @media (max-width: 900px) {
+    .faq-layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+</style>
