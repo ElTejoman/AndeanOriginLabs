@@ -1,0 +1,261 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Section from "@/components/ui/Section.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
+import { PARTNER_BENEFITS, PARTNER_KINDS, PARTNERS } from "@/data/content";
+
+/** Sección B2B: médicos y clínicas asociados, qué reciben y formulario para asociarse. */
+const webhookUrl = import.meta.env.PUBLIC_PARTNERS_WEBHOOK_URL ?? "";
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<Section id="aliados" surface="night" aria-labelledby="aliados-titulo">
+  <div class="wrap">
+    <SectionHeader eyebrow="Profesionales" headingId="aliados-titulo">
+      {/* Mientras no haya alianzas confirmadas, el título invita en vez de afirmar. */}
+      {
+        PARTNERS.length > 0 ? (
+          <Fragment>
+            Médicos y clínicas <em>asociados</em>
+          </Fragment>
+        ) : (
+          <Fragment>
+            Para médicos y <em>clínicas</em>
+          </Fragment>
+        )
+      }
+      <p slot="aside">
+        Trabajamos con profesionales de salud que quieren recetar plantas peruanas con respaldo científico y origen
+        trazable.
+      </p>
+    </SectionHeader>
+
+    {
+      PARTNERS.length > 0 ? (
+        <ul class="partners" data-reveal>
+          {PARTNERS.map((partner) => (
+            <li class="partner">
+              <b>{partner.name}</b>
+              <span>{[partner.kind, partner.specialty].filter(Boolean).join(" · ")}</span>
+              <small>{partner.city}</small>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="partners-founding" data-reveal>
+          <div class="eyebrow">Red de aliados fundadores</div>
+          <p>
+            Estamos formando la primera red de médicos y clínicas que recetan nuestros extractos. Las alianzas confirmadas
+            aparecerán aquí.
+          </p>
+        </div>
+      )
+    }
+
+    <div class="partner-join">
+      <div>
+        <h3>Asóciate</h3>
+        <ol class="benefits">
+          {
+            PARTNER_BENEFITS.map((benefit, i) => (
+              <li>
+                <span class="benefits__n">{pad(i + 1)}</span>
+                <div>
+                  <h4>{benefit.title}</h4>
+                  <p>{benefit.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <form class="form" novalidate data-partner-form data-webhook={webhookUrl}>
+        <div class="form__field">
+          <label for="aliado-nombre">Nombre y apellido</label>
+          <input
+            id="aliado-nombre"
+            name="nombre"
+            autocomplete="name"
+            placeholder="Dra. Rosa Quispe"
+            required
+            aria-describedby="aliado-nombre-error"
+          />
+          <p class="form__error" id="aliado-nombre-error" data-error-for="nombre" hidden></p>
+        </div>
+        <div class="form__field">
+          <label for="aliado-tipo">Soy</label>
+          <select id="aliado-tipo" name="tipo" required aria-describedby="aliado-tipo-error">
+            <option value="">Elige una opción</option>
+            {PARTNER_KINDS.map((kind) => <option value={kind}>{kind}</option>)}
+          </select>
+          <p class="form__error" id="aliado-tipo-error" data-error-for="tipo" hidden></p>
+        </div>
+        <div class="form__row">
+          <div class="form__field">
+            <label for="aliado-especialidad">Especialidad o clínica <span class="form__optional">(opcional)</span></label>
+            <input
+              id="aliado-especialidad"
+              name="especialidad"
+              autocomplete="organization"
+              placeholder="Medicina integrativa"
+            />
+          </div>
+          <div class="form__field">
+            <label for="aliado-ciudad">Ciudad <span class="form__optional">(opcional)</span></label>
+            <input id="aliado-ciudad" name="ciudad" autocomplete="address-level2" placeholder="Lima" />
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="form__field">
+            <label for="aliado-correo">Correo</label>
+            <input
+              id="aliado-correo"
+              name="correo"
+              type="email"
+              autocomplete="email"
+              placeholder="consulta@clinica.pe"
+              required
+              aria-describedby="aliado-correo-error"
+            />
+            <p class="form__error" id="aliado-correo-error" data-error-for="correo" hidden></p>
+          </div>
+          <div class="form__field">
+            <label for="aliado-telefono">Teléfono o WhatsApp <span class="form__optional">(opcional)</span></label>
+            <input id="aliado-telefono" name="telefono" type="tel" autocomplete="tel" placeholder="+51 999 999 999" />
+          </div>
+        </div>
+        <!-- Trampa anti-spam: invisible para las personas, los bots suelen llenarla. -->
+        <label class="form__trap" aria-hidden="true">
+          Sitio web
+          <input name="sitio" tabindex="-1" autocomplete="off" />
+        </label>
+        <Button type="submit" arrow>Solicitar alianza</Button>
+        {
+          !webhookUrl && (
+            <p class="form__hint">Versión de muestra: el formulario aún no está conectado a un servicio de correo.</p>
+          )
+        }
+        <p class="form__status" data-status role="status" hidden></p>
+      </form>
+    </div>
+  </div>
+</Section>
+
+<script>
+  import { mustQs } from "@/scripts/core/dom";
+  import { initPartnerForm } from "@/scripts/partners/initPartnerForm";
+
+  const form = mustQs<HTMLFormElement>("[data-partner-form]");
+  initPartnerForm(form, form.dataset["webhook"] || undefined);
+</script>
+
+<style>
+  .partners {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .partner {
+    display: grid;
+    gap: 6px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  .partner b {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.15;
+  }
+
+  .partner span {
+    color: var(--ink-muted);
+    font-size: 15px;
+  }
+
+  .partner small {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--hoja-luz);
+  }
+
+  .partners-founding {
+    padding: 32px;
+    border: 1px dashed var(--line);
+    border-radius: var(--r-card);
+  }
+
+  .partners-founding p {
+    margin-top: 12px;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.3;
+    max-width: 34em;
+  }
+
+  .partner-join {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-top: 72px;
+  }
+
+  h3 {
+    font-weight: 300;
+    font-size: clamp(30px, 3.6vw, 44px);
+    letter-spacing: -0.02em;
+  }
+
+  .benefits {
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 24px;
+  }
+
+  .benefits li {
+    display: flex;
+    gap: 20px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .benefits__n {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--achiote-luz);
+    padding-top: 4px;
+  }
+
+  .benefits h4 {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .benefits p {
+    margin-top: 6px;
+    color: var(--ink-muted);
+    font-size: 15px;
+  }
+
+  @media (max-width: 900px) {
+    .partner-join {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 56px;
+    }
+  }
+</style>

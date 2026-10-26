@@ -1,6 +1,6 @@
 # Andean Origin Labs — sitio web
 
-Landing de preventa de extractos en polvo de hierbas del Ande y la Amazonía.
+Landing de preventa de extractos hidroalcohólicos y secos (gránulos) de hierbas del Ande y la Amazonía.
 Sitio **100 % estático** (sin backend): se compila a HTML, CSS y JS y se sube a GoDaddy.
 
 ## Stack

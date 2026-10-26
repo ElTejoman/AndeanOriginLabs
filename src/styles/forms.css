@@ -1,0 +1,116 @@
+/* Formularios sobre bandas nocturnas: lista de espera y asociación de médicos y clínicas. */
+
+.form {
+  display: grid;
+  gap: 14px;
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid var(--noche-line);
+  padding: 32px;
+  border-radius: var(--r-lg);
+}
+
+.form__field {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.form label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-noche-muted);
+}
+
+.form input,
+.form select {
+  width: 100%;
+  font: 16px var(--font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--noche-line);
+  background: var(--noche-2);
+  color: var(--on-noche);
+}
+
+.form [aria-invalid="true"] {
+  border-color: var(--achiote-luz);
+}
+
+.form__optional {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.form__error {
+  font-size: 14px;
+  color: var(--achiote-luz);
+}
+
+.form input::placeholder {
+  color: #6f8473;
+}
+
+.form select {
+  color-scheme: dark;
+}
+
+.form .btn {
+  margin-top: 6px;
+}
+
+.form .btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* Dos campos lado a lado; en móvil se apilan. Con subgrid, rótulo, campo y error
+   comparten filas: los campos quedan alineados aunque un rótulo ocupe dos líneas. */
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+}
+
+.form__row > .form__field {
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+}
+
+@media (max-width: 520px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Trampa anti-spam: fuera de pantalla para las personas */
+.form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form__hint {
+  font-size: 12px;
+  color: var(--on-noche-muted);
+}
+
+.form__status {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--hoja-luz);
+}
+
+.form__status[data-kind="error"] {
+  color: var(--achiote-luz);
+}
+
+.form__status[data-kind="info"] {
+  color: var(--on-noche-muted);
+}

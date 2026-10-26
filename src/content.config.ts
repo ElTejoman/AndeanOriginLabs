@@ -5,6 +5,9 @@ import { z } from "astro/zod";
 /** Regiones de origen. Cada hierba pertenece a una sola. */
 export const REGIONS = ["amazonia", "andes"] as const;
 
+/** Formatos de extracto. Cada hierba viene en uno o en ambos. */
+export const FORMATS = ["hidroalcoholico", "granulos"] as const;
+
 const formula = z
   .string()
   .regex(/^([A-Z][a-z]?\d*)+$/, "Fórmula molecular inválida, por ejemplo C21H24N2O4");
@@ -19,6 +22,8 @@ const herbs = defineCollection({
     region: z.enum(REGIONS),
     regionDetail: z.string(),
     partUsed: z.string(),
+    /** Formatos en que se vende. Mientras no esté definido, la ficha muestra un texto genérico. */
+    formats: z.array(z.enum(FORMATS)).min(1).optional(),
     altitude: z
       .object({
         typical: z.number().int().nonnegative(),

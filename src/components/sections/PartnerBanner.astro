@@ -1,0 +1,66 @@
+---
+import Button from "@/components/ui/Button.astro";
+import { PARTNERS_ANCHOR } from "@/data/site";
+---
+
+<aside class="partner-banner" aria-labelledby="banner-aliados-titulo">
+  <div class="wrap">
+    <div class="partner-banner__card" data-reveal>
+      <div class="partner-banner__copy">
+        <div class="eyebrow">Para médicos y clínicas</div>
+        <p id="banner-aliados-titulo" class="partner-banner__title">
+          ¿Eres médico o tienes una clínica? <em>Asóciate</em> para recibir y recetar nuestros extractos.
+        </p>
+      </div>
+      <Button href={PARTNERS_ANCHOR} variant="light" arrow>Quiero asociarme</Button>
+    </div>
+  </div>
+</aside>
+
+<style>
+  /* Va tras una sección estándar: su padding inferior ya separa por arriba. */
+  .partner-banner {
+    padding-bottom: 120px;
+  }
+
+  .partner-banner__card {
+    --eyebrow-color: rgb(255 255 255 / 0.72);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px 48px;
+    padding: 36px 44px;
+    border-radius: var(--r-lg);
+    background: var(--selva-fija);
+    color: var(--on-brand);
+  }
+
+  .partner-banner__title {
+    margin-top: 12px;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(22px, 2.6vw, 32px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    max-width: 28em;
+    text-wrap: balance;
+  }
+
+  .partner-banner__title em {
+    color: var(--maca-luz);
+  }
+
+  @media (max-width: 640px) {
+    .partner-banner {
+      padding-bottom: 80px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .partner-banner__card {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 28px 24px;
+    }
+  }
+</style>

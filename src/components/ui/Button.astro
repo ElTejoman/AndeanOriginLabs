@@ -66,9 +66,10 @@ const classes = ["btn", `btn--${variant}`, `btn--${size}`, className];
     font-size: 14px;
   }
 
+  /* En modo oscuro el achiote se aclara: el texto pasa a oscuro para mantener el contraste (≈6.6:1). */
   .btn--primary {
     background: var(--rojo-achiote);
-    color: #fff;
+    color: light-dark(#fff, var(--noche));
   }
 
   .btn--light {

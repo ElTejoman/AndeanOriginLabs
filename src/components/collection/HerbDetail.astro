@@ -4,7 +4,7 @@ import FormulaPill from "@/components/ui/FormulaPill.astro";
 import Jar from "@/components/ui/Jar.astro";
 import { WAITLIST_ANCHOR } from "@/data/site";
 import { formatRange } from "@/lib/format";
-import { regionLabel, type Herb } from "@/lib/herbs";
+import { formatsLabel, regionLabel, type Herb } from "@/lib/herbs";
 
 /** Ficha de una hierba: datos, lo que dice la ciencia, lo que dice la tradición y su uso en frasco. */
 type Props = { herb: Herb; active: boolean };
@@ -14,7 +14,7 @@ const FACTS = [
   { term: "Parte usada", detail: herb.partUsed },
   { term: "Altitud", detail: `${formatRange(herb.altitude.min, herb.altitude.max)} msnm` },
   { term: "Región", detail: regionLabel(herb.region) },
-  { term: "Formato", detail: "Extracto en polvo" },
+  { term: "Formato", detail: formatsLabel(herb) },
 ];
 ---
 

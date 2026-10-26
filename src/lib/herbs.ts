@@ -1,8 +1,9 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import type { REGIONS } from "@/content.config";
+import type { FORMATS, REGIONS } from "@/content.config";
 
 export type Herb = CollectionEntry<"herbs">["data"] & { id: string };
 export type Region = (typeof REGIONS)[number];
+export type Format = (typeof FORMATS)[number];
 
 const REGION_LABELS: Record<Region, string> = {
   amazonia: "Amazonía",
@@ -10,6 +11,15 @@ const REGION_LABELS: Record<Region, string> = {
 };
 
 export const regionLabel = (region: Region): string => REGION_LABELS[region];
+
+const FORMAT_LABELS: Record<Format, string> = {
+  hidroalcoholico: "Extracto hidroalcohólico",
+  granulos: "Extracto seco en gránulos",
+};
+
+/** Formatos de la hierba en texto. Sin formatos definidos, un texto genérico. */
+export const formatsLabel = (herb: Herb): string =>
+  herb.formats?.map((format) => FORMAT_LABELS[format]).join(" · ") ?? "Extracto concentrado";
 
 /** Todas las hierbas, en el orden editorial definido en cada archivo. */
 export async function getHerbs(): Promise<Herb[]> {

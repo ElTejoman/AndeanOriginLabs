@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Sitio web de Andean Origin Labs — extractos en polvo de hierbas del Ande y la Amazonía.",
+  "description": "Sitio web de Andean Origin Labs — extractos hidroalcohólicos y secos de hierbas del Ande y la Amazonía.",
   "engines": {
     "node": ">=22.12.0"
   },

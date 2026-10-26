@@ -7,6 +7,8 @@ import Culture from "@/components/sections/Culture.astro";
 import Faq from "@/components/sections/Faq.astro";
 import HerbMarquee from "@/components/sections/HerbMarquee.astro";
 import Hero from "@/components/sections/Hero.astro";
+import PartnerBanner from "@/components/sections/PartnerBanner.astro";
+import Partners from "@/components/sections/Partners.astro";
 import Process from "@/components/sections/Process.astro";
 import ProductBento from "@/components/sections/ProductBento.astro";
 import TwoKnowledges from "@/components/sections/TwoKnowledges.astro";
@@ -24,9 +26,11 @@ const herbs = await getHerbs();
     <HerbMarquee herbs={herbs} />
     <TwoKnowledges />
     <ProductBento herbs={herbs} />
+    <PartnerBanner />
     <Collection herbs={herbs} />
     <AltitudeProfile herbs={herbs} />
     <Process />
+    <Partners />
     <Culture />
     <Faq />
     <Waitlist herbs={herbs} />

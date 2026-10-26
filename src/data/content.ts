@@ -32,13 +32,13 @@ export const TWO_KNOWLEDGES = {
 } as const;
 
 export const PRODUCT_SPECS = [
-  { term: "Forma", detail: "Extracto seco en polvo" },
-  { term: "Porción", detail: "Una cucharita medidora, según la etiqueta" },
+  { term: "Líquido", detail: "Extracto hidroalcohólico, en frasco gotero" },
+  { term: "Seco", detail: "Extracto en gránulos, con cucharita medidora" },
   { term: "Se mezcla con", detail: "Agua tibia, jugo, emoliente, avena o batido" },
 ] as const;
 
 export const RITUAL_STEPS = [
-  { title: "Una cucharita", text: "Con la medida del frasco y la porción de la etiqueta." },
+  { title: "Gotas o gránulos", text: "Las gotas del gotero o una cucharita de gránulos, según la etiqueta." },
   { title: "Mézclala a tu manera", text: "Agua tibia como un mate, jugo, emoliente o batido." },
   { title: "Hazlo costumbre", text: "Las plantas se toman con constancia, como en casa." },
 ] as const;
@@ -76,13 +76,23 @@ export const GLOSSARY = [
 
 export const FAQ = [
   {
-    question: "¿Qué diferencia hay entre un extracto en polvo y la hierba molida?",
+    question: "¿Qué diferencia hay entre un extracto y la hierba molida?",
     answer:
-      "La hierba molida es la planta seca triturada. El extracto se obtiene sacando los compuestos de la planta con agua o alcohol, como en un cocimiento o una maceración, y luego secándolos hasta quedar en polvo. Por eso se disuelve mejor y una porción pequeña rinde más.",
+      "La hierba molida es la planta seca triturada. El extracto concentra los compuestos de la planta: por eso una porción pequeña rinde más y se disuelve mejor.",
+  },
+  {
+    question: "¿Qué es un extracto hidroalcohólico?",
+    answer:
+      "Es la planta macerada en una mezcla de agua y alcohol, el mismo principio de las maceraciones en aguardiente de la Amazonía. El agua extrae unos compuestos y el alcohol otros que el agua sola no alcanza, y además conserva el extracto sin aditivos. En la ficha de cada hierba indicamos en qué formato viene.",
+  },
+  {
+    question: "¿Trabajan con médicos y clínicas?",
+    answer:
+      "Sí. Médicos y clínicas pueden asociarse para recibir nuestros extractos y recetarlos a sus pacientes, con la ficha científica y el lote de cada hierba. Escríbenos desde la sección Profesionales.",
   },
   {
     question: "¿Cómo lo tomo?",
-    answer: "Una cucharita en agua tibia, jugo, emoliente, avena o batido. Cada frasco indica la porción recomendada para esa hierba.",
+    answer: "Las gotas o una cucharita de gránulos en agua tibia, jugo, emoliente, avena o batido. Cada frasco indica la porción recomendada para esa hierba.",
   },
   {
     question: "¿Cuándo sale a la venta?",
@@ -95,6 +105,37 @@ export const FAQ = [
       "No. Son productos naturales de uso tradicional con información científica, no medicamentos. Si estás embarazada, das de lactar o tomas medicamentos, consulta con tu médico antes de usarlos.",
   },
 ] as const;
+
+/** Programa para médicos y clínicas: lo que reciben al asociarse. */
+export const PARTNER_BENEFITS = [
+  {
+    title: "Ficha científica por hierba",
+    text: "Especie verificada, compuestos activos y estudios citados, para recetar con respaldo.",
+  },
+  {
+    title: "Lote trazable",
+    text: "Región, cosecha y controles de cada lote, impresos en la etiqueta.",
+  },
+  {
+    title: "Suministro directo",
+    text: "Recibe los extractos en tu consulta o clínica para tus pacientes.",
+  },
+] as const;
+
+/** Opciones del campo "tipo" del formulario de asociación. */
+export const PARTNER_KINDS = [
+  "Médico/a",
+  "Clínica o centro médico",
+  "Consultorio de medicina integrativa",
+  "Otro profesional de salud",
+] as const;
+
+/**
+ * Médicos y clínicas asociados, tal como se muestran en la sección "Profesionales".
+ * Solo alianzas confirmadas y con autorización para publicar su nombre.
+ * Mientras la lista esté vacía, la sección muestra una invitación a sumarse.
+ */
+export const PARTNERS: ReadonlyArray<{ name: string; kind: string; city: string; specialty?: string }> = [];
 
 export const LEGAL_NOTICE = [
   "La información de este sitio es educativa y no reemplaza la consulta con un profesional de salud. Nuestros productos no están destinados a diagnosticar, tratar ni curar enfermedades. Si estás embarazada, das de lactar o tomas medicamentos, consulta antes de usar cualquier hierba.",

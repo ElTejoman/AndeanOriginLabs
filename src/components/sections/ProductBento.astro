@@ -18,10 +18,10 @@ const pad = (n: number) => String(n).padStart(2, "0");
 <Section id="producto" flushTop>
   <div class="wrap">
     <SectionHeader eyebrow="El producto">
-      La planta, <em>en una cucharita</em>
+      La planta, <em>en gotas o gránulos</em>
       <p slot="aside">
-        Sin hervir cortezas ni macerar por semanas. Lo que se preparaba en la cocina, listo en un frasco de extracto en
-        polvo.
+        Sin hervir cortezas ni macerar por semanas. Lo que se preparaba en la cocina, listo como extracto
+        hidroalcohólico o extracto seco en gránulos.
       </p>
     </SectionHeader>
 
@@ -29,7 +29,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
       <div class="tile tile--show">
         <div class="tile__blob" aria-hidden="true"></div>
         <div class="eyebrow">Primera línea · {herbs.length} frascos</div>
-        <div class="tile__jars" role="img" aria-label={`Frascos de extracto en polvo de ${maca.name.toLowerCase()} y ${muna.name.toLowerCase()}`}>
+        <div class="tile__jars" role="img" aria-label={`Frascos de extracto de ${maca.name.toLowerCase()} y ${muna.name.toLowerCase()}`}>
           <Jar herb={maca} width={230} />
           <span class="tile__side-jar"><Jar herb={muna} width={140} /></span>
         </div>
@@ -37,10 +37,10 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
       <div class="tile tile--spec">
         <div class="eyebrow">Formato</div>
-        <h3>Extracto en polvo, no hierba molida</h3>
+        <h3>Extracto, no hierba molida</h3>
         <p>
-          Se extraen los compuestos de la planta, como en un cocimiento o una maceración, y se secan. Más concentrado y
-          fácil de disolver.
+          Se extraen los compuestos de la planta, como en un cocimiento o una maceración. Según la hierba, llega en uno de
+          dos formatos, más concentrados que la planta seca.
         </p>
         <dl class="spec">
           {

@@ -25,7 +25,7 @@ const { herb, width = 200, variant = "full", class: className } = Astro.props;
         variant === "mini" ? (
           <>
             <span class="jar__name">{herb.name}</span>
-            <span class="jar__band">En polvo</span>
+            <span class="jar__band">Extracto</span>
           </>
         ) : (
           <>
@@ -35,7 +35,7 @@ const { herb, width = 200, variant = "full", class: className } = Astro.props;
             </span>
             <span class="jar__name">{herb.name}</span>
             <span class="jar__sci">{herb.scientificName}</span>
-            <span class="jar__band">Extracto en polvo</span>
+            <span class="jar__band">Extracto concentrado</span>
             <span class="jar__formula">
               <ChemicalFormula formula={herb.molecule.formula} />
             </span>

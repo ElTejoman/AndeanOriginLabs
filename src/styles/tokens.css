@@ -37,6 +37,8 @@
   --achiote-luz: #f07a5c;
   --hoja-luz: #8fd19b;
   --maca-luz: #e3b05c;
+  /* verde selva profundo para tarjetas destacadas: no se aclara en modo oscuro, así el texto mantiene contraste */
+  --selva-fija: #1f4d2e;
 
   /* el frasco es un objeto físico: no cambia con el tema */
   --jar-body: #1d4a2c;

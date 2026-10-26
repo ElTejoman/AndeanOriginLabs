@@ -1,9 +1,9 @@
 /** Datos generales de la marca y del sitio. */
 export const SITE = {
   name: "Andean Origin Labs",
-  title: "Andean Origin Labs · Extractos en polvo de hierbas peruanas",
+  title: "Andean Origin Labs · Extractos hidroalcohólicos y secos de hierbas peruanas",
   description:
-    "Hierbas medicinales del Ande y la Amazonía en un frasco de extracto en polvo. En cada etiqueta, dos saberes: lo que la ciencia ha estudiado y lo que nuestras comunidades han sabido siempre.",
+    "Hierbas medicinales del Ande y la Amazonía en extracto hidroalcohólico y extracto seco en gránulos. En cada etiqueta, dos saberes: lo que la ciencia ha estudiado y lo que nuestras comunidades han sabido siempre.",
   locale: "es_PE",
   lang: "es-PE",
   location: "Lima, Perú",
@@ -18,8 +18,12 @@ export const NAV_LINKS = [
   { href: "#hierbas", label: "Colección" },
   { href: "#altitud", label: "Origen" },
   { href: "#proceso", label: "Proceso" },
+  { href: "#aliados", label: "Profesionales" },
   { href: "#preguntas", label: "Preguntas" },
 ] as const;
 
 /** Ancla del formulario de preventa, destino de todos los CTA de reserva. */
 export const WAITLIST_ANCHOR = "#lista";
+
+/** Ancla de la sección para médicos y clínicas, destino del banner B2B. */
+export const PARTNERS_ANCHOR = "#aliados";

@@ -20,34 +20,51 @@ const webhookUrl = import.meta.env.PUBLIC_WAITLIST_WEBHOOK_URL ?? "";
       </p>
     </div>
 
-    <form class="waitlist-form" novalidate data-waitlist data-webhook={webhookUrl}>
-      <label>
-        Nombre
-        <input name="nombre" autocomplete="given-name" placeholder="Rosa" required />
-      </label>
-      <label>
-        Correo
-        <input name="correo" type="email" autocomplete="email" placeholder="rosa@correo.pe" required />
-      </label>
-      <label>
-        Frasco que quieres reservar
-        <select name="hierba">
+    <form class="form" novalidate data-waitlist data-webhook={webhookUrl}>
+      <div class="form__field">
+        <label for="lista-nombre">Nombre</label>
+        <input
+          id="lista-nombre"
+          name="nombre"
+          autocomplete="given-name"
+          placeholder="Rosa"
+          required
+          aria-describedby="lista-nombre-error"
+        />
+        <p class="form__error" id="lista-nombre-error" data-error-for="nombre" hidden></p>
+      </div>
+      <div class="form__field">
+        <label for="lista-correo">Correo</label>
+        <input
+          id="lista-correo"
+          name="correo"
+          type="email"
+          autocomplete="email"
+          placeholder="rosa@correo.pe"
+          required
+          aria-describedby="lista-correo-error"
+        />
+        <p class="form__error" id="lista-correo-error" data-error-for="correo" hidden></p>
+      </div>
+      <div class="form__field">
+        <label for="lista-hierba">Frasco que quieres reservar <span class="form__optional">(opcional)</span></label>
+        <select id="lista-hierba" name="hierba">
           <option value="">Todavía no sé</option>
           {herbs.map((herb) => <option value={herb.id}>{herb.name}</option>)}
         </select>
-      </label>
+      </div>
       <!-- Trampa anti-spam: invisible para las personas, los bots suelen llenarla. -->
-      <label class="waitlist-form__trap" aria-hidden="true">
+      <label class="form__trap" aria-hidden="true">
         Empresa
         <input name="empresa" tabindex="-1" autocomplete="off" />
       </label>
       <Button type="submit" arrow>Reservar mi frasco</Button>
       {
         !webhookUrl && (
-          <p class="waitlist-form__hint">Versión de muestra: el formulario aún no está conectado a un servicio de correo.</p>
+          <p class="form__hint">Versión de muestra: el formulario aún no está conectado a un servicio de correo.</p>
         )
       }
-      <p class="waitlist-form__status" data-status role="status" hidden></p>
+      <p class="form__status" data-status role="status" hidden></p>
     </form>
   </div>
 </section>
@@ -102,82 +119,6 @@ const webhookUrl = import.meta.env.PUBLIC_WAITLIST_WEBHOOK_URL ?? "";
     border-radius: 50%;
     background: radial-gradient(circle, rgb(143 209 155 / 0.18), transparent 65%);
     pointer-events: none;
-  }
-
-  .waitlist-form {
-    display: grid;
-    gap: 14px;
-    background: rgb(255 255 255 / 0.04);
-    border: 1px solid var(--noche-line);
-    padding: 32px;
-    border-radius: var(--r-lg);
-  }
-
-  label {
-    display: grid;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--on-noche-muted);
-  }
-
-  input,
-  select {
-    width: 100%;
-    font: 16px var(--font-sans);
-    letter-spacing: 0;
-    text-transform: none;
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid var(--noche-line);
-    background: var(--noche-2);
-    color: var(--on-noche);
-  }
-
-  input::placeholder {
-    color: #6f8473;
-  }
-
-  select {
-    color-scheme: dark;
-  }
-
-  .waitlist-form :global(.btn) {
-    margin-top: 6px;
-  }
-
-  .waitlist-form :global(.btn:disabled) {
-    opacity: 0.6;
-    cursor: progress;
-  }
-
-  .waitlist-form__trap {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
-
-  .waitlist-form__hint {
-    font-size: 12px;
-    color: var(--on-noche-muted);
-  }
-
-  .waitlist-form__status {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--hoja-luz);
-  }
-
-  .waitlist-form__status[data-kind="error"] {
-    color: var(--achiote-luz);
-  }
-
-  .waitlist-form__status[data-kind="info"] {
-    color: var(--on-noche-muted);
   }
 
   @media (max-width: 900px) {

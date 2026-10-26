@@ -1,8 +1,10 @@
 import { mustQs } from "@/scripts/core/dom";
 import { on } from "@/scripts/core/events";
+import { clearErrorsOnEdit, showFieldErrors } from "@/scripts/core/formErrors";
 import { submitEntry, validateEntry, type WaitlistEntry } from "@/scripts/waitlist/waitlist";
 
 const MESSAGES = {
+  invalid: "Revisa los campos marcados.",
   sending: "Enviando tu reserva…",
   success: (name: string) => `Gracias, ${name}. Ya estás en la lista de espera: te avisaremos antes que a nadie.`,
   demo: (name: string) => `Gracias, ${name}. En la versión final aquí quedarás inscrito en la lista de espera.`,
@@ -25,6 +27,10 @@ export function initWaitlist(form: HTMLFormElement, webhookUrl: string | undefin
     herbSelect.value = id;
   });
 
+  clearErrorsOnEdit(form, () => {
+    if (status.dataset["kind"] === "error") status.hidden = true;
+  });
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(form);
@@ -39,8 +45,7 @@ export function initWaitlist(form: HTMLFormElement, webhookUrl: string | undefin
       hierbaNombre: herbSelect.value ? herbSelect.selectedOptions[0]?.textContent ?? "" : "",
     };
 
-    const error = validateEntry(entry);
-    if (error) return showStatus(error, "error");
+    if (showFieldErrors(form, validateEntry(entry))) return showStatus(MESSAGES.invalid, "error");
 
     if (!webhookUrl) return showStatus(MESSAGES.demo(entry.nombre), "ok");
 

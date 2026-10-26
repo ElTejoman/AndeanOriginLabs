@@ -11,7 +11,9 @@ import { FAQ } from "@/data/content";
       {
         FAQ.map((item, i) => (
           <details open={i === 0}>
-            <summary>{item.question}</summary>
+            <summary>
+              <span class="faq__q">{item.question}</span>
+            </summary>
             <p>{item.answer}</p>
           </details>
         ))
@@ -25,6 +27,10 @@ import { FAQ } from "@/data/content";
     display: grid;
     grid-template-columns: 0.8fr 1.2fr;
     gap: 64px;
+  }
+
+  .faq {
+    min-width: 0;
   }
 
   details {
@@ -48,12 +54,22 @@ import { FAQ } from "@/data/content";
     letter-spacing: -0.01em;
   }
 
+  /* La pregunta cede ancho; el signo nunca se encoge ni se corta en el borde. */
+  .faq__q {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
   summary::-webkit-details-marker {
     display: none;
   }
 
   summary::after {
     content: "+";
+    flex: none;
+    /* sin esto el signo se estira al alto de la pregunta y, al girar, desborda la página */
+    align-self: flex-start;
     font-family: var(--font-mono);
     color: var(--rojo-achiote);
     font-size: 22px;
