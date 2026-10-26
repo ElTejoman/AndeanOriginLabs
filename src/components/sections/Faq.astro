@@ -70,6 +70,11 @@ import { FAQ } from "@/data/content";
     flex: none;
     /* sin esto el signo se estira al alto de la pregunta y, al girar, desborda la página */
     align-self: flex-start;
+    /* caja cuadrada: gira sobre su centro sin salirse del margen */
+    display: grid;
+    place-items: center;
+    width: 1em;
+    height: 1em;
     font-family: var(--font-mono);
     color: var(--rojo-achiote);
     font-size: 22px;
