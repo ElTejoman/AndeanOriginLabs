@@ -1,0 +1,14 @@
+# Despliegue de demostración en Netlify. La producción sigue siendo GoDaddy (dist/ a public_html).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Mientras sea una demo, que los buscadores no indexen el dominio *.netlify.app.
+# Quitar este bloque si Netlify pasa a servir el dominio real.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
