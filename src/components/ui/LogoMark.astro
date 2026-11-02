@@ -1,29 +1,104 @@
 ---
 /**
- * Isotipo de Andean Origin Labs (vectorizado de Logo_AOL.jpeg):
- * a la izquierda, el Ande con nieve y curvas de nivel; a la derecha, la Amazonía con su bosque;
+ * Isotipo de Andean Origin Labs, redibujado sobre reference/Logo_AOL.jpeg (mismas coordenadas, viewBox 720x370):
+ * a la izquierda, el Ande con nieve y curvas de nivel; a la derecha, la Amazonía con árboles de copa en capas;
  * encima, una red molecular cuyos nodos en rojo achiote marcan el origen.
- * Los colores salen de --logo-line, --logo-snow, --logo-node y --logo-forest.
+ * Los colores salen de --logo-line, --logo-snow, --logo-node, --logo-forest y --logo-paper
+ * (el fondo: las líneas de la red que cruzan el bosque se dibujan en ese color, como en el original).
  */
 type Props = { height?: number; class?: string };
 const { height = 34, class: className } = Astro.props;
 const width = Math.round((height * 720) / 370);
 
-const NETWORK: ReadonlyArray<readonly [number, number, number, number]> = [
-  [360, 22, 395, 125], [460, 90, 395, 125], [395, 125, 360, 172], [395, 125, 410, 212],
-  [360, 172, 410, 212], [460, 90, 410, 212], [460, 90, 555, 300], [410, 212, 435, 298],
-  [360, 172, 435, 298], [435, 298, 463, 322], [410, 212, 463, 322], [463, 322, 555, 300],
-  [410, 212, 555, 300], [463, 322, 330, 362], [463, 322, 520, 362], [555, 300, 640, 362],
+type Segment = readonly [number, number, number, number];
+type Node = readonly [number, number, number];
+
+const SILHOUETTE =
+  "M15 362 L186 158 C190 153.5 196 152.5 201 155.5 L214 163 L256 113 C259.5 109 264 108 268 110.5 L280 117 L357 31";
+const RIDGE =
+  "M364 24 C361 45 357 75 350 93 C345 108 344 128 356 143 C361 151 364 161 364 172 C359 186 355 200 356 212 C357 225 366 232 371 243 C375 255 373 272 362 291 C350 312 320 342 293 362";
+const SNOW = [
+  "M150 203 L183 162 L174 200 L162 232 L151 256 L141 234 Z",
+  "M160 250 L180 222 L193 196 L200 222 L210 238 L218 202 L238 218 L256 240 L290 252 L268 260 L220 262 Z",
+  "M214 163 L240 140 L250 120 L256 140 L250 160 L238 170 L224 168 Z",
+  "M266 150 L282 145 L300 128 L330 112 L345 108 L350 140 L343 158 L322 172 L305 182 L290 182 L280 170 L266 165 Z",
+  "M140 302 L158 286 L176 274 L167 292 L147 307 Z",
 ];
-const RED_NODES = [[360, 22], [460, 90], [360, 172], [463, 322]] as const;
-const GREEN_NODES = [[395, 125], [410, 212], [435, 298], [555, 300]] as const;
+const SNOW_LINES = [
+  "M357 52 C350 70 338 84 322 97 C306 110 292 122 286 136 C283 143 281 150 281 156",
+  "M347 109 C328 112 310 122 300 136 C294 146 292 160 293 181",
+  "M292 181 C305 186 318 182 330 172 C340 164 350 158 361 154",
+  "M332 130 C328 140 324 148 322 157",
+  "M238 170 C248 166 256 162 262 163 C268 165 274 162 283 152",
+  "M175 258 C205 251 250 248 283 248 C291 247 296 243 295 237",
+  "M157 255 C178 246 205 236 226 226",
+  "M132 233 C140 236 146 242 152 252",
+];
+const CONTOURS = [
+  "M73 301 C82 291 94 279 103 273 C110 269 115 274 110 280 C98 294 72 311 48 321",
+  "M110 248 C126 251 136 260 133 272 C130 285 118 300 100 317 C82 334 50 352 17 362",
+  "M137 217 C146 224 152 240 156 255 C160 270 156 282 146 293 C132 309 112 326 100 337 C88 348 76 356 67 362",
+  "M354 206 C346 228 328 252 300 262 C276 268 232 254 205 264 C190 270 181 279 172 294 C162 312 146 334 124 362",
+  "M371 247 C358 266 330 280 300 286 C274 290 240 270 220 280 C208 286 200 300 192 318 C184 336 168 352 153 362",
+  "M369 272 C356 290 330 302 300 304 C272 305 244 292 228 304 C215 314 206 330 199 343 C193 352 187 358 182 362",
+  "M355 300 C338 312 320 318 300 318 C280 318 258 316 245 325 C234 334 222 350 213 362",
+  "M333 326 C320 332 305 333 292 335 C280 338 272 348 267 362",
+];
+/** Aristas gruesas: la ladera derecha y el collado entre las dos cumbres. */
+const EDGES: ReadonlyArray<Segment> = [
+  [364, 24, 483, 173],
+  [398, 126, 465, 90],
+  [465, 90, 548, 193],
+];
+const NETWORK: ReadonlyArray<Segment> = [
+  [364, 24, 398, 126], [398, 126, 414, 212], [398, 126, 352, 95], [398, 126, 364, 172],
+  [398, 126, 483, 173], [465, 90, 483, 173], [465, 90, 414, 212], [465, 90, 371, 243],
+  [364, 172, 414, 212], [414, 212, 438, 298], [414, 212, 371, 243], [414, 212, 500, 196],
+  [371, 243, 438, 298], [438, 298, 468, 323], [438, 298, 354, 302],
+];
+const GROUND =
+  "M293 362 C297 352 305 345 314 343 C318 336 328 333 334 337 L420 340 C424 335 432 334 436 339 L470 339 C476 334 486 334 490 340 L600 340 C606 335 616 335 620 340 L660 340 C666 334 678 334 682 340 C694 338 708 346 715 362 Z";
+const UNDERGROWTH = [
+  "M326 350 C326 340 334 334 342 334 C344 327 354 325 358 330 C364 327 372 332 372 340 L372 350 Z",
+  "M386 289 L391 301 L387 301 L394 314 L389 314 L397 329 L392 329 L399 344 L373 344 L380 329 L375 329 L383 314 L378 314 L385 301 L381 301 Z",
+  "M412 348 A14 14 0 0 1 397 334 A14 14 0 0 1 412 348Z M412 348 A16 16 0 0 1 405 327 A16 16 0 0 1 412 348Z M412 348 A16 16 0 0 1 420 327 A16 16 0 0 1 412 348Z M412 348 A14 14 0 0 1 428 335 A14 14 0 0 1 412 348Z",
+  "M438 348 C436 336 441 324 447 313 C453 325 458 337 456 348 Z",
+  "M498 266 L504 284 L500 284 L507 304 L502 304 L509 325 L504 325 L511 344 L485 344 L492 325 L487 325 L494 304 L489 304 L496 284 L492 284 Z",
+  "M536 255 L543 273 L538 273 L547 293 L541 293 L551 315 L545 315 L555 344 L517 344 L527 315 L521 315 L531 293 L525 293 L534 273 L529 273 Z",
+  "M582 281 L588 297 L584 297 L591 313 L586 313 L595 340 L569 340 L578 313 L573 313 L580 297 L576 297 Z",
+  "M601 346 C600 330 606 318 612 312 C614 304 620 302 624 308 C629 314 630 330 628 346 Z",
+  "M632 348 C630 334 638 326 646 326 C647 314 656 307 664 312 C672 310 678 318 676 328 C682 334 682 344 678 350 Z",
+  "M680 352 C684 340 694 336 702 340 C710 342 715 352 716 362 L688 362 Z",
+];
+/** Árboles amazónicos: tronco con ramas abiertas y copa en capas. */
 const TREES = [
-  { x: 482, y: 182, rx: 38, ry: 13, base: 312 },
-  { x: 562, y: 206, rx: 34, ry: 12, base: 330 },
-  { x: 452, y: 250, rx: 30, ry: 11, base: 330 },
-  { x: 604, y: 242, rx: 28, ry: 10, base: 338 },
-  { x: 646, y: 284, rx: 22, ry: 9, base: 346 },
-] as const;
+  {
+    trunk: "M488 202 L488 255 M488 218 L462 202 M488 214 L474 202 M488 214 L503 202 M488 220 L518 202",
+    crown: "M437 198 C437 190 446 186 454 187 C456 179 466 175 474 178 C478 170 492 168 498 174 C506 170 518 174 518 182 C527 182 534 188 532 196 C532 200 528 202 524 202 L442 202 C439 202 437 200 437 198 Z",
+  },
+  {
+    trunk: "M468 268 L468 318 M468 284 L442 268 M468 280 L455 268 M468 280 L490 268 M468 286 L510 268",
+    crown: "M418 266 C417 258 426 252 435 254 C437 244 448 238 458 241 C462 231 476 228 484 234 C492 229 506 233 507 242 C516 240 526 246 524 255 C530 258 530 266 524 268 L424 268 C420 268 418 267 418 266 Z",
+  },
+  {
+    trunk: "M562 220 L561 346 M562 238 L538 228 M562 232 L548 220 M562 236 L586 220",
+    crown:
+      "M525 216 C524 208 532 203 540 205 C542 196 552 191 562 194 C568 188 582 189 586 197 C595 196 604 202 603 210 C608 212 608 219 603 220 L530 220 C527 220 525 218 525 216 Z M513 231 C512 224 520 219 528 221 C532 213 544 211 550 216 C558 213 568 218 568 225 C572 227 572 233 567 234 L517 234 C514 234 513 233 513 231 Z",
+  },
+  {
+    trunk: "M604 252 C600 270 594 286 588 300 M600 262 L586 252 M601 260 L618 252",
+    crown: "M576 251 C575 245 582 240 589 242 C592 234 602 231 610 235 C616 231 627 235 627 242 C633 243 634 250 630 252 L580 252 C578 252 576 252 576 251 Z",
+  },
+  {
+    trunk: "M630 295 L630 342 M630 308 L612 295 M630 306 L648 295",
+    crown: "M597 294 C596 287 603 281 611 283 C613 274 624 269 633 272 C640 267 653 272 653 281 C660 283 661 292 656 295 L601 295 C599 295 597 295 597 294 Z",
+  },
+];
+/** Líneas de la red que atraviesan el bosque: se ven en el color del fondo. */
+const FOREST_CUTS = "M468 331 L432 358 M468 331 L500 358 M468 331 L468 352 M561 313 L527 358 M561 313 L582 358 M561 313 L677 358";
+const TRUNK_CUT = "M561 314 L561 358";
+const RED_NODES: ReadonlyArray<Node> = [[364, 24, 9.5], [465, 90, 9], [364, 172, 9], [468, 323, 9.5]];
+const GREEN_NODES: ReadonlyArray<Node> = [[398, 126, 8.5], [414, 212, 8.5], [438, 298, 8.5], [561, 305, 8]];
 ---
 
 <svg
@@ -34,58 +109,35 @@ const TREES = [
   aria-hidden="true"
   focusable="false"
 >
-  <!-- nieve del Ande -->
-  <path
-    class="snow"
-    d="M150 232 L232 70 L268 60 L300 84 L332 72 L345 108 L340 150 L312 168 L282 150 L250 188 L205 202 Z"
-  />
-  <path class="line thin" d="M268 60 C282 96 300 118 296 150 M300 84 C318 104 330 120 340 150 M232 70 C228 120 210 160 186 196" />
+  <g class="snow">{SNOW.map((d) => <path d={d} />)}</g>
 
-  <!-- curvas de nivel -->
   <g class="line thin">
-    <path d="M40 328 C90 318 120 345 180 338 S270 320 308 336" />
-    <path d="M62 298 C110 280 150 312 205 300 S280 286 324 302" />
-    <path d="M85 268 C130 252 160 282 210 272 C250 264 280 250 336 270" />
-    <path d="M108 238 C150 222 175 250 220 244 C262 238 300 220 346 238" />
-    <path d="M130 208 C165 196 195 216 240 210 C280 205 310 192 352 205" />
-    <path d="M70 350 C70 325 105 315 125 330 C140 342 120 356 95 356" />
-  </g>
-
-  <!-- red molecular -->
-  <g class="line thin">
+    {SNOW_LINES.map((d) => <path d={d} />)}
+    {CONTOURS.map((d) => <path d={d} />)}
     {NETWORK.map(([x1, y1, x2, y2]) => <line x1={x1} y1={y1} x2={x2} y2={y2} />)}
   </g>
 
-  <!-- bosque amazónico -->
-  <g class="forest">
-    {
-      TREES.map((t) => (
-        <>
-          <line class="trunk" x1={t.x} y1={t.y + t.ry - 4} x2={t.x - 3} y2={t.base} />
-          <ellipse cx={t.x} cy={t.y} rx={t.rx} ry={t.ry} />
-          <ellipse cx={t.x - t.rx * 0.4} cy={t.y - t.ry * 0.7} rx={t.rx * 0.5} ry={t.ry * 0.7} />
-        </>
-      ))
-    }
-    <path d="M380 362 L398 300 L416 362Z M520 362 L536 290 L552 362Z M600 362 L612 318 L624 362Z" />
-    <path
-      d="M292 362 C320 340 340 350 360 336 C380 345 400 330 430 342 C460 330 490 345 520 335 C560 345 600 330 640 340 C670 335 690 345 705 362 Z"
-    />
+  <g class="line">
+    <path d={SILHOUETTE} />
+    <path d={RIDGE} />
+    {EDGES.map(([x1, y1, x2, y2]) => <line x1={x1} y1={y1} x2={x2} y2={y2} />)}
   </g>
 
-  <!-- silueta: Ande a la izquierda, Amazonía a la derecha, divididos por la cresta -->
-  <path class="line" d="M14 362 L232 70 L268 60 L360 22 L425 108 L460 90 L705 362" />
-  <path
-    class="line"
-    d="M360 22 C350 55 340 85 352 110 C364 135 350 150 360 172 C368 195 352 225 342 262 C334 295 312 330 292 362"
-  />
-  <path class="line" d="M292 362 L705 362" />
+  <g class="forest">
+    <path d={GROUND} />
+    {UNDERGROWTH.map((d) => <path d={d} />)}
+    {TREES.map((tree) => <path class="trunk" d={tree.trunk} />)}
+    {TREES.map((tree) => <path d={tree.crown} />)}
+  </g>
+
+  <path class="cut" d={FOREST_CUTS} />
+  <path class="cut cut--trunk" d={TRUNK_CUT} />
 
   <g class="node node--red">
-    {RED_NODES.map(([cx, cy]) => <circle cx={cx} cy={cy} r="15" />)}
+    {RED_NODES.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} />)}
   </g>
   <g class="node node--green">
-    {GREEN_NODES.map(([cx, cy]) => <circle cx={cx} cy={cy} r="11" />)}
+    {GREEN_NODES.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} />)}
   </g>
 </svg>
 
@@ -98,18 +150,18 @@ const TREES = [
   .line {
     fill: none;
     stroke: var(--logo-line);
-    stroke-width: 9;
+    stroke-width: 6.5;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
   .line.thin {
-    stroke-width: 5;
+    stroke-width: 3.6;
   }
 
   .snow {
     fill: var(--logo-snow);
-    opacity: 0.75;
+    opacity: 0.8;
   }
 
   .forest {
@@ -117,9 +169,21 @@ const TREES = [
   }
 
   .forest .trunk {
+    fill: none;
     stroke: var(--logo-forest);
-    stroke-width: 6;
+    stroke-width: 4.5;
     stroke-linecap: round;
+  }
+
+  .cut {
+    fill: none;
+    stroke: var(--logo-paper);
+    stroke-width: 3.4;
+    stroke-linecap: round;
+  }
+
+  .cut--trunk {
+    stroke-width: 5;
   }
 
   .node--red {

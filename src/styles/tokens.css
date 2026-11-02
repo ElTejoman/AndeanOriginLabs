@@ -54,6 +54,7 @@
   --logo-snow: #b9ccd6;
   --logo-node: #c8412b;
   --logo-forest: var(--verde-selva);
+  --logo-paper: var(--surface-100);
 
   /* tipografía */
   --font-display: "Fraunces Variable", "Fraunces", Georgia, serif;
