@@ -1,0 +1,88 @@
+---
+/**
+ * Glifos de la sección Cultura, uno por palabra. Mismo lenguaje que el logo: trazo en currentColor
+ * y un acento en rojo achiote (--glyph-accent). Son dibujos propios: representan la práctica
+ * (la planta, la chacra, la aguja), no reproducen diseños kené ni tocapus.
+ */
+type Glyph = { line: string; accent: string; accentStroke?: boolean };
+
+const GLYPHS = {
+  // ramita de muña con su brote
+  hampi: {
+    line:
+      "M24 46 V10 M24 37 A9.5 9.5 0 0 1 12 31 A9.5 9.5 0 0 1 24 37Z M24 37 A9.5 9.5 0 0 1 36 31 A9.5 9.5 0 0 1 24 37Z M24 27 A8.1 8.1 0 0 1 14 21.5 A8.1 8.1 0 0 1 24 27Z M24 27 A8.1 8.1 0 0 1 34 21.5 A8.1 8.1 0 0 1 24 27Z M24 18 A5.9 5.9 0 0 1 17 13.5 A5.9 5.9 0 0 1 24 18Z M24 18 A5.9 5.9 0 0 1 31 13.5 A5.9 5.9 0 0 1 24 18Z",
+    accent: "M21.2 7a2.8 2.8 0 1 0 5.6 0a2.8 2.8 0 1 0 -5.6 0Z",
+  },
+  // hoja de la selva que gotea resina, como la sangre de grado
+  rao: {
+    line:
+      "M7 7 A26 26 0 0 1 33 33 A26 26 0 0 1 7 7Z M4 4 L30 30 M13 13 L19 12.6 M13 13 L12.6 19 M20 20 L27.8 19.3 M20 20 L19.3 27.8 M26 26 L30.9 25.3 M26 26 L25.3 30.9",
+    accent: "M33 36 C33 36 29.5 40 29.5 42 A3.5 3.5 0 0 0 36.5 42 C36.5 40 33 36 33 36Z",
+  },
+  // cerro con andenes, trazados como las curvas de nivel del logo, y el sol encima
+  chacra: {
+    line:
+      "M3 43 L16 17.5 M45 43 L32 17.5 M3 43 H45 M6.4 36.5 C15 32.5 33 32.5 41.6 36.5 M9.8 30 C17 26.5 31 26.5 38.2 30 M13 23.7 C19 21 29 21 35 23.7 M16 17.5 C20 15.8 28 15.8 32 17.5",
+    accent: "M20 8.5a4 4 0 1 0 8 0a4 4 0 1 0 -8 0Z",
+  },
+  // la yuca: hojas sobre la tierra, raíces debajo, y su corazón bajo el suelo
+  nugkui: {
+    line:
+      "M3 21 H45 M24 21 V13 M24 13 A10 10 0 0 1 24 2 A10 10 0 0 1 24 13Z M24 13 A10 10 0 0 1 29.8 3.7 A10 10 0 0 1 24 13Z M24 13 A10 10 0 0 1 18.2 3.7 A10 10 0 0 1 24 13Z M24 13 A10 10 0 0 1 33.9 8.2 A10 10 0 0 1 24 13Z M24 13 A10 10 0 0 1 14.1 8.2 A10 10 0 0 1 24 13Z M24 26.5 A15 15 0 0 1 24 45 A15 15 0 0 1 24 26.5Z M22 25.5 A15 15 0 0 1 11 40 A15 15 0 0 1 22 25.5Z M26 25.5 A15 15 0 0 1 37 40 A15 15 0 0 1 26 25.5Z",
+    accent: "M21.9 23.6a2.1 2.1 0 1 0 4.2 0a2.1 2.1 0 1 0 -4.2 0Z",
+  },
+  // manos que sostienen un brote
+  iwishin: {
+    line:
+      "M5 26 C5 38 13 44 24 44 C35 44 43 38 43 26 M5 26 C5 23.5 6.8 22.4 8.6 23 M43 26 C43 23.5 41.2 22.4 39.4 23 M24 38 V15 M24 26 A9.8 9.8 0 0 1 12 19 A9.8 9.8 0 0 1 24 26Z",
+    accent: "M24 20 A9.6 9.6 0 0 1 35 12 A9.6 9.6 0 0 1 24 20Z",
+  },
+  // aguja con hilo: el oficio de pintar y bordar, no el diseño
+  kene: {
+    line: "M11 37 L36.9 11.1 M36.9 11.1 A3 1.6 -45 0 1 41.1 6.9 A3 1.6 -45 0 1 36.9 11.1Z",
+    accent: "M39 9 C45 12 45 19 38 23 C31 27 30 34 35 38.5 C38 41 42 40.5 43 37.5",
+    accentStroke: true,
+  },
+} as const satisfies Record<string, Glyph>;
+
+export type GlyphName = keyof typeof GLYPHS;
+
+type Props = { name: GlyphName; size?: number };
+const { name, size = 56 } = Astro.props;
+const glyph: Glyph = GLYPHS[name];
+---
+
+<svg class="glyph" width={size} height={size} viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+  <path class="line" d={glyph.line} />
+  <path class:list={["accent", { "accent--stroke": glyph.accentStroke }]} d={glyph.accent} />
+</svg>
+
+<style>
+  .glyph {
+    display: block;
+    overflow: visible;
+  }
+
+  .line,
+  .accent--stroke {
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .line {
+    stroke: currentColor;
+  }
+
+  .accent {
+    fill: var(--glyph-accent, var(--rojo-achiote));
+    transition: fill 0.3s;
+  }
+
+  .accent--stroke {
+    fill: none;
+    stroke: var(--glyph-accent, var(--rojo-achiote));
+    transition: stroke 0.3s;
+  }
+</style>

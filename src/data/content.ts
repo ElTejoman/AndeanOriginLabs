@@ -68,10 +68,12 @@ export const PROCESS_STEPS: ReadonlyArray<{ title: string; html: string; knowled
 ];
 
 export const GLOSSARY = [
-  { word: "Hampi", origin: "Quechua", meaning: "Medicina, remedio. La planta que cura." },
-  { word: "Hampiq", origin: "Quechua", meaning: "Quien cura con plantas. Un saber que pasa de generación en generación." },
-  { word: "Chacra", origin: "Del quechua chakra", meaning: "La tierra que se cultiva. De ahí viene todo lo que hacemos." },
-  { word: "Soroche", origin: "Quechua andino", meaning: "El mal de altura. Para eso, un mate de muña." },
+  { word: "Hampi", glyph: "hampi", origin: "Quechua", meaning: "Medicina, remedio. La planta que cura." },
+  { word: "Rao", glyph: "rao", origin: "Shipibo-Konibo", meaning: "Planta medicinal, remedio. El hampi de la selva." },
+  { word: "Chacra", glyph: "chacra", origin: "Del quechua chakra", meaning: "La tierra que se cultiva. De ahí viene todo lo que hacemos." },
+  { word: "Nugkui", glyph: "nugkui", origin: "Awajún", meaning: "La madre de las chacras. Vive bajo la tierra y hace crecer la yuca." },
+  { word: "Iwishin", glyph: "iwishin", origin: "Awajún", meaning: "Quien cura con plantas. Guarda el saber del monte." },
+  { word: "Kené", glyph: "kene", origin: "Shipibo-Konibo", meaning: "Los diseños que pintan y bordan las mujeres shipibo. Patrimonio Cultural de la Nación." },
 ] as const;
 
 export const FAQ = [

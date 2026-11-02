@@ -1,4 +1,5 @@
 ---
+import CultureGlyph from "@/components/ui/CultureGlyph.astro";
 import Section from "@/components/ui/Section.astro";
 import { GLOSSARY } from "@/data/content";
 ---
@@ -7,9 +8,12 @@ import { GLOSSARY } from "@/data/content";
   <div class="wrap culture">
     <div>
       <div class="eyebrow" id="cultura-titulo">Cultura</div>
-      <blockquote>Antes de “fitoterapia”, en el Ande se decía <em>hampi.</em></blockquote>
+      <blockquote>
+        Antes de “fitoterapia”, en el Ande se decía <em>hampi</em> y en la selva, <em>rao.</em>
+      </blockquote>
       <p class="culture__note">
-        Queremos que estas palabras vuelvan a usarse. Son parte de la marca porque son parte del Perú.
+        Queremos que estas palabras se escuchen más allá de sus pueblos. Vienen del quechua, del shipibo-konibo y del
+        awajún, y son parte de la marca porque son parte del Perú.
       </p>
     </div>
     <dl class="words" data-reveal>
@@ -19,6 +23,9 @@ import { GLOSSARY } from "@/data/content";
             <dt>
               <b>{entry.word}</b>
               <small>{entry.origin}</small>
+              <span class="word__glyph">
+                <CultureGlyph name={entry.glyph} />
+              </span>
             </dt>
             <dd>{entry.meaning}</dd>
           </div>
@@ -63,6 +70,7 @@ import { GLOSSARY } from "@/data/content";
   }
 
   .word {
+    container-type: inline-size;
     border: 1px solid var(--line);
     border-radius: var(--r-card);
     padding: 24px;
@@ -78,7 +86,27 @@ import { GLOSSARY } from "@/data/content";
     color: #fff;
   }
 
+  .word dt {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 12px;
+  }
+
+  .word__glyph {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    color: var(--verde-hoja);
+    transition: color 0.3s;
+  }
+
+  .word:hover .word__glyph {
+    color: #fff;
+    --glyph-accent: var(--achiote-luz);
+  }
+
   .word b {
+    grid-column: 1;
+    grid-row: 1;
     display: block;
     font-family: var(--font-display);
     font-weight: 400;
@@ -88,6 +116,8 @@ import { GLOSSARY } from "@/data/content";
   }
 
   .word small {
+    grid-column: 1;
+    grid-row: 2;
     display: block;
     font-family: var(--font-mono);
     font-size: 11px;
@@ -107,6 +137,27 @@ import { GLOSSARY } from "@/data/content";
   .word:hover small,
   .word:hover dd {
     color: rgb(255 255 255 / 0.8);
+  }
+
+  /* tarjeta angosta: el glifo pasa arriba para no encimarse con la palabra */
+  @container (max-width: 200px) {
+    .word dt {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .word__glyph {
+      grid-column: 1;
+      grid-row: 1;
+      margin-bottom: 14px;
+    }
+
+    .word b {
+      grid-row: 2;
+    }
+
+    .word small {
+      grid-row: 3;
+    }
   }
 
   @media (max-width: 900px) {
