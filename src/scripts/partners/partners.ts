@@ -10,6 +10,9 @@ export type PartnerRequest = {
   ciudad: string;
   correo: string;
   telefono: string;
+  /** id de la fórmula de interés, o "" si le interesan todas. */
+  formula: string;
+  formulaNombre: string;
 };
 
 /** Devuelve un mensaje por cada campo inválido; un objeto vacío si todo está bien. */

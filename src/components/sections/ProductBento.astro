@@ -2,16 +2,15 @@
 import Jar from "@/components/ui/Jar.astro";
 import Section from "@/components/ui/Section.astro";
 import SectionHeader from "@/components/ui/SectionHeader.astro";
-import { PRODUCT_SPECS, RITUAL_STEPS } from "@/data/content";
-import { formatNumber } from "@/lib/format";
-import { getHerb, type Herb } from "@/lib/herbs";
+import { LOT_RECORD, PRODUCT_SPECS, RITUAL_STEPS } from "@/data/content";
+import type { Formula } from "@/lib/formulas";
 
-type Props = { herbs: Herb[] };
-const { herbs } = Astro.props;
+type Props = { formulas: Formula[] };
+const { formulas } = Astro.props;
 
-const maca = getHerb(herbs, "maca");
-const muna = getHerb(herbs, "muna");
-const lot = maca.lot;
+/** Dos frascos de muestra: la primera fórmula al frente y la última al costado. */
+const front = formulas[0]!;
+const side = formulas.at(-1)!;
 const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
@@ -28,10 +27,10 @@ const pad = (n: number) => String(n).padStart(2, "0");
     <div class="bento" data-reveal>
       <div class="tile tile--show">
         <div class="tile__blob" aria-hidden="true"></div>
-        <div class="eyebrow">Primera línea · {herbs.length} frascos</div>
-        <div class="tile__jars" role="img" aria-label={`Frascos de extracto de ${maca.name.toLowerCase()} y ${muna.name.toLowerCase()}`}>
-          <Jar herb={maca} width={230} />
-          <span class="tile__side-jar"><Jar herb={muna} width={140} /></span>
+        <div class="eyebrow">Primera línea · {formulas.length} fórmulas</div>
+        <div class="tile__jars" role="img" aria-label={`Frascos de las fórmulas ${front.name} y ${side.name}`}>
+          <Jar formula={front} width={230} />
+          <span class="tile__side-jar"><Jar formula={side} width={140} /></span>
         </div>
       </div>
 
@@ -39,8 +38,8 @@ const pad = (n: number) => String(n).padStart(2, "0");
         <div class="eyebrow">Formato</div>
         <h3>Extracto, no hierba molida</h3>
         <p>
-          Se extraen los compuestos de la planta, como en un cocimiento o una maceración. Según la hierba, llega en uno de
-          dos formatos, más concentrados que la planta seca.
+          Se extraen los compuestos de las plantas, como en un cocimiento o una maceración. Según la fórmula, llega en uno
+          de dos formatos, más concentrados que la planta seca.
         </p>
         <dl class="spec">
           {
@@ -57,7 +56,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
       <div class="tile tile--science">
         <div class="eyebrow">Ciencia</div>
         <h3>La especie correcta, verificada</h3>
-        <p>Nombre científico en la etiqueta y lote identificado con muestra de herbario.</p>
+        <p>Nombre científico en la etiqueta y cada especie confirmada con muestra de herbario.</p>
       </div>
 
       <div class="tile tile--tradition">
@@ -69,11 +68,9 @@ const pad = (n: number) => String(n).padStart(2, "0");
       <div class="tile tile--origin">
         <div class="eyebrow">Origen</div>
         <h3>Lote trazable</h3>
-        <div class="lot-code">
-          <b>{lot.code}</b><br />
-          {lot.origin} · {formatNumber(lot.altitude ?? maca.altitude.typical)} msnm<br />
-          Cosecha: {lot.harvest}
-        </div>
+        <ul class="lot-code" aria-label="Lo que registra cada lote">
+          {LOT_RECORD.map((item) => <li>{item}</li>)}
+        </ul>
       </div>
 
       <div class="tile tile--ritual night">
@@ -208,15 +205,12 @@ const pad = (n: number) => String(n).padStart(2, "0");
   .lot-code {
     font-family: var(--font-mono);
     font-size: 13px;
-    margin-top: 20px;
+    margin: 20px 0 0;
     padding: 14px;
+    list-style: none;
     border: 1px dashed var(--line);
     border-radius: var(--r-md);
     line-height: 1.8;
-  }
-
-  .lot-code b {
-    font-weight: 500;
   }
 
   .tile--ritual {

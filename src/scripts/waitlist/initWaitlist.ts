@@ -13,7 +13,7 @@ const MESSAGES = {
 
 /** Formulario de preventa. Sin webhook configurado funciona en modo demostración. */
 export function initWaitlist(form: HTMLFormElement, webhookUrl: string | undefined): void {
-  const herbSelect = mustQs<HTMLSelectElement>("select[name='hierba']", form);
+  const formulaSelect = mustQs<HTMLSelectElement>("select[name='formula']", form);
   const submitButton = mustQs<HTMLButtonElement>("button[type='submit']", form);
   const status = mustQs("[data-status]", form);
 
@@ -23,8 +23,8 @@ export function initWaitlist(form: HTMLFormElement, webhookUrl: string | undefin
     status.textContent = message;
   };
 
-  on("herb:reserve", ({ id }) => {
-    herbSelect.value = id;
+  on("formula:choose", ({ id }) => {
+    formulaSelect.value = id;
   });
 
   clearErrorsOnEdit(form, () => {
@@ -41,8 +41,8 @@ export function initWaitlist(form: HTMLFormElement, webhookUrl: string | undefin
     const entry: WaitlistEntry = {
       nombre: String(data.get("nombre") ?? "").trim(),
       correo: String(data.get("correo") ?? "").trim(),
-      hierba: herbSelect.value,
-      hierbaNombre: herbSelect.value ? herbSelect.selectedOptions[0]?.textContent ?? "" : "",
+      formula: formulaSelect.value,
+      formulaNombre: formulaSelect.value ? formulaSelect.selectedOptions[0]?.textContent ?? "" : "",
     };
 
     if (showFieldErrors(form, validateEntry(entry))) return showStatus(MESSAGES.invalid, "error");

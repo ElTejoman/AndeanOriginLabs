@@ -1,0 +1,56 @@
+{
+  "order": 7,
+  "name": "Tocosh",
+  "scientificName": "Solanum tuberosum fermentado",
+  "identityNote": "No es una planta distinta: es papa fermentada.",
+  "origin": "Andes peruanos",
+  "sourcing": "Andes peruanos",
+  "partUsed": "Papa fermentada y seca",
+  "partGlyph": "tuberculo",
+  "focus": "Alimento fermentado",
+  "compounds": ["Bacterias ácido-lácticas"],
+  "molecule": { "name": "ácido láctico", "formula": "C3H6O3", "family": "fruto de la fermentación" },
+  "evidence": {
+    "level": "preclinica",
+    "summary": "Estudios en animales y de los microbios del alimento."
+  },
+  "tradition": {
+    "title": "La papa que se deja fermentar",
+    "paragraphs": [
+      "Es un producto tradicional de los Andes peruanos: papa fermentada y luego secada.",
+      "Los microbios de esa fermentación son lo que hoy estudia la ciencia."
+    ]
+  },
+  "science": {
+    "title": "Un fermento con microbios útiles",
+    "paragraphs": [
+      "En ratas, el tocosh protegió la mucosa del estómago y mostró actividad antioxidante.",
+      "Se leyó el genoma de 19 bacterias ácido-lácticas del tocosh: ninguna tenía genes de resistencia a antibióticos transmisibles, y tienen potencial probiótico. Otra bacteria del tocosh, Bacillus velezensis, frenó a Staphylococcus aureus en laboratorio."
+    ]
+  },
+  "unknowns": [
+    "El «potencial probiótico» es una predicción a partir del genoma, no un efecto comprobado en personas.",
+    "No está demostrado que «suba las defensas».",
+    "Lo estudiado es el tocosh entero; falta comprobar qué se conserva en el extracto."
+  ],
+  "studies": [
+    {
+      "citation": "Sandoval Vegas et al., 2015",
+      "title": "Antioxidant and cytoprotection effects of Solanum tuberosum (potato) on gastric mucosa in experimental animals",
+      "finding": "En ratas, el tocosh protegió la mucosa del estómago y mostró actividad antioxidante.",
+      "url": "https://doi.org/10.15381/anales.v76i1.11070"
+    },
+    {
+      "citation": "Reyes et al., 2026",
+      "title": "Genomic Insights into the Probiotic Potential of Lactic Acid Bacteria Isolated from Tocosh: Traditional Peruvian Fermented Potatoes",
+      "finding": "Genoma de 19 bacterias ácido-lácticas del tocosh: sin genes de resistencia transmisibles ni de virulencia.",
+      "url": "https://doi.org/10.3390/ijms27093981"
+    },
+    {
+      "citation": "Bayona et al., 2026",
+      "title": "Genomic Insights into Antimicrobial Biosynthetic Potential of Bacillus velezensis Isolated from Traditional Peruvian Tocosh",
+      "finding": "Una bacteria del tocosh tiene genes para fabricar antimicrobianos y frenó a S. aureus en laboratorio.",
+      "url": "https://doi.org/10.3390/microorganisms14020287"
+    }
+  ]
+}

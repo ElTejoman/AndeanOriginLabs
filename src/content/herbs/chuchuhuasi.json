@@ -1,30 +1,59 @@
 {
-  "order": 3,
+  "order": 1,
   "name": "Chuchuhuasi",
   "scientificName": "Maytenus macrocarpa",
-  "region": "amazonia",
-  "regionDetail": "Loreto, Ucayali, San Martín",
+  "identityNote": "También clasificada como Monteverdia macrocarpa.",
+  "origin": "Amazonía sudamericana",
+  "sourcing": "San Martín",
   "partUsed": "Corteza",
-  "altitude": { "typical": 180, "min": 100, "max": 500 },
-  "molecule": { "name": "dihidroagarofurano", "formula": "C15H26O" },
-  "science": {
-    "title": "En estudio",
-    "paragraphs": [
-      "La corteza contiene triterpenos y sesquiterpenos característicos de su familia (Celastraceae).",
-      "Estudios de laboratorio exploran su actividad antiinflamatoria y analgésica. La evidencia en personas todavía es escasa."
-    ],
-    "sources": "Revisiones fitoquímicas del género Maytenus (Celastraceae). Evidencia principalmente preclínica."
+  "partGlyph": "corteza",
+  "focus": "Dolor muscular y de articulaciones",
+  "compounds": ["Triterpenos", "Sesquiterpenos"],
+  "molecule": { "name": "dihidro-β-agarofurano", "formula": "C15H26O", "family": "sesquiterpeno" },
+  "evidence": {
+    "level": "preclinica",
+    "summary": "Moderada. Hay un ensayo en personas, pero con otra especie de chuchuhuasi (Maytenus krukovii)."
   },
   "tradition": {
-    "title": "El levantador de la selva",
+    "title": "La corteza del reumatismo",
     "paragraphs": [
-      "La corteza se macera en aguardiente de caña durante semanas. Se toma en copitas para el reumatismo, el dolor de espalda y el cansancio.",
-      "En Iquitos es infaltable en los bares de tragos amazónicos, junto al siete raíces y el rompe calzón."
+      "En la medicina tradicional amazónica, la corteza se usa para el reumatismo y las molestias musculares y articulares.",
+      "Las revisiones de la especie registran también usos para heridas, bronquitis y diarrea. Está documentada en Loreto, Huánuco, Madre de Dios, San Martín y Ucayali."
     ]
   },
-  "usage": {
-    "traditional": "corteza macerada en aguardiente",
-    "withExtract": "En agua tibia o en tu bebida favorita. La fuerza de la corteza, en gotas o gránulos."
+  "science": {
+    "title": "Antiinflamatorio en estudio",
+    "paragraphs": [
+      "La corteza contiene triterpenos y sesquiterpenos. En laboratorio y en animales, extractos de la planta muestran actividad antiinflamatoria y analgésica.",
+      "En un ensayo en Perú con 50 personas con artrosis de rodilla, el cocimiento de otra especie, Maytenus krukovii, redujo el dolor frente a un placebo en 4 semanas. La función de la rodilla mejoró solo con la dosis más alta."
+    ]
   },
-  "lot": { "origin": "Nauta, Loreto" }
+  "unknowns": [
+    "No hay ensayos en personas con Maytenus macrocarpa, la especie de nuestra fórmula.",
+    "No está probado que trate la artritis ni la artrosis."
+  ],
+  "cautions": [
+    "En el ensayo con Maytenus krukovii, la dosis alta alteró algunos análisis de sangre (hígado y coagulación).",
+    "En ratones, dosis muy altas de extracto de hoja causaron efectos sobre el comportamiento."
+  ],
+  "studies": [
+    {
+      "citation": "Mendocilla-Risco et al., 2017",
+      "title": "Efecto de Maytenus krukovii “Chuchuhuasi” en el tratamiento de osteoartrosis leve-moderada. Ensayo clínico aleatorizado doble ciego, controlado con placebo",
+      "finding": "Ensayo con 50 personas con artrosis de rodilla y otra especie (M. krukovii): menos dolor que con placebo.",
+      "url": "https://doi.org/10.26722/rpmi.2017.21.41"
+    },
+    {
+      "citation": "Luján-Carpio et al., 2019",
+      "title": "Anti-Inflammatory and Neurobehavioral Effects of the Leaves from Maytenus macrocarpa (Ruiz and Pavón) Briquet in Mice",
+      "finding": "En ratones, el extracto de hoja redujo la inflamación; a dosis altas afectó el comportamiento.",
+      "url": "https://doi.org/10.5530/pj.2019.1.14"
+    },
+    {
+      "citation": "Malaník et al., 2019",
+      "title": "Maytenus macrocarpa (Ruiz & Pav.) Briq.: Phytochemistry and Pharmacological Activity",
+      "finding": "Revisión de la química y la actividad de la especie; la evidencia es sobre todo de laboratorio.",
+      "url": "https://doi.org/10.3390/molecules24122288"
+    }
+  ]
 }

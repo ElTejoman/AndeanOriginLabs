@@ -1,20 +1,26 @@
 ---
 import Button from "@/components/ui/Button.astro";
+import EvidenceBadge from "@/components/ui/EvidenceBadge.astro";
 import FormulaPill from "@/components/ui/FormulaPill.astro";
-import Jar from "@/components/ui/Jar.astro";
-import { WAITLIST_ANCHOR } from "@/data/site";
-import { formatRange } from "@/lib/format";
-import { formatsLabel, regionLabel, type Herb } from "@/lib/herbs";
+import PartGlyph from "@/components/ui/PartGlyph.astro";
+import { PARTNERS_ANCHOR } from "@/data/site";
+import { formatList } from "@/lib/format";
+import type { Formula } from "@/lib/formulas";
+import type { Herb } from "@/lib/herbs";
 
-/** Ficha de una hierba: datos, lo que dice la ciencia, lo que dice la tradición y su uso en frasco. */
-type Props = { herb: Herb; active: boolean };
-const { herb, active } = Astro.props;
+/**
+ * Ficha de una planta, en las cuatro capas del dossier: lo que dice la tradición, lo que muestran
+ * los estudios, lo que aún no se sabe (con sus cuidados) y los estudios citados, enlazados.
+ */
+type Props = { herb: Herb; formula: Formula; active: boolean };
+const { herb, formula, active } = Astro.props;
 
+const partners = formatList(formula.herbs.filter((h) => h.id !== herb.id).map((h) => h.name.toLowerCase()));
 const FACTS = [
   { term: "Parte usada", detail: herb.partUsed },
-  { term: "Altitud", detail: `${formatRange(herb.altitude.min, herb.altitude.max)} msnm` },
-  { term: "Región", detail: regionLabel(herb.region) },
-  { term: "Formato", detail: formatsLabel(herb) },
+  { term: "Origen", detail: herb.origin },
+  { term: "Abastecimiento", detail: herb.sourcing },
+  { term: "Fórmula", detail: formula.name },
 ];
 ---
 
@@ -26,13 +32,17 @@ const FACTS = [
   hidden={!active}
 >
   <div class="herb-detail__head">
-    <div class="herb-detail__jar" data-detail-part aria-hidden="true">
-      <Jar herb={herb} width={120} />
+    <div class="herb-detail__glyph" data-detail-part aria-hidden="true">
+      <PartGlyph name={herb.partGlyph} size={104} />
     </div>
     <div>
-      <div class="eyebrow">{regionLabel(herb.region)} · {herb.regionDetail}</div>
+      <div class="eyebrow">{herb.focus}</div>
       <h3 id={`ficha-${herb.id}-titulo`} tabindex="-1">{herb.name}</h3>
-      <div class="herb-detail__sci"><em class="sci">{herb.scientificName}</em></div>
+      <div class="herb-detail__sci">
+        <em class="sci">{herb.scientificName}</em>
+        {herb.otherNames && <span> · también {formatList(herb.otherNames)}</span>}
+      </div>
+      {herb.identityNote && <p class="herb-detail__note">{herb.identityNote}</p>}
     </div>
     <dl class="facts">
       {
@@ -47,28 +57,76 @@ const FACTS = [
   </div>
 
   <div class="knowledge">
-    <div class="knowledge__panel knowledge__panel--science" data-detail-part>
-      <div class="eyebrow">Lo que dice la ciencia</div>
-      <h4>{herb.science.title}</h4>
-      {herb.science.paragraphs.map((text) => <p>{text}</p>)}
-      <div class="knowledge__molecule">
-        <FormulaPill formula={herb.molecule.formula} name={herb.molecule.name} />
-      </div>
-      <p class="knowledge__sources">Fuente: {herb.science.sources}</p>
-    </div>
     <div class="knowledge__panel knowledge__panel--tradition" data-detail-part>
       <div class="eyebrow">Lo que dice la tradición</div>
       <h4>{herb.tradition.title}</h4>
       {herb.tradition.paragraphs.map((text) => <p>{text}</p>)}
     </div>
+    <div class="knowledge__panel knowledge__panel--science" data-detail-part>
+      <div class="eyebrow">Lo que muestran los estudios</div>
+      <h4>{herb.science.title}</h4>
+      {herb.science.paragraphs.map((text) => <p>{text}</p>)}
+      <div class="knowledge__evidence">
+        <EvidenceBadge level={herb.evidence.level} />
+        <p>{herb.evidence.summary}</p>
+      </div>
+      {
+        (herb.molecule || herb.compounds) && (
+          <div class="knowledge__molecule">
+            {herb.molecule && <FormulaPill formula={herb.molecule.formula} name={herb.molecule.name} />}
+            {herb.compounds && <span>{herb.compounds.join(" · ")}</span>}
+          </div>
+        )
+      }
+    </div>
   </div>
 
-  <div class="in-jar" data-detail-part>
+  <div class:list={["limits", { "limits--split": herb.cautions }]} data-detail-part>
     <div>
-      <div class="eyebrow">En tu frasco</div>
-      <p>Tradicionalmente: <b>{herb.usage.traditional}</b>. Con nuestro extracto: {herb.usage.withExtract}</p>
+      <div class="eyebrow">Lo que aún no se sabe</div>
+      <ul>{herb.unknowns.map((text) => <li>{text}</li>)}</ul>
     </div>
-    <Button href={WAITLIST_ANCHOR} variant="green" arrow data-reserve={herb.id}>Reservar {herb.name}</Button>
+    {
+      herb.cautions && (
+        <div class="limits__cautions">
+          <div class="eyebrow">Cuidados</div>
+          <ul>
+            {herb.cautions.map((text) => (
+              <li>{text}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="studies" data-detail-part>
+    <div class="eyebrow">Estudios citados</div>
+    <ol>
+      {
+        herb.studies.map((study) => (
+          <li>
+            <a href={study.url} target="_blank" rel="noopener noreferrer">
+              {study.citation}
+              <span aria-hidden="true"> ↗</span>
+              <span class="visually-hidden"> (abre en otra pestaña)</span>
+            </a>
+            {study.title && <span class="studies__title">{study.title}</span>}
+            <span class="studies__finding">{study.finding}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <div class="in-formula" data-detail-part>
+    <div>
+      <div class="eyebrow">En la fórmula {formula.name}</div>
+      <p>Junto con {partners}. {formula.summary}</p>
+    </div>
+    <Button href={PARTNERS_ANCHOR} variant="green" arrow data-choose-formula={formula.id}>
+      Solicitar {formula.name}
+    </Button>
   </div>
 </article>
 
@@ -94,6 +152,11 @@ const FACTS = [
     padding: 32px;
   }
 
+  .herb-detail__glyph {
+    color: var(--verde-hoja);
+    padding: 12px;
+  }
+
   h3 {
     font-size: clamp(38px, 5vw, 64px);
     line-height: 1;
@@ -112,9 +175,16 @@ const FACTS = [
     margin-top: 6px;
   }
 
+  .herb-detail__note {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--ink-muted);
+    max-width: 34em;
+  }
+
   .facts {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, minmax(0, 15em));
     gap: 14px 28px;
     margin: 0;
     font-size: 14px;
@@ -137,7 +207,6 @@ const FACTS = [
   .facts dd {
     margin: 0;
     font-weight: 500;
-    font-variant-numeric: tabular-nums;
   }
 
   .knowledge {
@@ -176,52 +245,116 @@ const FACTS = [
     margin-top: 12px;
   }
 
+  .knowledge__evidence {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  .knowledge__evidence p {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
   .knowledge__molecule {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
-    margin-top: 20px;
-  }
-
-  .knowledge__sources {
-    margin-top: 18px;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--ink-muted);
+    margin-top: 16px;
     font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ink-muted);
   }
 
-  .in-jar {
+  .limits {
+    display: grid;
+    gap: 12px 40px;
+    margin: 0 12px;
+    padding: 28px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .limits--split {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .limits__cautions {
+    --eyebrow-color: var(--rojo-achiote);
+  }
+
+  .limits ul,
+  .studies ol {
+    margin: 14px 0 0;
+    padding-left: 1.2em;
+    display: grid;
+    gap: 8px;
+  }
+
+  .limits li {
+    color: var(--ink-muted);
+  }
+
+  .studies {
+    padding: 28px 32px;
+  }
+
+  .studies li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 15px;
+  }
+
+  .studies li::marker {
+    font-family: var(--font-mono);
+    color: var(--ink-muted);
+  }
+
+  .studies a {
+    font-weight: 600;
+    color: var(--verde-hoja);
+    text-underline-offset: 3px;
+  }
+
+  .studies__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .studies__finding {
+    color: var(--ink-muted);
+  }
+
+  .in-formula {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 20px;
     align-items: center;
     padding: 24px 32px 28px;
+    border-top: 1px solid var(--line);
   }
 
-  .in-jar p {
+  .in-formula p {
     color: var(--ink-muted);
     margin-top: 8px;
     max-width: 50em;
   }
 
-  .in-jar b {
-    color: var(--ink);
-    font-weight: 600;
-  }
-
   @media (max-width: 820px) {
     .herb-detail__head {
       grid-template-columns: 1fr;
+      gap: 20px;
       padding: 24px;
     }
 
-    .herb-detail__jar {
+    .herb-detail__glyph {
       display: none;
     }
 
-    .knowledge {
+    .knowledge,
+    .limits--split {
       grid-template-columns: 1fr;
     }
 
@@ -229,7 +362,15 @@ const FACTS = [
       padding: 24px;
     }
 
-    .in-jar {
+    .limits {
+      padding: 24px 12px;
+    }
+
+    .studies {
+      padding: 24px;
+    }
+
+    .in-formula {
       grid-template-columns: 1fr;
       padding: 20px 24px 24px;
     }

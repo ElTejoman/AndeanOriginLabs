@@ -1,0 +1,53 @@
+{
+  "order": 9,
+  "name": "Chancapiedra",
+  "scientificName": "Phyllanthus niruri",
+  "identityNote": "Por autenticar: con este nombre también se venden otras especies de Phyllanthus.",
+  "origin": "Trópicos; Amazonía peruana",
+  "sourcing": "Tingo María, Huánuco",
+  "partUsed": "Partes aéreas",
+  "partGlyph": "planta",
+  "focus": "Salud urinaria",
+  "evidence": {
+    "level": "humanos",
+    "summary": "Limitada a moderada: pocos estudios en personas con cálculos urinarios."
+  },
+  "tradition": {
+    "title": "La que chanca la piedra",
+    "paragraphs": [
+      "En inglés se la conoce como stone breaker, «rompepiedras», por su asociación con los cálculos urinarios.",
+      "En el Perú se encuentra ampliamente en la Amazonía y en zonas húmedas. Su zona de abastecimiento es Tingo María, en Huánuco."
+    ]
+  },
+  "science": {
+    "title": "Estudiada en cálculos urinarios",
+    "paragraphs": [
+      "Un metaanálisis de dos estudios en personas encontró que los cálculos se redujeron de forma modesta en tamaño y en número.",
+      "Una revisión de 16 estudios en personas y animales describe cómo podría actuar: dificulta que los cristales se formen y se junten. Los resultados de la literatura son mixtos."
+    ]
+  },
+  "unknowns": [
+    "No es un tratamiento probado de la enfermedad renal crónica ni «protege los riñones» en general.",
+    "No hay evidencia de que mejore el sueño."
+  ],
+  "studies": [
+    {
+      "citation": "Dhawan y Olweny, 2020",
+      "title": "Phyllanthus niruri (stone breaker) herbal therapy for kidney stones; a systematic review and meta-analysis of clinical efficacy, and Google Trends analysis of public interest",
+      "finding": "Metaanálisis de 2 estudios en personas: reducción modesta del tamaño y el número de cálculos.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32333735/"
+    },
+    {
+      "citation": "Iregui-Parra et al., 2025",
+      "title": "Phyllanthus niruri in the management of nephrolithiasis: A systematic review of the literature",
+      "finding": "Revisión de 16 estudios en personas y animales: posibles mecanismos y resultados mixtos.",
+      "url": "https://doi.org/10.1016/j.acuroe.2025.501791"
+    },
+    {
+      "citation": "Cai et al., 2021",
+      "title": "Phyllanthus niruri and Chrysanthellum americanum in association with potassium and magnesium citrates are able to prevent symptomatic episode in patients affected by recurrent urinary stones: A prospective study",
+      "finding": "82 personas con cálculos recurrentes, sin grupo de control y con un suplemento que también llevaba citratos y otra planta: no aísla el efecto de la chancapiedra.",
+      "url": "https://doi.org/10.4081/aiua.2021.2.184"
+    }
+  ]
+}

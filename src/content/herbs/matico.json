@@ -1,30 +1,55 @@
 {
-  "order": 5,
+  "order": 4,
   "name": "Matico",
   "scientificName": "Piper aduncum",
-  "region": "amazonia",
-  "regionDetail": "Selva alta · Huánuco, Pasco, Cusco",
+  "identityNote": "Identificación provisional: «matico» también nombra a otras especies de Piper.",
+  "origin": "América tropical",
+  "sourcing": "San Martín",
   "partUsed": "Hojas",
-  "altitude": { "typical": 1500, "min": 500, "max": 2000 },
-  "molecule": { "name": "dilapiol", "formula": "C12H14O4" },
-  "science": {
-    "title": "Antimicrobiano en laboratorio",
-    "paragraphs": [
-      "Sus hojas contienen dilapiol y otros fenilpropanoides.",
-      "En pruebas de laboratorio estos compuestos muestran actividad contra bacterias, hongos e insectos."
-    ],
-    "sources": "Estudios sobre el aceite esencial de Piper aduncum, Journal of Ethnopharmacology y Phytochemistry."
+  "partGlyph": "hoja",
+  "focus": "Resfríos e inflamación",
+  "compounds": ["Fenilpropanoides", "Terpenos"],
+  "molecule": { "name": "dilapiol", "formula": "C12H14O4", "family": "fenilpropanoide" },
+  "evidence": {
+    "level": "preclinica",
+    "summary": "Laboratorio y animales, más un uso tradicional largo y documentado."
   },
   "tradition": {
-    "title": "Hoja para las heridas",
+    "title": "La hoja de los resfríos",
     "paragraphs": [
-      "Las hojas se machacan o se hierven para lavar heridas, llagas y picaduras.",
-      "En infusión se toma para el dolor de estómago."
+      "Abundante en la Amazonía peruana, la hoja de matico tiene un largo uso tradicional en las molestias respiratorias.",
+      "Una encuesta en Huancayo documentó su uso para prevenir enfermedades respiratorias. Eso describe la costumbre; no prueba que funcione."
     ]
   },
-  "usage": {
-    "traditional": "infusión de hojas",
-    "withExtract": "En agua caliente, como la infusión de siempre."
+  "science": {
+    "title": "Antiinflamatorio en laboratorio",
+    "paragraphs": [
+      "El aceite esencial de la hoja es rico en dilapiol. En ratones redujo la fiebre, la inflamación y las respuestas al dolor.",
+      "En laboratorio, el extracto de matico frenó la fosfolipasa A2, una enzima que pone en marcha la inflamación."
+    ]
   },
-  "lot": { "origin": "Oxapampa, Pasco" }
+  "unknowns": [
+    "No hay ensayos en personas.",
+    "No está probado que acorte el resfrío ni que prevenga infecciones."
+  ],
+  "studies": [
+    {
+      "citation": "Fernandes et al., 2026",
+      "title": "Essential oil from Piper aduncum L. leaves exhibits analgesic and anti-inflammatory activity in mice",
+      "finding": "En ratones, el aceite esencial de la hoja, con cerca de 70 % de dilapiol, redujo fiebre, inflamación y dolor.",
+      "url": "https://doi.org/10.1007/s10787-026-02415-y"
+    },
+    {
+      "citation": "Yarlequé-Chocas et al., 2023",
+      "title": "Actividad antiinflamatoria in vitro de Plantago major L. y Piper aduncum L. sobre la fosfolipasa A2 del veneno de la serpiente Lachesis muta muta",
+      "finding": "En laboratorio, el extracto de matico inhibió la fosfolipasa A2, una enzima ligada a la inflamación.",
+      "url": "https://doi.org/10.17843/rpmesp.2023.403.12191"
+    },
+    {
+      "citation": "De la Cruz Huaman y Huayas Hilario (tesis)",
+      "title": "Conocimiento y uso tradicional del Piper aduncum para prevenir enfermedades respiratorias en usuarios de la Botica Ahorrofarma, Huancayo – 2024",
+      "finding": "Encuesta a 160 personas en Huancayo sobre el uso tradicional del matico. Documenta la costumbre, no su eficacia.",
+      "url": "https://repositorio.uroosevelt.edu.pe/items/6fcac563-259a-4ac6-9258-b6e95d5acc4e"
+    }
+  ]
 }

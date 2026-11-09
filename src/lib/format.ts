@@ -5,8 +5,15 @@ const numberFormat = new Intl.NumberFormat(LOCALE, { useGrouping: "always" });
 
 export const formatNumber = (value: number): string => numberFormat.format(value);
 
-/** "200 – 800" */
-export const formatRange = (min: number, max: number): string => `${formatNumber(min)} – ${formatNumber(max)}`;
+const listFormat = new Intl.ListFormat(LOCALE, { type: "conjunction" });
+
+/** "ubos e icoja", "matico, ajo sacha y jengibre" */
+export const formatList = (items: string[]): string => listFormat.format(items);
+
+const NUMBER_WORDS: Record<number, string> = { 2: "Dos", 3: "Tres", 4: "Cuatro", 8: "Ocho", 10: "Diez", 12: "Doce" };
+
+/** El número en palabras ("Doce") para titulares; si no está en la lista, en cifras. */
+export const spelledNumber = (value: number): string => NUMBER_WORDS[value] ?? String(value);
 
 export type FormulaPart = { text: string; sub: boolean };
 

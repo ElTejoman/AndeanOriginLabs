@@ -1,0 +1,63 @@
+{
+  "order": 11,
+  "name": "Menta",
+  "scientificName": "Mentha × piperita",
+  "identityNote": "Por confirmar si es menta (M. × piperita) o hierbabuena (M. spicata).",
+  "origin": "Eurasia; cultivada en el Perú",
+  "sourcing": "Por definir",
+  "partUsed": "Hojas",
+  "partGlyph": "hojas-opuestas",
+  "focus": "Hinchazón y cólicos",
+  "compounds": ["Mentol"],
+  "molecule": { "name": "mentol", "formula": "C10H20O", "family": "monoterpeno" },
+  "evidence": {
+    "level": "humanos",
+    "summary": "Buena en personas, pero con aceite de menta en cápsulas entéricas, no con extracto de hoja."
+  },
+  "tradition": {
+    "title": "Un uso tradicional reconocido",
+    "paragraphs": [
+      "Es de origen euroasiático y se cultiva ampliamente en el Perú.",
+      "La Agencia Europea de Medicamentos reconoce el uso tradicional de la hoja para la indigestión y los gases."
+    ]
+  },
+  "science": {
+    "title": "La de más evidencia",
+    "paragraphs": [
+      "En el colon irritable, el aceite de menta en cápsulas con cubierta entérica alivió los síntomas y el dolor más que un placebo, según dos metaanálisis de varios ensayos.",
+      "El mentol relaja el músculo del intestino: un mecanismo plausible de su efecto sobre los espasmos. Una guía médica canadiense de 2019 sugiere ofrecerlo, aunque con evidencia de baja calidad."
+    ]
+  },
+  "unknowns": [
+    "Los ensayos usaron aceite en cápsulas: sus resultados no se trasladan directamente a un extracto de hoja."
+  ],
+  "cautions": [
+    "Puede empeorar la acidez o el reflujo en algunas personas: fue el efecto adverso más frecuente en los ensayos."
+  ],
+  "studies": [
+    {
+      "citation": "Ford et al., 2008",
+      "title": "Effect of fibre, antispasmodics, and peppermint oil in the treatment of irritable bowel syndrome: systematic review and meta-analysis",
+      "finding": "4 ensayos con 392 personas: el aceite de menta superó al placebo en el colon irritable.",
+      "url": "https://doi.org/10.1136/bmj.a2313"
+    },
+    {
+      "citation": "Khanna et al., 2014",
+      "title": "Peppermint oil for the treatment of irritable bowel syndrome: a systematic review and meta-analysis",
+      "finding": "9 ensayos con 726 personas: alivio global y del dolor; la acidez fue el efecto adverso más común.",
+      "url": "https://doi.org/10.1097/MCG.0b013e3182a88357"
+    },
+    {
+      "citation": "Moayyedi et al., 2019",
+      "title": "Canadian Association of Gastroenterology Clinical Practice Guideline for the Management of Irritable Bowel Syndrome (IBS)",
+      "finding": "Guía médica: sugiere ofrecer aceite de menta en el colon irritable (recomendación condicional).",
+      "url": "https://doi.org/10.1093/jcag/gwy071"
+    },
+    {
+      "citation": "Agencia Europea de Medicamentos (EMA)",
+      "title": "Menthae piperitae folium",
+      "finding": "Reconoce el uso tradicional de la hoja para la indigestión y los gases.",
+      "url": "https://www.ema.europa.eu/en/medicines/herbal/menthae-piperitae-folium"
+    }
+  ]
+}

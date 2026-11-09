@@ -1,48 +1,29 @@
 ---
-import ChemicalFormula from "@/components/ui/ChemicalFormula.astro";
 import { SITE } from "@/data/site";
-import type { Herb } from "@/lib/herbs";
+import { formulaNumber, type Formula } from "@/lib/formulas";
 
-/**
- * El frasco del producto, dibujado solo con CSS. Escala con `width`: todo se mide en em.
- * `mini` es la versión simplificada de las tarjetas de la colección.
- */
+/** El frasco de una fórmula, dibujado solo con CSS. Escala con `width`: todo se mide en em. */
 type Props = {
-  herb: Pick<Herb, "name" | "scientificName" | "molecule" | "lot">;
+  formula: Pick<Formula, "name" | "order" | "herbs">;
   width?: number;
-  variant?: "full" | "mini";
   class?: string;
 };
-const { herb, width = 200, variant = "full", class: className } = Astro.props;
+const { formula, width = 200, class: className } = Astro.props;
 ---
 
-<span class:list={["jar", `jar--${variant}`, className]} style={`--jar-width: ${width}px`} aria-hidden="true">
+<span class:list={["jar", className]} style={`--jar-width: ${width}px`} aria-hidden="true">
   <span class="jar__lid"></span>
   <span class="jar__neck"></span>
   <span class="jar__body">
     <span class="jar__label">
-      {
-        variant === "mini" ? (
-          <>
-            <span class="jar__name">{herb.name}</span>
-            <span class="jar__band">Extracto</span>
-          </>
-        ) : (
-          <>
-            <span class="jar__brand">
-              <i></i>
-              {SITE.name}
-            </span>
-            <span class="jar__name">{herb.name}</span>
-            <span class="jar__sci">{herb.scientificName}</span>
-            <span class="jar__band">Extracto concentrado</span>
-            <span class="jar__formula">
-              <ChemicalFormula formula={herb.molecule.formula} />
-            </span>
-            <span class="jar__lot">{herb.lot.origin} · Lote 001</span>
-          </>
-        )
-      }
+      <span class="jar__brand">
+        <i></i>
+        {SITE.name}
+      </span>
+      <span class="jar__name">{formula.name}</span>
+      <span class="jar__herbs">{formula.herbs.map((herb) => herb.name).join(" · ")}</span>
+      <span class="jar__band">Extracto concentrado</span>
+      <span class="jar__lot">{formulaNumber(formula)} · Hecho en Perú</span>
     </span>
   </span>
 </span>
@@ -133,13 +114,13 @@ const { herb, width = 200, variant = "full", class: className } = Astro.props;
     letter-spacing: -0.02em;
   }
 
-  .jar__sci {
+  .jar__herbs {
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 300;
-    font-size: 0.8em;
+    font-size: 0.72em;
     color: var(--jar-muted);
-    margin-top: 0.2em;
+    margin-top: 0.3em;
   }
 
   .jar__band {
@@ -153,38 +134,11 @@ const { herb, width = 200, variant = "full", class: className } = Astro.props;
     margin: 0.9em -1.65em 0;
   }
 
-  .jar__formula {
-    font-family: var(--font-mono);
-    font-size: 0.62em;
-    margin-top: 0.8em;
-    color: var(--jar-ink);
-  }
-
   .jar__lot {
     font-family: var(--font-mono);
     font-size: 0.5em;
     color: var(--jar-muted);
-    margin-top: 0.5em;
+    margin-top: 0.8em;
     letter-spacing: 0.06em;
-  }
-
-  /* versión mini (tarjetas) */
-  .jar--mini .jar__body {
-    padding: 1em 0 0.9em;
-  }
-
-  .jar--mini .jar__label {
-    padding: 0.7em 0.3em;
-  }
-
-  .jar--mini .jar__name {
-    font-size: 1.45em;
-    margin-top: 0;
-  }
-
-  .jar--mini .jar__band {
-    margin: 0.6em -0.3em 0;
-    font-size: 0.55em;
-    padding: 0.45em 0;
   }
 </style>

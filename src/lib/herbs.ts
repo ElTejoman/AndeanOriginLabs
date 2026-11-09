@@ -1,27 +1,18 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import type { FORMATS, REGIONS } from "@/content.config";
+import type { EVIDENCE_LEVELS, PART_GLYPHS } from "@/content.config";
 
 export type Herb = CollectionEntry<"herbs">["data"] & { id: string };
-export type Region = (typeof REGIONS)[number];
-export type Format = (typeof FORMATS)[number];
+export type EvidenceLevel = (typeof EVIDENCE_LEVELS)[number];
+export type PartGlyph = (typeof PART_GLYPHS)[number];
 
-const REGION_LABELS: Record<Region, string> = {
-  amazonia: "Amazonía",
-  andes: "Andes",
+/** Nombre corto de cada tipo de evidencia, igual en las fichas y en "Cómo leer la evidencia". */
+export const EVIDENCE_LABELS: Record<EvidenceLevel, string> = {
+  humanos: "Estudios en personas",
+  preclinica: "Laboratorio y animales",
+  tradicional: "Uso tradicional",
 };
 
-export const regionLabel = (region: Region): string => REGION_LABELS[region];
-
-const FORMAT_LABELS: Record<Format, string> = {
-  hidroalcoholico: "Extracto hidroalcohólico",
-  granulos: "Extracto seco en gránulos",
-};
-
-/** Formatos de la hierba en texto. Sin formatos definidos, un texto genérico. */
-export const formatsLabel = (herb: Herb): string =>
-  herb.formats?.map((format) => FORMAT_LABELS[format]).join(" · ") ?? "Extracto concentrado";
-
-/** Todas las hierbas, en el orden editorial definido en cada archivo. */
+/** Todas las plantas, en el orden editorial definido en cada archivo. */
 export async function getHerbs(): Promise<Herb[]> {
   const entries = await getCollection("herbs");
   return entries.map((entry) => ({ id: entry.id, ...entry.data })).sort((a, b) => a.order - b.order);
@@ -29,9 +20,6 @@ export async function getHerbs(): Promise<Herb[]> {
 
 export function getHerb(herbs: Herb[], id: string): Herb {
   const herb = herbs.find((h) => h.id === id);
-  if (!herb) throw new Error(`No existe la hierba "${id}" en src/content/herbs`);
+  if (!herb) throw new Error(`No existe la planta "${id}" en src/content/herbs`);
   return herb;
 }
-
-/** La altitud máxima del hábitat entre todas las hierbas (dato del hero). */
-export const highestAltitude = (herbs: Herb[]): number => Math.max(...herbs.map((h) => h.altitude.max));

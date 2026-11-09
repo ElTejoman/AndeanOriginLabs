@@ -1,25 +1,12 @@
 import { animate, stagger } from "animejs";
 import { mustQs, onFirstVisible, qsa } from "@/scripts/core/dom";
-import { emit } from "@/scripts/core/events";
 import { EASE, isMotionEnabled, settle } from "@/scripts/motion/motion";
 
 /**
- * Perfil de altitud: cada pin abre la ficha de su hierba en la colección.
- * Al entrar en pantalla se dibuja la cresta, caen los pines y laten los halos.
+ * Perfil de origen: al entrar en pantalla se dibuja la cresta, caen los puntos de cada zona y laten sus halos.
+ * Las plantas de cada zona se abren desde la lista bajo el perfil (data-select-herb).
  */
-export function initAltitudeProfile(svg: SVGSVGElement): void {
-  const openPin = (target: EventTarget | null): void => {
-    const pin = (target as Element | null)?.closest<SVGGElement>("[data-pin]");
-    if (pin) emit("herb:select", { id: pin.dataset["pin"]!, scroll: true });
-  };
-
-  svg.addEventListener("click", (event) => openPin(event.target));
-  svg.addEventListener("keydown", (event) => {
-    if (event.key !== "Enter" && event.key !== " ") return;
-    event.preventDefault();
-    openPin(event.target);
-  });
-
+export function initOriginProfile(svg: SVGSVGElement): void {
   if (isMotionEnabled()) onFirstVisible(svg, () => playProfileIntro(svg));
 }
 

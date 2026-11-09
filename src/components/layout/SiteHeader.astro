@@ -1,7 +1,7 @@
 ---
 import Button from "@/components/ui/Button.astro";
 import Logo from "@/components/ui/Logo.astro";
-import { NAV_LINKS, WAITLIST_ANCHOR } from "@/data/site";
+import { NAV_LINKS, PARTNERS_ANCHOR } from "@/data/site";
 ---
 
 <header class="site-header">
@@ -10,8 +10,8 @@ import { NAV_LINKS, WAITLIST_ANCHOR } from "@/data/site";
     <nav class="site-nav" aria-label="Secciones">
       {NAV_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
     </nav>
-    <Button href={WAITLIST_ANCHOR} size="sm" class="site-header__cta">
-      <span class="cta-long">Reserva tu frasco</span><span class="cta-short">Reservar</span>
+    <Button href={PARTNERS_ANCHOR} size="sm" class="site-header__cta">
+      <span class="cta-long">Para profesionales</span><span class="cta-short">Asociarse</span>
     </Button>
   </div>
 </header>

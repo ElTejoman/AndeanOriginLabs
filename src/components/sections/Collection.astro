@@ -3,26 +3,25 @@ import HerbCard from "@/components/collection/HerbCard.astro";
 import HerbDetail from "@/components/collection/HerbDetail.astro";
 import Section from "@/components/ui/Section.astro";
 import SectionHeader from "@/components/ui/SectionHeader.astro";
-import { regionLabel, type Herb } from "@/lib/herbs";
+import { spelledNumber } from "@/lib/format";
+import { formulaOf, type Formula } from "@/lib/formulas";
+import type { Herb } from "@/lib/herbs";
 
-type Props = { herbs: Herb[] };
-const { herbs } = Astro.props;
+type Props = { herbs: Herb[]; formulas: Formula[] };
+const { herbs, formulas } = Astro.props;
 
 const selectedId = herbs[0]?.id;
 const FILTERS = [
   { value: "todas", label: "Todas" },
-  { value: "amazonia", label: regionLabel("amazonia") },
-  { value: "andes", label: regionLabel("andes") },
-] as const;
-const numberWords: Record<number, string> = { 8: "Ocho", 9: "Nueve", 10: "Diez", 12: "Doce" };
-const countWord = numberWords[herbs.length] ?? String(herbs.length);
+  ...formulas.map((formula) => ({ value: formula.id, label: formula.name })),
+];
 ---
 
 <Section id="hierbas" surface="grid-alt" data-collection>
   <div class="wrap">
-    <SectionHeader eyebrow="La colección">
-      {countWord} hierbas, <em>{countWord.toLowerCase()} frascos</em>
-      <div slot="aside" class="filters" role="group" aria-label="Filtrar por región">
+    <SectionHeader eyebrow="El herbario">
+      {spelledNumber(herbs.length)} plantas, <em>{spelledNumber(formulas.length).toLowerCase()} fórmulas</em>
+      <div slot="aside" class="filters" role="group" aria-label="Filtrar por fórmula">
         {
           FILTERS.map((filter, i) => (
             <button type="button" data-filter={filter.value} aria-pressed={i === 0}>
@@ -34,10 +33,18 @@ const countWord = numberWords[herbs.length] ?? String(herbs.length);
     </SectionHeader>
 
     <div class="herb-grid" data-herb-grid data-reveal>
-      {herbs.map((herb) => <HerbCard herb={herb} selected={herb.id === selectedId} />)}
+      {
+        herbs.map((herb) => (
+          <HerbCard herb={herb} formula={formulaOf(formulas, herb.id)} selected={herb.id === selectedId} />
+        ))
+      }
     </div>
 
-    {herbs.map((herb) => <HerbDetail herb={herb} active={herb.id === selectedId} />)}
+    {
+      herbs.map((herb) => (
+        <HerbDetail herb={herb} formula={formulaOf(formulas, herb.id)} active={herb.id === selectedId} />
+      ))
+    }
   </div>
 </Section>
 
@@ -88,7 +95,7 @@ const countWord = numberWords[herbs.length] ?? String(herbs.length);
 
   @media (max-width: 460px) {
     .herb-grid {
-      grid-template-columns: 1fr;
+      gap: 8px;
     }
   }
 </style>

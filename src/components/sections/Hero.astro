@@ -1,36 +1,45 @@
 ---
 import Button from "@/components/ui/Button.astro";
 import Jar from "@/components/ui/Jar.astro";
-import { WAITLIST_ANCHOR } from "@/data/site";
+import { PARTNERS_ANCHOR } from "@/data/site";
 import { formatNumber, formulaToUnicode } from "@/lib/format";
-import { getHerb, highestAltitude, type Herb } from "@/lib/herbs";
+import { formulaOf, type Formula } from "@/lib/formulas";
+import { getHerb, type Herb } from "@/lib/herbs";
 
-type Props = { herbs: Herb[] };
-const { herbs } = Astro.props;
+type Props = { herbs: Herb[]; formulas: Formula[] };
+const { herbs, formulas } = Astro.props;
 
-/** La hierba que protagoniza el espécimen (nota de la hoja y de la molécula). */
-const featured = getHerb(herbs, "una-de-gato");
-const moleculeName = featured.molecule.name.charAt(0).toUpperCase() + featured.molecule.name.slice(1);
+/** La planta que protagoniza el espécimen (la hoja y su molécula) y la fórmula que la lleva (el frasco). */
+const featured = getHerb(herbs, "matico");
+const product = formulaOf(formulas, featured.id);
+const molecule = featured.molecule;
+if (!molecule) throw new Error(`La planta del hero ("${featured.id}") necesita una molécula`);
+const moleculeName = molecule.name.charAt(0).toUpperCase() + molecule.name.slice(1);
 
 const STAGES = [
   {
     step: "01 · Tradición",
     title: "La hoja",
     noteTitle: featured.scientificName,
-    noteText: `${featured.lot.origin} · ${formatNumber(featured.altitude.typical)} msnm`,
+    noteText: `${featured.name} · ${featured.sourcing}`,
   },
   {
     step: "02 · Ciencia",
     title: "La molécula",
-    noteTitle: `${moleculeName} · ${formulaToUnicode(featured.molecule.formula)}`,
-    noteText: featured.molecule.family ?? "",
+    noteTitle: `${moleculeName} · ${formulaToUnicode(molecule.formula)}`,
+    noteText: molecule.family ?? "",
   },
-  { step: "03 · Producto", title: "El frasco", noteTitle: "Gotas o gránulos", noteText: "Lote 001 · próximamente" },
+  {
+    step: "03 · Producto",
+    title: "El frasco",
+    noteTitle: `Fórmula ${product.name}`,
+    noteText: product.herbs.map((herb) => herb.name).join(" · "),
+  },
 ];
 
 const STATS = [
-  { value: herbs.length, label: "Hierbas peruanas", animate: true },
-  { value: highestAltitude(herbs), label: "msnm, la más alta", animate: true },
+  { value: formulas.length, label: "Fórmulas", animate: true },
+  { value: herbs.length, label: "Plantas", animate: true },
   { value: 2, label: "Saberes por frasco", animate: false },
 ];
 
@@ -40,17 +49,17 @@ const TITLE = "Ciencia que nace de la tradición.";
 <section class="hero night night-grid" aria-labelledby="hero-title">
   <div class="wrap hero__inner">
     <div class="hero__copy">
-      <div class="eyebrow">Próximamente · Extractos de plantas · Hecho en Perú</div>
+      <div class="eyebrow">Para médicos y clínicas · Hecho en Perú</div>
       <h1 id="hero-title" class="hero__title" aria-label={TITLE} data-hero-title>
         Ciencia que nace de la <em>tradición.</em>
       </h1>
       <p class="hero__lead" data-intro>
-        Las hierbas medicinales del Ande y la Amazonía, concentradas en gotas o en gránulos. En cada etiqueta, dos saberes:
-        lo que la ciencia ha estudiado y lo que nuestras comunidades han sabido siempre.
+        Cuatro fórmulas con plantas del Ande y la Amazonía para recetar con respaldo. De cada planta, dos saberes: lo que
+        la ciencia ha estudiado y lo que nuestras comunidades han sabido siempre.
       </p>
       <div class="hero__ctas" data-intro>
-        <Button href={WAITLIST_ANCHOR} arrow>Reserva tu primer frasco</Button>
-        <Button href="#producto" variant="line">Conoce el frasco</Button>
+        <Button href={PARTNERS_ANCHOR} arrow>Asóciate como profesional</Button>
+        <Button href="#formulas" variant="line">Conoce las fórmulas</Button>
       </div>
       <dl class="hero__stats" data-intro>
         {
@@ -72,7 +81,7 @@ const TITLE = "Ciencia que nace de la tradición.";
     >
       <div class="specimen__stage" data-specimen-stage>
         <div class="specimen__fallback" data-specimen-fallback hidden>
-          <Jar herb={featured} width={220} />
+          <Jar formula={product} width={220} />
         </div>
       </div>
       <div class="specimen__ring" aria-hidden="true"></div>

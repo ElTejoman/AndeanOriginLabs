@@ -1,0 +1,55 @@
+{
+  "order": 6,
+  "name": "Jengibre",
+  "otherNames": ["kion"],
+  "scientificName": "Zingiber officinale",
+  "origin": "Asia; cultivado en el Perú",
+  "sourcing": "Selva central · por definir",
+  "partUsed": "Rizoma",
+  "partGlyph": "rizoma",
+  "focus": "Resfríos y náuseas",
+  "compounds": ["Gingeroles", "Shogaoles"],
+  "molecule": { "name": "6-gingerol", "formula": "C17H26O4", "family": "fenol" },
+  "evidence": {
+    "level": "humanos",
+    "summary": "Moderada en personas, sobre todo para las náuseas. Lo respiratorio es casi todo de laboratorio."
+  },
+  "tradition": {
+    "title": "El kion de la selva central",
+    "paragraphs": [
+      "En el Perú se le dice kion. Es originario de Asia y hoy se cultiva ampliamente en la selva central.",
+      "Forma parte del alivio tradicional durante los resfríos."
+    ]
+  },
+  "science": {
+    "title": "El más estudiado en personas",
+    "paragraphs": [
+      "Una revisión de 109 ensayos en personas encontró el respaldo más constante para las náuseas y vómitos del embarazo, la inflamación y la función digestiva. Solo 4 de cada 10 ensayos eran de alta calidad.",
+      "En células de vías respiratorias, el jengibre fresco, no el seco, impidió que el virus respiratorio sincitial se adhiriera y entrara."
+    ]
+  },
+  "unknowns": [
+    "No está demostrado que trate ni prevenga infecciones respiratorias: los pocos ensayos en personas tienen resultados mixtos.",
+    "Fresco y seco no son lo mismo: el efecto en células se vio solo con jengibre fresco."
+  ],
+  "studies": [
+    {
+      "citation": "Chang et al., 2013",
+      "title": "Fresh ginger (Zingiber officinale) has anti-viral activity against human respiratory syncytial virus in human respiratory tract cell lines",
+      "finding": "En células, el jengibre fresco frenó la entrada del virus respiratorio sincitial; el seco no.",
+      "url": "https://doi.org/10.1016/j.jep.2012.10.043"
+    },
+    {
+      "citation": "Anh et al., 2020",
+      "title": "Ginger on Human Health: A Comprehensive Systematic Review of 109 Randomized Controlled Trials",
+      "finding": "Revisión de 109 ensayos en personas: respaldo más constante para náuseas del embarazo, inflamación y digestión.",
+      "url": "https://doi.org/10.3390/nu12010157"
+    },
+    {
+      "citation": "Alexandrova et al., 2026",
+      "title": "A Review of the Properties of Clinically Evaluated Plant-Derived Agents in the Treatment of Respiratory Infections",
+      "finding": "Revisión de plantas probadas en infecciones respiratorias; los ensayos con jengibre son pocos y de resultados mixtos.",
+      "url": "https://doi.org/10.3390/nu18101534"
+    }
+  ]
+}

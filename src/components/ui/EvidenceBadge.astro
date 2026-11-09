@@ -1,0 +1,52 @@
+---
+import { EVIDENCE_LABELS, type EvidenceLevel } from "@/lib/herbs";
+
+/**
+ * Etiqueta del tipo de evidencia que respalda a una planta. El color sale de `level`;
+ * `label` reemplaza el texto (la guía de evidencia separa "En animales" de "En laboratorio").
+ */
+type Props = { level: EvidenceLevel; label?: string; class?: string };
+const { level, label, class: className } = Astro.props;
+---
+
+<span class:list={["evidence", `evidence--${level}`, className]}>
+  <i aria-hidden="true"></i>{!label && <span class="visually-hidden">Evidencia: </span>}{label ?? EVIDENCE_LABELS[level]}
+</span>
+
+<style>
+  .evidence {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    background: var(--surface-000);
+    white-space: nowrap;
+  }
+
+  i {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--evidence-color);
+  }
+
+  .evidence--humanos {
+    --evidence-color: var(--verde-hoja);
+  }
+
+  .evidence--preclinica {
+    --evidence-color: var(--ocre-maca);
+  }
+
+  .evidence--tradicional {
+    --evidence-color: var(--rojo-achiote);
+  }
+</style>

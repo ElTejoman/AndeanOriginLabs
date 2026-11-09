@@ -1,0 +1,52 @@
+{
+  "order": 8,
+  "name": "Hojas de naranja",
+  "scientificName": "Citrus aurantium",
+  "identityNote": "Por confirmar si es naranja agria (C. aurantium) o dulce (C. sinensis). Los estudios citados son de naranja agria.",
+  "origin": "Asia; cultivada en el Perú",
+  "sourcing": "Por definir",
+  "partUsed": "Hojas",
+  "partGlyph": "hoja-citrica",
+  "focus": "Relajación",
+  "evidence": {
+    "level": "humanos",
+    "summary": "En personas, solo con aceite esencial inhalado. Para la hoja, la evidencia es débil y en animales."
+  },
+  "tradition": {
+    "title": "Un cítrico venido de Asia",
+    "paragraphs": [
+      "Los cítricos son de origen asiático y hoy se cultivan ampliamente en el Perú. En la fórmula, sus hojas se orientan a la relajación."
+    ]
+  },
+  "science": {
+    "title": "Calmante en estudio",
+    "paragraphs": [
+      "En dos ensayos con personas, uno con 80 mujeres posmenopáusicas y otro con 68 embarazadas con problemas de sueño, inhalar aceite esencial de Citrus aurantium mejoró la calidad del sueño.",
+      "En ratones, el efecto ansiolítico se vio con el aceite de la cáscara. Del extracto de hoja, solo algunas fracciones prolongaron el sueño provocado por un sedante."
+    ]
+  },
+  "unknowns": [
+    "No hay estudios en personas con extracto de hoja tomado por boca.",
+    "Los resultados de la aromaterapia no se pueden trasladar a un extracto de hoja."
+  ],
+  "studies": [
+    {
+      "citation": "Carvalho-Freitas y Costa, 2002",
+      "title": "Anxiolytic and sedative effects of extracts and essential oil from Citrus aurantium L.",
+      "finding": "En ratones: el aceite de cáscara tuvo efecto ansiolítico; del extracto de hoja, solo algunas fracciones prolongaron el sueño.",
+      "url": "https://doi.org/10.1248/bpb.25.1629"
+    },
+    {
+      "citation": "Abbaspoor et al., 2022",
+      "title": "The Effect of Citrus Aurantium Aroma on the Sleep Quality in Postmenopausal Women: A Randomized Controlled Trial",
+      "finding": "Ensayo con 80 mujeres posmenopáusicas: inhalar el aceite durante 4 semanas mejoró la calidad del sueño.",
+      "url": "https://doi.org/10.30476/IJCBNM.2021.90322.1693"
+    },
+    {
+      "citation": "Mohammadi et al., 2022",
+      "title": "The Impact of Aromatherapy with Citrus Aurantium Essential Oil on Sleep Quality in Pregnant Women with Sleep Disorders: A Randomized Controlled Clinical Trial",
+      "finding": "Ensayo con 68 embarazadas con trastornos del sueño, bajo protocolo médico: la aromaterapia mejoró el sueño frente al placebo.",
+      "url": "https://doi.org/10.30476/IJCBNM.2022.92696.1900"
+    }
+  ]
+}

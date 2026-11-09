@@ -3,8 +3,12 @@ import Button from "@/components/ui/Button.astro";
 import Section from "@/components/ui/Section.astro";
 import SectionHeader from "@/components/ui/SectionHeader.astro";
 import { PARTNER_BENEFITS, PARTNER_KINDS, PARTNERS } from "@/data/content";
+import type { Formula } from "@/lib/formulas";
 
 /** Sección B2B: médicos y clínicas asociados, qué reciben y formulario para asociarse. */
+type Props = { formulas: Formula[] };
+const { formulas } = Astro.props;
+
 const webhookUrl = import.meta.env.PUBLIC_PARTNERS_WEBHOOK_URL ?? "";
 const pad = (n: number) => String(n).padStart(2, "0");
 ---
@@ -25,8 +29,8 @@ const pad = (n: number) => String(n).padStart(2, "0");
         )
       }
       <p slot="aside">
-        Trabajamos con profesionales de salud que quieren recetar plantas peruanas con respaldo científico y origen
-        trazable.
+        Trabajamos con profesionales de salud que quieren recetar fórmulas de plantas del Ande y la Amazonía con la
+        evidencia de cada planta explicada y origen trazable.
       </p>
     </SectionHeader>
 
@@ -45,8 +49,8 @@ const pad = (n: number) => String(n).padStart(2, "0");
         <div class="partners-founding" data-reveal>
           <div class="eyebrow">Red de aliados fundadores</div>
           <p>
-            Estamos formando la primera red de médicos y clínicas que recetan nuestros extractos. Las alianzas confirmadas
-            aparecerán aquí.
+            Estamos formando la primera red de médicos y clínicas que recetan nuestras fórmulas. Las alianzas
+            confirmadas aparecerán aquí.
           </p>
         </div>
       )
@@ -124,6 +128,13 @@ const pad = (n: number) => String(n).padStart(2, "0");
             <label for="aliado-telefono">Teléfono o WhatsApp <span class="form__optional">(opcional)</span></label>
             <input id="aliado-telefono" name="telefono" type="tel" autocomplete="tel" placeholder="+51 999 999 999" />
           </div>
+        </div>
+        <div class="form__field">
+          <label for="aliado-formula">Fórmula de interés <span class="form__optional">(opcional)</span></label>
+          <select id="aliado-formula" name="formula">
+            <option value="">Todas</option>
+            {formulas.map((formula) => <option value={formula.id}>{formula.name}</option>)}
+          </select>
         </div>
         <!-- Trampa anti-spam: invisible para las personas, los bots suelen llenarla. -->
         <label class="form__trap" aria-hidden="true">

@@ -1,0 +1,100 @@
+---
+import EvidenceBadge from "@/components/ui/EvidenceBadge.astro";
+import Section from "@/components/ui/Section.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
+import { EVIDENCE_GUIDE } from "@/data/content";
+
+/** Qué puede y qué no puede respaldar cada tipo de estudio. Las etiquetas de las fichas usan los mismos colores. */
+---
+
+<Section id="evidencia" surface="grid" aria-labelledby="evidencia-titulo">
+  <div class="wrap">
+    <SectionHeader eyebrow="Antes de leer las fichas" headingId="evidencia-titulo">
+      Cómo leer <em>la evidencia</em>
+      <p slot="aside">
+        No todos los estudios valen lo mismo. De cada planta te decimos de dónde viene lo que sabemos y qué falta probar.
+      </p>
+    </SectionHeader>
+
+    <ul class="guide" data-reveal>
+      {
+        EVIDENCE_GUIDE.map((row) => (
+          <li class="guide__item">
+            <EvidenceBadge level={row.level} label={row.title} />
+            <dl>
+              <dt>Sirve para decir</dt>
+              <dd>{row.supports}</dd>
+              <dt>No sirve para decir</dt>
+              <dd>{row.limits}</dd>
+            </dl>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="guide__note">
+      Ninguna de nuestras fórmulas tiene todavía un estudio clínico propio: la evidencia es de cada planta por separado.
+    </p>
+  </div>
+</Section>
+
+<style>
+  .guide {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .guide__item {
+    padding: 24px;
+    background: var(--surface-000);
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    min-width: 0;
+  }
+
+  dl {
+    margin: 20px 0 0;
+  }
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  dt:nth-of-type(2) {
+    margin-top: 16px;
+    color: var(--rojo-achiote);
+  }
+
+  dd {
+    margin: 6px 0 0;
+    font-size: 15px;
+  }
+
+  .guide__note {
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.3;
+    max-width: 34em;
+  }
+
+  @media (max-width: 1000px) {
+    .guide {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .guide {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

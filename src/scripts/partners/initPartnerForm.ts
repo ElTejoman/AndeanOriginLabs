@@ -1,4 +1,5 @@
 import { mustQs } from "@/scripts/core/dom";
+import { on } from "@/scripts/core/events";
 import { clearErrorsOnEdit, showFieldErrors } from "@/scripts/core/formErrors";
 import { submitRequest, validateRequest, type PartnerRequest } from "@/scripts/partners/partners";
 
@@ -12,8 +13,13 @@ const MESSAGES = {
 
 /** Formulario de asociación para médicos y clínicas. Sin webhook configurado funciona en modo demostración. */
 export function initPartnerForm(form: HTMLFormElement, webhookUrl: string | undefined): void {
+  const formulaSelect = mustQs<HTMLSelectElement>("select[name='formula']", form);
   const submitButton = mustQs<HTMLButtonElement>("button[type='submit']", form);
   const status = mustQs("[data-status]", form);
+
+  on("formula:choose", ({ id }) => {
+    formulaSelect.value = id;
+  });
 
   const showStatus = (message: string, kind: "ok" | "error" | "info"): void => {
     status.hidden = false;
@@ -40,6 +46,8 @@ export function initPartnerForm(form: HTMLFormElement, webhookUrl: string | unde
       ciudad: field("ciudad"),
       correo: field("correo"),
       telefono: field("telefono"),
+      formula: formulaSelect.value,
+      formulaNombre: formulaSelect.value ? formulaSelect.selectedOptions[0]?.textContent ?? "" : "",
     };
 
     if (showFieldErrors(form, validateRequest(request))) return showStatus(MESSAGES.invalid, "error");

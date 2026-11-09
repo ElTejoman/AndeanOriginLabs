@@ -1,0 +1,53 @@
+{
+  "order": 2,
+  "name": "Ubos",
+  "scientificName": "Spondias mombin",
+  "origin": "América tropical",
+  "sourcing": "San Martín",
+  "partUsed": "Corteza",
+  "partGlyph": "corteza",
+  "focus": "Inflamación",
+  "compounds": ["Polifenoles"],
+  "evidence": {
+    "level": "preclinica",
+    "summary": "Moderada en laboratorio y animales, aunque casi siempre con la hoja y no con la corteza."
+  },
+  "tradition": {
+    "title": "Una corteza astringente",
+    "paragraphs": [
+      "Árbol de la América tropical, ampliamente distribuido en la Amazonía y la selva peruana.",
+      "Su corteza tiene usos tradicionales como astringente."
+    ]
+  },
+  "science": {
+    "title": "Antiinflamatorio en animales",
+    "paragraphs": [
+      "En ratas y ratones, extractos de hoja de ubos redujeron la inflamación y bajaron sustancias que la sostienen, como el TNF-α y el óxido nítrico.",
+      "En ratas también protegieron el estómago frente a úlceras. Entre sus compuestos se identificaron el ácido elágico y el ácido clorogénico."
+    ]
+  },
+  "unknowns": [
+    "Los estudios usan la hoja; la corteza, que es la que lleva la fórmula, está mucho menos estudiada.",
+    "No hay estudios en personas."
+  ],
+  "studies": [
+    {
+      "citation": "Nworu et al., 2011",
+      "title": "The leaf extract of Spondias mombin L. displays an anti-inflammatory effect and suppresses inducible formation of tumor necrosis factor-α and nitric oxide (NO)",
+      "finding": "En ratas, ratones y células, el extracto de hoja redujo la inflamación, el TNF-α y el óxido nítrico.",
+      "url": "https://doi.org/10.3109/1547691X.2010.531406"
+    },
+    {
+      "citation": "Cabral et al., 2016",
+      "title": "Phytochemical study and anti-inflammatory and antioxidant potential of Spondias mombin leaves",
+      "finding": "En ratones, el extracto de hoja redujo la inflamación; identificó ácido elágico y clorogénico.",
+      "url": "https://doi.org/10.1016/j.bjp.2016.02.002"
+    },
+    {
+      "citation": "Brito et al., 2018",
+      "title": "Antiulcer Activity and Potential Mechanism of Action of the Leaves of Spondias mombin L.",
+      "finding": "En ratas, el extracto de hoja protegió el estómago frente a úlceras.",
+      "url": "https://doi.org/10.1155/2018/1731459"
+    }
+  ]
+}

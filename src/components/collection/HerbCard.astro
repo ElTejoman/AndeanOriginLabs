@@ -1,29 +1,30 @@
 ---
-import FormulaPill from "@/components/ui/FormulaPill.astro";
-import Jar from "@/components/ui/Jar.astro";
-import { regionLabel, type Herb } from "@/lib/herbs";
+import EvidenceBadge from "@/components/ui/EvidenceBadge.astro";
+import PartGlyph from "@/components/ui/PartGlyph.astro";
+import type { Formula } from "@/lib/formulas";
+import type { Herb } from "@/lib/herbs";
 
-type Props = { herb: Herb; selected: boolean };
-const { herb, selected } = Astro.props;
+type Props = { herb: Herb; formula: Formula; selected: boolean };
+const { herb, formula, selected } = Astro.props;
 ---
 
 <button
   class="herb-card"
   type="button"
   data-herb-card={herb.id}
-  data-region={herb.region}
+  data-formula={formula.id}
   aria-current={selected}
   aria-controls={`ficha-${herb.id}`}
 >
   <span class="herb-card__stage">
-    <span class="herb-card__region">{regionLabel(herb.region)}</span>
-    <span class:list={["herb-card__dot", `herb-card__dot--${herb.region}`]} aria-hidden="true"></span>
-    <span class="herb-card__jar"><Jar herb={herb} variant="mini" width={96} /></span>
+    <span class="herb-card__formula">{formula.name}</span>
+    <span class="herb-card__glyph"><PartGlyph name={herb.partGlyph} size={88} /></span>
+    <span class="herb-card__part">{herb.partUsed}</span>
   </span>
   <span class="herb-card__info">
     <span class="herb-card__name">{herb.name}</span>
     <em class="sci herb-card__sci">{herb.scientificName}</em>
-    <span class="herb-card__formula"><FormulaPill formula={herb.molecule.formula} name={herb.molecule.name} /></span>
+    <EvidenceBadge level={herb.evidence.level} class="herb-card__evidence" />
   </span>
 </button>
 
@@ -67,17 +68,16 @@ const { herb, selected } = Astro.props;
   .herb-card__stage {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    height: 178px;
-    padding-top: 16px;
+    align-items: center;
+    height: 168px;
     background: var(--surface-200);
     position: relative;
+    color: var(--verde-hoja);
   }
 
-  .herb-card__region {
+  .herb-card__formula,
+  .herb-card__part {
     position: absolute;
-    top: 14px;
-    left: 16px;
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.1em;
@@ -85,30 +85,25 @@ const { herb, selected } = Astro.props;
     color: var(--ink-muted);
   }
 
-  .herb-card__dot {
-    position: absolute;
-    top: 16px;
+  .herb-card__formula {
+    top: 14px;
+    left: 16px;
+  }
+
+  .herb-card__part {
+    bottom: 12px;
     right: 16px;
-    width: 12px;
-    height: 12px;
-    border-radius: var(--leaf);
+    max-width: calc(100% - 32px);
+    text-align: right;
   }
 
-  .herb-card__dot--amazonia {
-    background: var(--verde-hoja);
-  }
-
-  .herb-card__dot--andes {
-    background: var(--ocre-maca);
-  }
-
-  .herb-card__jar {
+  .herb-card__glyph {
     display: block;
     transition: transform 0.45s var(--ease);
   }
 
-  .herb-card:hover .herb-card__jar {
-    transform: translateY(-8px) rotate(-3deg);
+  .herb-card:hover .herb-card__glyph {
+    transform: translateY(-6px) rotate(-4deg);
   }
 
   .herb-card__info {
@@ -130,8 +125,49 @@ const { herb, selected } = Astro.props;
     font-size: 15px;
   }
 
-  .herb-card__formula {
+  .herb-card__info :global(.herb-card__evidence) {
     margin-top: 12px;
     align-self: flex-start;
+  }
+
+  /* En celular van de a dos: tarjetas compactas para que la ficha no quede lejos. */
+  @media (max-width: 460px) {
+    .herb-card__stage {
+      height: 112px;
+    }
+
+    .herb-card__glyph :global(svg) {
+      width: 60px;
+      height: 60px;
+    }
+
+    .herb-card__formula {
+      top: 10px;
+      left: 12px;
+      font-size: 10px;
+    }
+
+    .herb-card__part {
+      display: none;
+    }
+
+    .herb-card__info {
+      padding: 12px 12px 14px;
+    }
+
+    .herb-card__name {
+      font-size: 20px;
+    }
+
+    .herb-card__sci {
+      font-size: 13px;
+    }
+
+    .herb-card__info :global(.herb-card__evidence) {
+      margin-top: 8px;
+      white-space: normal;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+    }
   }
 </style>

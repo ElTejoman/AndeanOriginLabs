@@ -1,0 +1,16 @@
+{
+  "order": 1,
+  "name": "Tri-Kaspi",
+  "focus": "Músculos y articulaciones",
+  "summary": "Fórmula de tres cortezas inspirada en el uso tradicional amazónico, que combina plantas investigadas por su potencial analgésico y antiinflamatorio.",
+  "herbs": ["chuchuhuasi", "ubos", "icoja"],
+  "rationale": [
+    "El chuchuhuasi aporta la señal analgésica y antiinflamatoria más fuerte de las tres.",
+    "El ubos suma actividad antiinflamatoria observada en animales.",
+    "La icoja aporta su uso tradicional para el reumatismo."
+  ],
+  "notProven": [
+    "No hay un estudio clínico de esta combinación de tres cortezas.",
+    "No sabemos si juntas funcionan mejor que por separado: eso solo se sabe comparando la fórmula con cada corteza."
+  ]
+}

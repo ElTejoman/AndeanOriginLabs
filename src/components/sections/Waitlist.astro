@@ -1,9 +1,9 @@
 ---
 import Button from "@/components/ui/Button.astro";
-import type { Herb } from "@/lib/herbs";
+import type { Formula } from "@/lib/formulas";
 
-type Props = { herbs: Herb[] };
-const { herbs } = Astro.props;
+type Props = { formulas: Formula[] };
+const { formulas } = Astro.props;
 
 const webhookUrl = import.meta.env.PUBLIC_WAITLIST_WEBHOOK_URL ?? "";
 ---
@@ -15,8 +15,8 @@ const webhookUrl = import.meta.env.PUBLIC_WAITLIST_WEBHOOK_URL ?? "";
       <div class="eyebrow">Preventa</div>
       <h2 id="lista-titulo">Reserva tu <em>primer frasco</em></h2>
       <p class="waitlist__lead">
-        Inscríbete en la lista de espera, elige tu hierba y te avisamos antes que a nadie cuando salga, con precio especial
-        de preventa. Reservar no tiene costo ni compromiso.
+        Inscríbete en la lista de espera, elige tu fórmula y te avisamos antes que a nadie cuando salga, con precio
+        especial de preventa. Reservar no tiene costo ni compromiso.
       </p>
     </div>
 
@@ -47,10 +47,10 @@ const webhookUrl = import.meta.env.PUBLIC_WAITLIST_WEBHOOK_URL ?? "";
         <p class="form__error" id="lista-correo-error" data-error-for="correo" hidden></p>
       </div>
       <div class="form__field">
-        <label for="lista-hierba">Frasco que quieres reservar <span class="form__optional">(opcional)</span></label>
-        <select id="lista-hierba" name="hierba">
+        <label for="lista-formula">Fórmula que quieres reservar <span class="form__optional">(opcional)</span></label>
+        <select id="lista-formula" name="formula">
           <option value="">Todavía no sé</option>
-          {herbs.map((herb) => <option value={herb.id}>{herb.name}</option>)}
+          {formulas.map((formula) => <option value={formula.id}>{formula.name}</option>)}
         </select>
       </div>
       <!-- Trampa anti-spam: invisible para las personas, los bots suelen llenarla. -->

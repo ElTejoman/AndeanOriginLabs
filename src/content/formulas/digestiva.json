@@ -1,0 +1,20 @@
+{
+  "order": 4,
+  "name": "Digestiva",
+  "focus": "Confort digestivo",
+  "summary": "Combinación tradicional orientada al confort digestivo (hinchazón, gases y espasmo leve), con tres funciones complementarias: carminativa, antiespasmódica y calmante por su mucílago.",
+  "herbs": ["oregano", "menta", "malva"],
+  "rationale": [
+    "La menta tiene la evidencia en personas más fuerte de las cuatro fórmulas, aunque con aceite en cápsulas.",
+    "La malva aporta mucílago y un uso tradicional reconocido en Europa para molestias digestivas leves.",
+    "El orégano suma su uso tradicional contra los gases y compuestos que frenan microbios en laboratorio."
+  ],
+  "notProven": [
+    "La combinación no se ha probado en un estudio clínico.",
+    "Los ensayos de la menta usaron aceite en cápsulas: sus resultados no se trasladan directamente a un extracto de hoja."
+  ],
+  "cautions": [
+    "La menta puede empeorar la acidez o el reflujo en algunas personas.",
+    "No es un tratamiento para la gastritis ni el reflujo."
+  ]
+}

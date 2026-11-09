@@ -5,9 +5,9 @@ import { EMAIL_PATTERN, postToWebhook } from "@/scripts/core/webhook";
 export type WaitlistEntry = {
   nombre: string;
   correo: string;
-  /** id de la hierba elegida, o "" si todavía no sabe. */
-  hierba: string;
-  hierbaNombre: string;
+  /** id de la fórmula elegida, o "" si todavía no sabe. */
+  formula: string;
+  formulaNombre: string;
 };
 
 /** Devuelve un mensaje por cada campo inválido; un objeto vacío si todo está bien. */

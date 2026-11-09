@@ -1,0 +1,43 @@
+---
+import FormulaCard from "@/components/formulas/FormulaCard.astro";
+import Section from "@/components/ui/Section.astro";
+import SectionHeader from "@/components/ui/SectionHeader.astro";
+import { spelledNumber } from "@/lib/format";
+import type { Formula } from "@/lib/formulas";
+import type { Herb } from "@/lib/herbs";
+
+/** El producto: las fórmulas, cada una con sus plantas enlazadas a su ficha del herbario. */
+type Props = { formulas: Formula[]; herbs: Herb[] };
+const { formulas, herbs } = Astro.props;
+---
+
+<Section id="formulas">
+  <div class="wrap">
+    <SectionHeader eyebrow="Primera línea">
+      {spelledNumber(formulas.length)} fórmulas, <em>{spelledNumber(herbs.length).toLowerCase()} plantas</em>
+      <p slot="aside">
+        Cada fórmula junta plantas que la tradición usa para lo mismo. Te contamos qué se ha estudiado de cada una y qué
+        falta probar de la combinación.
+      </p>
+    </SectionHeader>
+
+    <div class="formula-grid" data-reveal>
+      {formulas.map((formula) => <FormulaCard formula={formula} />)}
+    </div>
+  </div>
+</Section>
+
+<style>
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-items: start;
+  }
+
+  @media (max-width: 1000px) {
+    .formula-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

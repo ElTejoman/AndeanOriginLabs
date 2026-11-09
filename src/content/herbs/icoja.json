@@ -1,0 +1,52 @@
+{
+  "order": 3,
+  "name": "Icoja",
+  "scientificName": "Unonopsis floribunda",
+  "origin": "Amazonía occidental",
+  "sourcing": "San Martín",
+  "partUsed": "Corteza",
+  "partGlyph": "corteza",
+  "focus": "Reumatismo (uso tradicional)",
+  "compounds": ["Taninos", "Saponinas", "Polycarpol"],
+  "evidence": {
+    "level": "tradicional",
+    "summary": "Muy baja. Uso tradicional documentado y química inicial; el único estudio en animales no mostró un efecto significativo."
+  },
+  "tradition": {
+    "title": "La corteza de los resfríos y el reumatismo",
+    "paragraphs": [
+      "Árbol del bosque húmedo amazónico. El Instituto de Investigaciones de la Amazonía Peruana (IIAP) documenta el uso de su corteza para el reumatismo y los resfríos.",
+      "La Estrategia Regional de Diversidad Biológica de San Martín, su zona de abastecimiento, la registra como flora de la región."
+    ]
+  },
+  "science": {
+    "title": "Apenas empieza a estudiarse",
+    "paragraphs": [
+      "Los análisis químicos de la corteza detectaron taninos y saponinas. Un compuesto presente en la corteza, el polycarpol, frenó bacterias en laboratorio.",
+      "Una tesis probó el extracto de corteza en ratas con inflamación: la diferencia con el grupo sin tratamiento no fue estadísticamente significativa."
+    ]
+  },
+  "unknowns": [
+    "No hay estudios en personas.",
+    "No está demostrado que tenga efecto antiinflamatorio."
+  ],
+  "studies": [
+    {
+      "citation": "Herrera Ruíz y Vela Amasifuen, 2016",
+      "finding": "Tesis (Universidad Nacional de la Amazonía Peruana): análisis químico de hoja, corteza y raíz; en la corteza, taninos y saponinas.",
+      "url": "https://repositorio.unapiquitos.edu.pe/items/1b03ca5d-8e62-40bb-8ef0-2298ca538ccd"
+    },
+    {
+      "citation": "Vargas Haro, 2021",
+      "title": "Efecto antiinflamatorio del extracto etanólico de la corteza de Unonopsis floribunda Diels (icoja) en Rattus rattus var. albinus",
+      "finding": "Tesis: en ratas, el extracto de corteza no tuvo un efecto antiinflamatorio estadísticamente significativo.",
+      "url": "https://repositorio.uct.edu.pe/items/92930242-4bab-4546-bfbb-49d5b5598a3e"
+    },
+    {
+      "citation": "da Silva et al., 2015",
+      "title": "Polycarpol in Unonopsis, Bocageopsis and Onychopetalum Amazonian species: chemosystematical implications and antimicrobial evaluation",
+      "finding": "El polycarpol, presente en la corteza y las ramas de la icoja, frenó bacterias en laboratorio.",
+      "url": "https://doi.org/10.1016/j.bjp.2015.01.003"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "order": 12,
+  "name": "Flores de malva",
+  "scientificName": "Malva sylvestris",
+  "identityNote": "Identificación provisional.",
+  "origin": "Europa, norte de África y Asia occidental",
+  "sourcing": "Por definir",
+  "partUsed": "Flores",
+  "partGlyph": "flor",
+  "focus": "Irritación digestiva leve",
+  "compounds": ["Mucílagos", "Compuestos fenólicos"],
+  "evidence": {
+    "level": "preclinica",
+    "summary": "Uso tradicional reconocido en Europa y estudios en animales. No hay ensayos clínicos."
+  },
+  "tradition": {
+    "title": "Flores que suavizan",
+    "paragraphs": [
+      "Es originaria de Europa, el norte de África y Asia occidental, y está naturalizada y cultivada en América.",
+      "Sus flores tienen mucílago, que suaviza las mucosas. La Agencia Europea de Medicamentos reconoce su uso tradicional para la irritación de boca y garganta con tos seca, y para molestias leves de estómago e intestino."
+    ]
+  },
+  "science": {
+    "title": "Calmante en animales",
+    "paragraphs": [
+      "En ratas con colitis provocada, la fracción acuosa de la malva y su polisacárido redujeron la inflamación.",
+      "Las revisiones de la planta describen efectos antiinflamatorios y antioxidantes, sobre todo en laboratorio."
+    ]
+  },
+  "unknowns": [
+    "No hay ensayos clínicos con la flor.",
+    "No está probado que trate la colitis ni las úlceras en personas."
+  ],
+  "studies": [
+    {
+      "citation": "Hamedi et al., 2016",
+      "title": "Effects of Malva sylvestris and Its Isolated Polysaccharide on Experimental Ulcerative Colitis in Rats",
+      "finding": "En ratas con colitis, la fracción acuosa y el polisacárido de la malva redujeron la inflamación.",
+      "url": "https://doi.org/10.1177/2156587215589184"
+    },
+    {
+      "citation": "Gasparetto et al., 2012",
+      "title": "Ethnobotanical and scientific aspects of Malva sylvestris L.: a millennial herbal medicine",
+      "finding": "Revisión de los usos tradicionales y de los estudios científicos de la malva.",
+      "url": "https://doi.org/10.1111/j.2042-7158.2011.01383.x"
+    },
+    {
+      "citation": "Agencia Europea de Medicamentos (EMA), 2018",
+      "title": "Assessment report on Malva sylvestris L. and/or Malva neglecta Wallr., folium and Malva sylvestris L., flos",
+      "finding": "Reconoce el uso tradicional de la flor para la irritación de boca y garganta y las molestias digestivas leves.",
+      "url": "https://www.ema.europa.eu/en/documents/herbal-report/final-assessment-report-malva-sylvestris-l-andor-malva-neglecta-wallr-folium-and-malva-sylvestris-l-flos-first-version_en.pdf"
+    }
+  ]
+}

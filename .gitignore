@@ -11,3 +11,6 @@ Thumbs.db
 .audit/
 .taste-skill/
 .impeccable/
+
+# Dossier científico interno: fuente de contenido, no se publica (el repo es público)
+reference/dossier/

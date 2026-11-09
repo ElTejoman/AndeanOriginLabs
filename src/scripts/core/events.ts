@@ -1,13 +1,13 @@
 /**
  * Bus de eventos de la página. Desacopla las secciones:
- * el perfil de altitud pide seleccionar una hierba, la colección la muestra,
- * y el botón "Reservar" de la ficha avisa al formulario de preventa.
+ * las fórmulas y el perfil de origen piden mostrar una planta, el herbario muestra su ficha,
+ * y los botones "Solicitar" de una fórmula la preseleccionan en los formularios.
  */
 export type AppEvents = {
-  /** Mostrar la ficha de una hierba. `scroll` lleva la vista hasta la ficha. */
+  /** Mostrar la ficha de una planta. `scroll` lleva la vista hasta la ficha. */
   "herb:select": { id: string; scroll: boolean };
-  /** El usuario quiere reservar esta hierba: precargar el formulario. */
-  "herb:reserve": { id: string };
+  /** El usuario se interesa en esta fórmula: preseleccionarla en los formularios. */
+  "formula:choose": { id: string };
 };
 
 type EventName = keyof AppEvents;

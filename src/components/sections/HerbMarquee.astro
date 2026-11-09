@@ -1,8 +1,7 @@
 ---
-import ChemicalFormula from "@/components/ui/ChemicalFormula.astro";
 import type { Herb } from "@/lib/herbs";
 
-/** Cinta infinita con las hierbas y sus fórmulas. Decorativa: el contenido está en la colección. */
+/** Cinta infinita con las plantas y sus nombres científicos. Decorativa: el contenido está en el herbario. */
 type Props = { herbs: Herb[] };
 const { herbs } = Astro.props;
 // La lista se repite dos veces para que el desplazamiento de -50% empalme sin cortes.
@@ -16,9 +15,7 @@ const loop = [...herbs, ...herbs];
         <span class="marquee__item">
           <i />
           <b>{herb.name}</b>
-          <span>
-            <ChemicalFormula formula={herb.molecule.formula} />
-          </span>
+          <span class="sci">{herb.scientificName}</span>
         </span>
       ))
     }
@@ -37,7 +34,7 @@ const loop = [...herbs, ...herbs];
     display: flex;
     gap: 48px;
     width: max-content;
-    animation: marquee-slide 48s linear infinite;
+    animation: marquee-slide 64s linear infinite;
   }
 
   .marquee:hover .marquee__track {
@@ -58,8 +55,7 @@ const loop = [...herbs, ...herbs];
   }
 
   .marquee__item span {
-    font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 16px;
     color: var(--on-noche-muted);
   }
 

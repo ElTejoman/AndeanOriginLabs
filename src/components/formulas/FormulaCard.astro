@@ -1,0 +1,195 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Jar from "@/components/ui/Jar.astro";
+import { FORMULA_CAUTION } from "@/data/content";
+import { PARTNERS_ANCHOR } from "@/data/site";
+import { formulaNumber, formatsLabel, type Formula } from "@/lib/formulas";
+
+/**
+ * Una fórmula: lo esencial a la vista y, al desplegar, las capas del dossier:
+ * por qué juntas, lo que aún no está probado y los cuidados.
+ */
+type Props = { formula: Formula };
+const { formula } = Astro.props;
+
+const titleId = `formula-${formula.id}-titulo`;
+const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
+---
+
+<article class="formula" id={`formula-${formula.id}`} aria-labelledby={titleId}>
+  <div class="formula__jar">
+    <Jar formula={formula} width={136} />
+  </div>
+
+  <div class="formula__body">
+    <div class="eyebrow">{formulaNumber(formula)} · {formula.focus}</div>
+    <h3 id={titleId}>{formula.name}</h3>
+    <p class="formula__summary">{formula.summary}</p>
+
+    <div class="formula__herbs">
+      <span class="formula__label">Lleva</span>
+      <ul>
+        {
+          formula.herbs.map((herb) => (
+            <li>
+              <a href={`#ficha-${herb.id}`} data-select-herb={herb.id}>
+                {herb.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <details class="formula__more">
+      <summary>Qué dice la evidencia</summary>
+      <h4>Por qué juntas</h4>
+      <ul>{formula.rationale.map((text) => <li>{text}</li>)}</ul>
+      <h4>Lo que aún no está probado</h4>
+      <ul>{formula.notProven.map((text) => <li>{text}</li>)}</ul>
+      <h4>Cuidados</h4>
+      <ul>{cautions.map((text) => <li>{text}</li>)}</ul>
+      <p class="formula__format">{formatsLabel(formula)}</p>
+    </details>
+
+    <Button href={PARTNERS_ANCHOR} variant="green" size="sm" arrow data-choose-formula={formula.id}>
+      Solicitar {formula.name}
+    </Button>
+  </div>
+</article>
+
+<style>
+  .formula {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+    padding: 28px;
+    background: var(--surface-000);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    min-width: 0;
+  }
+
+  .formula__jar {
+    padding: 22px 18px;
+    background: var(--surface-200);
+    border-radius: var(--leaf);
+  }
+
+  .formula__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  h3 {
+    font-size: clamp(32px, 3.4vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-weight: 300;
+  }
+
+  .formula__summary {
+    color: var(--ink-muted);
+  }
+
+  .formula__herbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+  }
+
+  .formula__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .formula__herbs ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .formula__herbs a {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--line);
+    background: var(--verde-tenue);
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+
+  .formula__herbs a:hover {
+    background: var(--verde-selva);
+    color: #fff;
+  }
+
+  .formula__herbs a:focus-visible {
+    outline: 2px solid var(--rojo-achiote);
+    outline-offset: 2px;
+  }
+
+  .formula__more {
+    width: 100%;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
+
+  .formula__more summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--verde-hoja);
+  }
+
+  .formula__more h4 {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .formula__more ul {
+    margin: 8px 0 0;
+    padding-left: 1.2em;
+    display: grid;
+    gap: 6px;
+    font-size: 15px;
+  }
+
+  .formula__format {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 560px) {
+    .formula {
+      grid-template-columns: 1fr;
+      padding: 22px;
+    }
+
+    .formula__jar {
+      justify-self: center;
+    }
+  }
+</style>

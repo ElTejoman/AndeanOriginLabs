@@ -1,6 +1,6 @@
 # Andean Origin Labs — sitio web
 
-Landing de preventa de extractos hidroalcohólicos y secos (gránulos) de hierbas del Ande y la Amazonía.
+Sitio B2B de cuatro fórmulas de plantas del Ande y la Amazonía, en extracto hidroalcohólico o seco (gránulos), para médicos y clínicas. Incluye además una lista de espera de preventa.
 Sitio **100 % estático** (sin backend): se compila a HTML, CSS y JS y se sube a GoDaddy.
 
 ## Stack
@@ -10,7 +10,7 @@ Sitio **100 % estático** (sin backend): se compila a HTML, CSS y JS y se sube a
 | [Astro](https://astro.build) | 7.3.8 | Generador estático, componentes `.astro`, colecciones de contenido |
 | TypeScript | 6.0.3 (modo `strictest`) | Todo el código del cliente |
 | three.js | 0.186.1 | Espécimen 3D del hero (hoja → molécula → frasco) |
-| anime.js | 4.5.0 | Animaciones de entrada, contadores, perfil de altitud |
+| anime.js | 4.5.0 | Animaciones de entrada, contadores, perfil de origen |
 | Fontsource | 5.3.0 | Fraunces, DM Sans y JetBrains Mono servidas desde el propio sitio |
 
 Las versiones están fijadas con exactitud en `package.json`: se eligió la última versión estable de cada librería, no las betas.
@@ -30,48 +30,65 @@ npm run preview    # sirve /dist localmente para revisarlo
 
 ```
 src/
-├── content/herbs/*.json      ← una hierba por archivo (validado con Zod)
-├── content.config.ts         ← esquema de las hierbas
+├── content/
+│   ├── formulas/*.json       ← una fórmula por archivo: el producto
+│   └── herbs/*.json          ← una planta por archivo: su ficha científica
+├── content.config.ts         ← esquemas de fórmulas y plantas (validados con Zod)
 ├── data/
 │   ├── site.ts               ← nombre, SEO, navegación
-│   └── content.ts            ← textos de secciones: proceso, glosario, FAQ, avisos legales
-├── lib/                      ← lógica pura que corre en build (formato es-PE, geometría del perfil)
+│   └── content.ts            ← textos de secciones: evidencia, origen, proceso, glosario, FAQ, avisos legales
+├── lib/                      ← lógica pura que corre en build (plantas, fórmulas, formato es-PE, geometría del perfil)
 ├── styles/
 │   ├── tokens.css            ← paleta, tipografías y formas de la marca (tema claro/oscuro)
 │   ├── base.css              ← reset y utilidades (.wrap, .eyebrow, .night, .lab-grid)
 │   └── motion.css            ← estados iniciales de las animaciones
 ├── components/
-│   ├── ui/                   ← piezas reutilizables: Logo, Button, Jar (frasco CSS), FormulaPill…
+│   ├── ui/                   ← piezas reutilizables: Logo, Button, Jar (frasco CSS), EvidenceBadge, PartGlyph…
 │   ├── layout/               ← cabecera y pie
-│   ├── collection/           ← tarjeta y ficha de hierba
+│   ├── formulas/             ← tarjeta de fórmula
+│   ├── collection/           ← tarjeta y ficha de planta (herbario)
 │   └── sections/             ← una sección de la página por archivo
 ├── scripts/                  ← TypeScript del navegador
-│   ├── core/                 ← utilidades DOM y bus de eventos entre secciones
+│   ├── core/                 ← utilidades DOM, bus de eventos y acciones declarativas (data-*)
 │   ├── motion/               ← anime.js: intro del hero, revelado al hacer scroll, proceso
 │   ├── specimen/             ← three.js: formas de partículas y escena
-│   ├── collection/           ← filtro, ficha y perfil de altitud
+│   ├── collection/           ← filtro y ficha del herbario, perfil de origen
 │   └── waitlist/             ← validación y envío del formulario a n8n
 ├── layouts/BaseLayout.astro  ← <head>, SEO, fuentes
 └── pages/index.astro         ← la página: compone las secciones
 public/                       ← favicon, imagen para redes, .htaccess, robots.txt
 reference/                    ← prototipo original v5, wireframes y logo fuente (no se publica)
+reference/dossier/            ← dossier científico interno y referencias verificadas (fuera de git)
 ```
+
+### De dónde sale el contenido científico
+
+Las fórmulas, las plantas, su evidencia y su abastecimiento salen del **dossier científico** de la marca. Como el repositorio es público, el dossier no se sube: va en `reference/dossier/`, que está en `.gitignore`. Pide el dossier al equipo. Ahí también está `referencias-verificadas.md`, con cada estudio comprobado (DOI, autores y hallazgos). Cuando el dossier y la verificación no coinciden, manda la verificación.
+
+Reglas para escribir sobre una planta (del dossier):
+
+- Cada ficha separa cuatro capas: lo que dice la tradición, lo que muestran los estudios, lo que aún no se sabe y los cuidados.
+- Siempre se dice de qué tipo es la evidencia (`evidence.level`): estudios en personas, laboratorio y animales, o solo uso tradicional.
+- Nunca "previene", "cura" ni "trata". Sí "ha sido investigado por…", "en ratones…" o "tradicionalmente se usa para…".
+- Los estudios son de cada planta por separado: ninguna fórmula tiene todavía un ensayo clínico propio.
 
 ### Cómo fluye la información
 
-- **Todo el contenido se renderiza en el HTML** al compilar: las 8 fichas, las tarjetas y el perfil de altitud. El JavaScript solo decide qué se muestra. Así Google indexa toda la información de las hierbas.
-- Las secciones no se conocen entre sí: se comunican con eventos tipados (`scripts/core/events.ts`):
-  - `herb:select`: un pin del perfil de altitud abre una ficha de la colección.
-  - `herb:reserve`: el botón "Reservar X" de una ficha preselecciona esa hierba en el formulario.
+- **Todo el contenido se renderiza en el HTML** al compilar: las fórmulas, las 12 fichas, las tarjetas y el perfil de origen. El JavaScript solo decide qué se muestra. Así Google indexa toda la información de las plantas.
+- Las secciones no se conocen entre sí. Se comunican con eventos tipados (`scripts/core/events.ts`), que disparan atributos en el HTML (`scripts/core/actions.ts`):
+  - `data-select-herb="<id>"` → `herb:select`: una planta de una fórmula o del perfil de origen abre su ficha en el herbario.
+  - `data-choose-formula="<id>"` → `formula:choose`: el botón "Solicitar X" de una fórmula o de una ficha lleva a Profesionales y preselecciona esa fórmula en el formulario.
 - three.js se carga con import dinámico, en un archivo aparte, para no frenar el resto de la página. Si el navegador no tiene WebGL, se muestra el frasco dibujado en CSS.
 - Si el usuario pidió reducir el movimiento (`prefers-reduced-motion`), no hay animaciones y el espécimen solo cambia de figura al hacer clic.
 
-## Agregar o editar una hierba
+## Agregar o editar una planta o una fórmula
 
-1. Crea `src/content/herbs/<id>.json`, copiando uno existente. El `id` es el nombre del archivo.
-2. Completa los campos. Si algo falta o está mal (por ejemplo, una fórmula inválida o una altitud fuera de rango), el build falla con un mensaje claro.
-3. La hierba aparece sola en la cinta, la colección, el perfil de altitud y el formulario.
-4. Opcional: en `src/lib/altitudeProfile.ts` (`LABEL_Y`) ajusta la altura de su etiqueta en el perfil si se superpone con otra.
+1. Crea `src/content/herbs/<id>.json`, copiando uno existente. El `id` es el nombre del archivo. Completa los campos con la información del dossier y enlaza cada estudio con su DOI o PubMed.
+2. Agrega su `id` a la lista `herbs` de la fórmula que la lleva, en `src/content/formulas/<fórmula>.json`. Cada planta pertenece a una sola fórmula.
+3. Ubícala en el perfil de origen: en `src/data/content.ts`, agrégala a su zona en `SOURCING_ZONES` (con `supplierPending` si la zona está definida pero el proveedor no), o a `SOURCING_PENDING` si el dossier no indica zona.
+4. Si algo falta o está mal (una fórmula molecular inválida, una URL mal escrita, una planta que no existe), el build falla con un mensaje claro.
+
+La planta aparece sola en la cinta, su fórmula, el herbario y el perfil de origen. Una fórmula nueva aparece sola en la sección de fórmulas, en el filtro del herbario y en el formulario.
 
 ## Formulario de preventa → n8n
 
@@ -81,8 +98,8 @@ El formulario envía un `POST` con JSON al webhook definido en `PUBLIC_WAITLIST_
 {
   "nombre": "Rosa",
   "correo": "rosa@correo.pe",
-  "hierba": "maca",
-  "hierbaNombre": "Maca",
+  "formula": "tri-kaspi",
+  "formulaNombre": "Tri-Kaspi",
   "origen": "web",
   "pagina": "https://andeanoriginlabs.com/",
   "enviadoEn": "2026-10-23T15:04:05.000Z"
