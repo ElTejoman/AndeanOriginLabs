@@ -1,13 +1,14 @@
 ---
 import Button from "@/components/ui/Button.astro";
 import Jar from "@/components/ui/Jar.astro";
+import StudyButton from "@/components/ui/StudyButton.astro";
 import { FORMULA_CAUTION } from "@/data/content";
 import { PARTNERS_ANCHOR } from "@/data/site";
 import { formulaNumber, formatsLabel, type Formula } from "@/lib/formulas";
 
 /**
  * Una fórmula: lo esencial a la vista y, al desplegar, las capas del dossier:
- * por qué juntas, lo que aún no está probado y los cuidados.
+ * por qué juntas (con los estudios de cada planta que lo respaldan), lo que aún no está probado y los cuidados.
  */
 type Props = { formula: Formula };
 const { formula } = Astro.props;
@@ -44,7 +45,24 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
     <details class="formula__more">
       <summary>Qué dice la evidencia</summary>
       <h4>Por qué juntas</h4>
-      <ul>{formula.rationale.map((text) => <li>{text}</li>)}</ul>
+      <ul>
+        {
+          formula.rationale.map((reason) => (
+            <li>
+              {reason.text}
+              {reason.studies.length > 0 && (
+                <span class="formula__studies">
+                  {reason.studies.map(({ herb, study }) => (
+                    <StudyButton url={study.url}>
+                      {herb.name} · {study.citation}
+                    </StudyButton>
+                  ))}
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
       <h4>Lo que aún no está probado</h4>
       <ul>{formula.notProven.map((text) => <li>{text}</li>)}</ul>
       <h4>Cuidados</h4>
@@ -173,6 +191,13 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
     display: grid;
     gap: 6px;
     font-size: 15px;
+  }
+
+  .formula__studies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 4px;
   }
 
   .formula__format {

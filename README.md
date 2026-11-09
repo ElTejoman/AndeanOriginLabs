@@ -85,8 +85,9 @@ Reglas para escribir sobre una planta (del dossier):
 
 1. Crea `src/content/herbs/<id>.json`, copiando uno existente. El `id` es el nombre del archivo. Completa los campos con la información del dossier y enlaza cada estudio con su DOI o PubMed.
 2. Agrega su `id` a la lista `herbs` de la fórmula que la lleva, en `src/content/formulas/<fórmula>.json`. Cada planta pertenece a una sola fórmula.
+   En `rationale` ("Por qué juntas"), cada razón puede citar los estudios que la respaldan con `{ "herb": "<id>", "study": <n> }`, donde `n` es la posición del estudio en la lista `studies` de esa planta (1 = el primero). Cada cita se muestra como un botón al estudio. Si reordenas los estudios de una planta, revisa estas citas.
 3. Ubícala en el perfil de origen: en `src/data/content.ts`, agrégala a su zona en `SOURCING_ZONES` (con `supplierPending` si la zona está definida pero el proveedor no), o a `SOURCING_PENDING` si el dossier no indica zona.
-4. Si algo falta o está mal (una fórmula molecular inválida, una URL mal escrita, una planta que no existe), el build falla con un mensaje claro.
+4. Si algo falta o está mal (una fórmula molecular inválida, una URL mal escrita, una planta que no existe, un estudio citado que no existe o que es de una planta que la fórmula no lleva), el build falla con un mensaje claro.
 
 La planta aparece sola en la cinta, su fórmula, el herbario y el perfil de origen. Una fórmula nueva aparece sola en la sección de fórmulas, en el filtro del herbario y en el formulario.
 

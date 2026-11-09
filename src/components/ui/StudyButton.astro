@@ -1,0 +1,46 @@
+---
+/**
+ * Botón que abre un estudio citado en otra pestaña. El texto va en el slot; si no nombra el
+ * estudio, conviene sumar la cita en un .visually-hidden para que el lector de pantalla la diga.
+ */
+type Props = { url: string };
+const { url } = Astro.props;
+---
+
+<a class="study-btn" href={url} target="_blank" rel="noopener noreferrer">
+  <slot />
+  <span class="study-btn__arrow" aria-hidden="true">↗</span>
+  <span class="visually-hidden"> (abre en otra pestaña)</span>
+</a>
+
+<style>
+  /* inline-block y no flex: si el texto ocupa dos líneas, la flecha sigue a la última palabra. */
+  .study-btn {
+    display: inline-block;
+    max-width: 100%;
+    padding: 7px 14px;
+    border: 1px solid var(--verde-hoja);
+    border-radius: var(--r-pill);
+    color: var(--verde-hoja);
+    font: 600 13px/1.3 var(--font-sans);
+    text-decoration: none;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+
+  .study-btn__arrow {
+    margin-left: 6px;
+  }
+
+  .study-btn:hover {
+    background: var(--verde-selva);
+    border-color: var(--verde-selva);
+    color: var(--on-brand);
+  }
+
+  .study-btn:focus-visible {
+    outline: 2px solid var(--rojo-achiote);
+    outline-offset: 2px;
+  }
+</style>

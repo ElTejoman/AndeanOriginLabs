@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button.astro";
 import EvidenceBadge from "@/components/ui/EvidenceBadge.astro";
 import FormulaPill from "@/components/ui/FormulaPill.astro";
 import PartGlyph from "@/components/ui/PartGlyph.astro";
+import StudyButton from "@/components/ui/StudyButton.astro";
 import { PARTNERS_ANCHOR } from "@/data/site";
 import { formatList } from "@/lib/format";
 import type { Formula } from "@/lib/formulas";
@@ -106,13 +107,14 @@ const FACTS = [
       {
         herb.studies.map((study) => (
           <li>
-            <a href={study.url} target="_blank" rel="noopener noreferrer">
-              {study.citation}
-              <span aria-hidden="true"> ↗</span>
-              <span class="visually-hidden"> (abre en otra pestaña)</span>
-            </a>
-            {study.title && <span class="studies__title">{study.title}</span>}
-            <span class="studies__finding">{study.finding}</span>
+            <div class="studies__text">
+              <span class="studies__citation">{study.citation}</span>
+              {study.title && <span class="studies__title">{study.title}</span>}
+              <span class="studies__finding">{study.finding}</span>
+            </div>
+            <StudyButton url={study.url}>
+              Ver estudio<span class="visually-hidden">: {study.citation}</span>
+            </StudyButton>
           </li>
         ))
       }
@@ -299,22 +301,31 @@ const FACTS = [
     padding: 28px 32px;
   }
 
+  .studies ol {
+    gap: 18px;
+  }
+
+  /* El botón va a la derecha del estudio; si no cabe, baja debajo del texto. */
   .studies li {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px 24px;
     font-size: 15px;
   }
 
-  .studies li::marker {
-    font-family: var(--font-mono);
-    color: var(--ink-muted);
+  .studies__text {
+    flex: 1 1 22em;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
   }
 
-  .studies a {
+  .studies__citation {
     font-weight: 600;
     color: var(--verde-hoja);
-    text-underline-offset: 3px;
   }
 
   .studies__title {

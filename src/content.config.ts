@@ -85,6 +85,18 @@ const herbs = defineCollection({
   }),
 });
 
+/**
+ * Una razón de "Por qué juntas", con los estudios que la respaldan. Cada estudio se cita por su
+ * planta y su número en la lista `studies` de esa planta (1 = el primero).
+ */
+const reason = z.object({
+  text: z.string(),
+  studies: z
+    .array(z.object({ herb: reference("herbs"), study: z.number().int().positive() }))
+    .min(1)
+    .optional(),
+});
+
 /** Las fórmulas que se venden: un archivo JSON por fórmula en src/content/formulas. */
 const formulas = defineCollection({
   loader: glob({ pattern: "*.json", base: "./src/content/formulas" }),
@@ -96,7 +108,7 @@ const formulas = defineCollection({
     herbs: z.array(reference("herbs")).min(1),
     /** Formatos en que se vende. Mientras no esté definido, se muestra un texto genérico. */
     formats: z.array(z.enum(FORMATS)).min(1).optional(),
-    rationale: z.array(z.string()).min(1),
+    rationale: z.array(reason).min(1),
     notProven: z.array(z.string()).min(1),
     cautions: z.array(z.string()).optional(),
   }),

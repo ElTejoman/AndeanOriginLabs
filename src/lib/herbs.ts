@@ -2,6 +2,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import type { EVIDENCE_LEVELS, PART_GLYPHS } from "@/content.config";
 
 export type Herb = CollectionEntry<"herbs">["data"] & { id: string };
+export type Study = Herb["studies"][number];
 export type EvidenceLevel = (typeof EVIDENCE_LEVELS)[number];
 export type PartGlyph = (typeof PART_GLYPHS)[number];
 

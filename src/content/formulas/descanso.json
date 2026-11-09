@@ -5,9 +5,22 @@
   "summary": "Fórmula de doble propósito: una planta cítrica calmante para la relajación y la chancapiedra, estudiada en el soporte de los cálculos urinarios.",
   "herbs": ["naranja", "chancapiedra"],
   "rationale": [
-    "No son dos calmantes: cada planta cumple un objetivo distinto.",
-    "Las hojas de naranja apuntan a la relajación. Inhalar aceite esencial de Citrus aurantium mejoró el sueño en ensayos con personas; para la hoja, la evidencia es débil y en animales.",
-    "La chancapiedra apunta a la salud urinaria: hay estudios en personas con cálculos."
+    { "text": "No son dos calmantes: cada planta cumple un objetivo distinto." },
+    {
+      "text": "Las hojas de naranja apuntan a la relajación. Inhalar aceite esencial de Citrus aurantium mejoró el sueño en ensayos con personas; para la hoja, la evidencia es débil y en animales.",
+      "studies": [
+        { "herb": "naranja", "study": 2 },
+        { "herb": "naranja", "study": 3 },
+        { "herb": "naranja", "study": 1 }
+      ]
+    },
+    {
+      "text": "La chancapiedra apunta a la salud urinaria: hay estudios en personas con cálculos.",
+      "studies": [
+        { "herb": "chancapiedra", "study": 1 },
+        { "herb": "chancapiedra", "study": 2 }
+      ]
+    }
   ],
   "notProven": [
     "No está demostrado que la fórmula mejore el insomnio.",

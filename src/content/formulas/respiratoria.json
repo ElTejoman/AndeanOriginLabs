@@ -5,9 +5,22 @@
   "summary": "Apoyo tradicional para el bienestar respiratorio: plantas amazónicas y andinas con evidencia experimental sobre la inflamación, los microbios y los alimentos fermentados.",
   "herbs": ["matico", "ajo-sacha", "jengibre", "tocosh"],
   "rationale": [
-    "El jengibre fresco frenó un virus respiratorio en células de las vías respiratorias.",
-    "El matico y el ajo sacha muestran actividad antiinflamatoria y antimicrobiana en laboratorio.",
-    "El tocosh aporta un fermento andino con bacterias de potencial probiótico."
+    {
+      "text": "El jengibre fresco frenó un virus respiratorio en células de las vías respiratorias.",
+      "studies": [{ "herb": "jengibre", "study": 1 }]
+    },
+    {
+      "text": "El matico y el ajo sacha muestran actividad antiinflamatoria y antimicrobiana en laboratorio.",
+      "studies": [
+        { "herb": "matico", "study": 1 },
+        { "herb": "matico", "study": 2 },
+        { "herb": "ajo-sacha", "study": 1 }
+      ]
+    },
+    {
+      "text": "El tocosh aporta un fermento andino con bacterias de potencial probiótico.",
+      "studies": [{ "herb": "tocosh", "study": 2 }]
+    }
   ],
   "notProven": [
     "No hay un estudio clínico de las cuatro plantas juntas.",
