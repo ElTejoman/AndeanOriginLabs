@@ -41,8 +41,8 @@ const study = z.object({
 
 /**
  * Un ingrediente de las fórmulas: un archivo JSON por planta en src/content/herbs.
- * El contenido sale del dossier científico (reference/dossier) y sigue sus cuatro capas:
- * tradición, lo que muestran los estudios, lo que aún no se sabe y cuidados.
+ * El contenido sale del dossier científico (reference/dossier): tradición, lo que muestran los estudios
+ * y, cuando corresponde, cuidados.
  */
 const herbs = defineCollection({
   loader: glob({ pattern: "*.json", base: "./src/content/herbs" }),
@@ -79,7 +79,6 @@ const herbs = defineCollection({
       title: z.string(),
       paragraphs: z.array(z.string()).min(1),
     }),
-    unknowns: z.array(z.string()).min(1),
     cautions: z.array(z.string()).optional(),
     studies: z.array(study).min(1),
   }),
@@ -109,7 +108,6 @@ const formulas = defineCollection({
     /** Formatos en que se vende. Mientras no esté definido, se muestra un texto genérico. */
     formats: z.array(z.enum(FORMATS)).min(1).optional(),
     rationale: z.array(reason).min(1),
-    notProven: z.array(z.string()).min(1),
     cautions: z.array(z.string()).optional(),
   }),
 });

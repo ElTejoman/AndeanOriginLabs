@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import type { FORMATS } from "@/content.config";
+import { twoDigits } from "@/lib/format";
 import { getHerb, type Herb, type Study } from "@/lib/herbs";
 
 type FormulaEntry = CollectionEntry<"formulas">;
@@ -62,4 +63,4 @@ export function formulaOf(formulas: Formula[], herbId: string): Formula {
 
 /** "Fórmula 01" */
 export const formulaNumber = (formula: Pick<Formula, "order">): string =>
-  `Fórmula ${String(formula.order).padStart(2, "0")}`;
+  `Fórmula ${twoDigits(formula.order)}`;

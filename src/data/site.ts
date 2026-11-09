@@ -3,7 +3,7 @@ export const SITE = {
   name: "Andean Origin Labs",
   title: "Andean Origin Labs · Fórmulas de plantas del Ande y la Amazonía",
   description:
-    "Cuatro fórmulas con plantas del Ande y la Amazonía, en extracto hidroalcohólico o seco en gránulos. De cada planta, lo que dice la tradición, lo que muestran los estudios y lo que aún no se sabe.",
+    "Cuatro fórmulas con plantas del Ande y la Amazonía, en extracto hidroalcohólico o seco en gránulos. De cada planta, lo que dice la tradición y lo que muestran los estudios, con cada fuente enlazada.",
   locale: "es_PE",
   lang: "es-PE",
   location: "Lima, Perú",

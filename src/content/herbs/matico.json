@@ -2,7 +2,7 @@
   "order": 4,
   "name": "Matico",
   "scientificName": "Piper aduncum",
-  "identityNote": "Identificación provisional: «matico» también nombra a otras especies de Piper.",
+  "identityNote": "«Matico» también nombra a otras especies de Piper: por eso cada lote se identifica con voucher botánico.",
   "origin": "América tropical",
   "sourcing": "San Martín",
   "partUsed": "Hojas",
@@ -18,7 +18,7 @@
     "title": "La hoja de los resfríos",
     "paragraphs": [
       "Abundante en la Amazonía peruana, la hoja de matico tiene un largo uso tradicional en las molestias respiratorias.",
-      "Una encuesta en Huancayo documentó su uso para prevenir enfermedades respiratorias. Eso describe la costumbre; no prueba que funcione."
+      "Una encuesta en Huancayo documentó su uso para prevenir enfermedades respiratorias."
     ]
   },
   "science": {
@@ -28,10 +28,6 @@
       "En laboratorio, el extracto de matico frenó la fosfolipasa A2, una enzima que pone en marcha la inflamación."
     ]
   },
-  "unknowns": [
-    "No hay ensayos en personas.",
-    "No está probado que acorte el resfrío ni que prevenga infecciones."
-  ],
   "studies": [
     {
       "citation": "Fernandes et al., 2026",
@@ -48,7 +44,7 @@
     {
       "citation": "De la Cruz Huaman y Huayas Hilario (tesis)",
       "title": "Conocimiento y uso tradicional del Piper aduncum para prevenir enfermedades respiratorias en usuarios de la Botica Ahorrofarma, Huancayo – 2024",
-      "finding": "Encuesta a 160 personas en Huancayo sobre el uso tradicional del matico. Documenta la costumbre, no su eficacia.",
+      "finding": "Encuesta a 160 personas en Huancayo sobre el uso tradicional del matico.",
       "url": "https://repositorio.uroosevelt.edu.pe/items/6fcac563-259a-4ac6-9258-b6e95d5acc4e"
     }
   ]

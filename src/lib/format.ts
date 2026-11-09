@@ -5,6 +5,9 @@ const numberFormat = new Intl.NumberFormat(LOCALE, { useGrouping: "always" });
 
 export const formatNumber = (value: number): string => numberFormat.format(value);
 
+/** Numeración de pasos y fórmulas: 1 → "01". */
+export const twoDigits = (value: number): string => String(value).padStart(2, "0");
+
 const listFormat = new Intl.ListFormat(LOCALE, { type: "conjunction" });
 
 /** "ubos e icoja", "matico, ajo sacha y jengibre" */

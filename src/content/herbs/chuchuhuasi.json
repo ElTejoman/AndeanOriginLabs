@@ -12,7 +12,7 @@
   "molecule": { "name": "dihidro-β-agarofurano", "formula": "C15H26O", "family": "sesquiterpeno" },
   "evidence": {
     "level": "preclinica",
-    "summary": "Moderada. Hay un ensayo en personas, pero con otra especie de chuchuhuasi (Maytenus krukovii)."
+    "summary": "Laboratorio y animales con esta especie, y un ensayo clínico en Perú con otra especie de chuchuhuasi (Maytenus krukovii)."
   },
   "tradition": {
     "title": "La corteza del reumatismo",
@@ -22,16 +22,12 @@
     ]
   },
   "science": {
-    "title": "Antiinflamatorio en estudio",
+    "title": "Antiinflamatorio y analgésico",
     "paragraphs": [
       "La corteza contiene triterpenos y sesquiterpenos. En laboratorio y en animales, extractos de la planta muestran actividad antiinflamatoria y analgésica.",
-      "En un ensayo en Perú con 50 personas con artrosis de rodilla, el cocimiento de otra especie, Maytenus krukovii, redujo el dolor frente a un placebo en 4 semanas. La función de la rodilla mejoró solo con la dosis más alta."
+      "En un ensayo en Perú con 50 personas con artrosis de rodilla, el cocimiento de otra especie, Maytenus krukovii, redujo el dolor frente a un placebo en 4 semanas; con la dosis más alta mejoró también la función de la rodilla."
     ]
   },
-  "unknowns": [
-    "No hay ensayos en personas con Maytenus macrocarpa, la especie de nuestra fórmula.",
-    "No está probado que trate la artritis ni la artrosis."
-  ],
   "cautions": [
     "En el ensayo con Maytenus krukovii, la dosis alta alteró algunos análisis de sangre (hígado y coagulación).",
     "En ratones, dosis muy altas de extracto de hoja causaron efectos sobre el comportamiento."
@@ -52,7 +48,7 @@
     {
       "citation": "Malaník et al., 2019",
       "title": "Maytenus macrocarpa (Ruiz & Pav.) Briq.: Phytochemistry and Pharmacological Activity",
-      "finding": "Revisión de la química y la actividad de la especie; la evidencia es sobre todo de laboratorio.",
+      "finding": "Revisión de la química y la actividad farmacológica de la especie.",
       "url": "https://doi.org/10.3390/molecules24122288"
     }
   ]

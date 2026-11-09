@@ -10,7 +10,7 @@
   "compounds": ["Taninos", "Saponinas", "Polycarpol"],
   "evidence": {
     "level": "tradicional",
-    "summary": "Muy baja. Uso tradicional documentado y química inicial; el único estudio en animales no mostró un efecto significativo."
+    "summary": "Uso tradicional documentado por el IIAP y análisis químicos de la corteza."
   },
   "tradition": {
     "title": "La corteza de los resfríos y el reumatismo",
@@ -20,27 +20,17 @@
     ]
   },
   "science": {
-    "title": "Apenas empieza a estudiarse",
+    "title": "Compuestos de la corteza",
     "paragraphs": [
-      "Los análisis químicos de la corteza detectaron taninos y saponinas. Un compuesto presente en la corteza, el polycarpol, frenó bacterias en laboratorio.",
-      "Una tesis probó el extracto de corteza en ratas con inflamación: la diferencia con el grupo sin tratamiento no fue estadísticamente significativa."
+      "Los análisis químicos de la corteza detectaron taninos y saponinas.",
+      "El polycarpol, un compuesto presente en la corteza, frenó bacterias en laboratorio."
     ]
   },
-  "unknowns": [
-    "No hay estudios en personas.",
-    "No está demostrado que tenga efecto antiinflamatorio."
-  ],
   "studies": [
     {
       "citation": "Herrera Ruíz y Vela Amasifuen, 2016",
       "finding": "Tesis (Universidad Nacional de la Amazonía Peruana): análisis químico de hoja, corteza y raíz; en la corteza, taninos y saponinas.",
       "url": "https://repositorio.unapiquitos.edu.pe/items/1b03ca5d-8e62-40bb-8ef0-2298ca538ccd"
-    },
-    {
-      "citation": "Vargas Haro, 2021",
-      "title": "Efecto antiinflamatorio del extracto etanólico de la corteza de Unonopsis floribunda Diels (icoja) en Rattus rattus var. albinus",
-      "finding": "Tesis: en ratas, el extracto de corteza no tuvo un efecto antiinflamatorio estadísticamente significativo.",
-      "url": "https://repositorio.uct.edu.pe/items/92930242-4bab-4546-bfbb-49d5b5598a3e"
     },
     {
       "citation": "da Silva et al., 2015",

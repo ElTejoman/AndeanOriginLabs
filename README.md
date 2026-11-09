@@ -65,12 +65,12 @@ reference/dossier/            ← dossier científico interno y referencias veri
 
 Las fórmulas, las plantas, su evidencia y su abastecimiento salen del **dossier científico** de la marca. Como el repositorio es público, el dossier no se sube: va en `reference/dossier/`, que está en `.gitignore`. Pide el dossier al equipo. Ahí también está `referencias-verificadas.md`, con cada estudio comprobado (DOI, autores y hallazgos). Cuando el dossier y la verificación no coinciden, manda la verificación.
 
-Reglas para escribir sobre una planta (del dossier):
+Reglas para escribir sobre una planta:
 
-- Cada ficha separa cuatro capas: lo que dice la tradición, lo que muestran los estudios, lo que aún no se sabe y los cuidados.
-- Siempre se dice de qué tipo es la evidencia (`evidence.level`): estudios en personas, laboratorio y animales, o solo uso tradicional.
-- Nunca "previene", "cura" ni "trata". Sí "ha sido investigado por…", "en ratones…" o "tradicionalmente se usa para…".
-- Los estudios son de cada planta por separado: ninguna fórmula tiene todavía un ensayo clínico propio.
+- El sitio vende: cada ficha muestra lo que dice la tradición, lo que muestran los estudios y, si los hay, los cuidados. No se escriben vacíos ni "lo que falta estudiar".
+- Cada hecho se dice en neutro y tal como lo dice el estudio, sin coletillas ("pero", "solo", "débil"); tampoco se exagera. Un estudio cuyo único hallazgo es negativo no se cita.
+- Siempre se dice de qué tipo es la evidencia (`evidence.level`): estudios en personas, laboratorio y animales, o uso tradicional.
+- Nunca "previene", "cura" ni "trata", ni se insinúa que una fórmula está probada clínicamente: los estudios son de cada planta. Sí "ha sido investigado por…", "en ratones…" o "tradicionalmente se usa para…".
 
 ### Cómo fluye la información
 

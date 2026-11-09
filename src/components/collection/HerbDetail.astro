@@ -10,8 +10,8 @@ import type { Formula } from "@/lib/formulas";
 import type { Herb } from "@/lib/herbs";
 
 /**
- * Ficha de una planta, en las cuatro capas del dossier: lo que dice la tradición, lo que muestran
- * los estudios, lo que aún no se sabe (con sus cuidados) y los estudios citados, enlazados.
+ * Ficha de una planta: lo que dice la tradición, lo que muestran los estudios, los cuidados (si los hay)
+ * y los estudios citados, enlazados.
  */
 type Props = { herb: Herb; formula: Formula; active: boolean };
 const { herb, formula, active } = Astro.props;
@@ -82,24 +82,18 @@ const FACTS = [
     </div>
   </div>
 
-  <div class:list={["limits", { "limits--split": herb.cautions }]} data-detail-part>
-    <div>
-      <div class="eyebrow">Lo que aún no se sabe</div>
-      <ul>{herb.unknowns.map((text) => <li>{text}</li>)}</ul>
-    </div>
-    {
-      herb.cautions && (
-        <div class="limits__cautions">
-          <div class="eyebrow">Cuidados</div>
-          <ul>
-            {herb.cautions.map((text) => (
-              <li>{text}</li>
-            ))}
-          </ul>
-        </div>
-      )
-    }
-  </div>
+  {
+    herb.cautions && (
+      <div class="cautions" data-detail-part>
+        <div class="eyebrow">Cuidados</div>
+        <ul>
+          {herb.cautions.map((text) => (
+            <li>{text}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 
   <div class="studies" data-detail-part>
     <div class="eyebrow">Estudios citados</div>
@@ -269,23 +263,14 @@ const FACTS = [
     color: var(--ink-muted);
   }
 
-  .limits {
-    display: grid;
-    gap: 12px 40px;
+  .cautions {
+    --eyebrow-color: var(--rojo-achiote);
     margin: 0 12px;
     padding: 28px 20px;
     border-bottom: 1px solid var(--line);
   }
 
-  .limits--split {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .limits__cautions {
-    --eyebrow-color: var(--rojo-achiote);
-  }
-
-  .limits ul,
+  .cautions ul,
   .studies ol {
     margin: 14px 0 0;
     padding-left: 1.2em;
@@ -293,7 +278,7 @@ const FACTS = [
     gap: 8px;
   }
 
-  .limits li {
+  .cautions li {
     color: var(--ink-muted);
   }
 
@@ -364,8 +349,7 @@ const FACTS = [
       display: none;
     }
 
-    .knowledge,
-    .limits--split {
+    .knowledge {
       grid-template-columns: 1fr;
     }
 
@@ -373,7 +357,7 @@ const FACTS = [
       padding: 24px;
     }
 
-    .limits {
+    .cautions {
       padding: 24px 12px;
     }
 

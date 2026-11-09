@@ -1,9 +1,13 @@
 ---
+import ExtractionScene from "@/components/process/ExtractionScene.astro";
+import Button from "@/components/ui/Button.astro";
+import Modal from "@/components/ui/Modal.astro";
 import Section from "@/components/ui/Section.astro";
 import SectionHeader from "@/components/ui/SectionHeader.astro";
 import { KNOWLEDGE_LABELS, PROCESS_STEPS } from "@/data/content";
+import { twoDigits } from "@/lib/format";
 
-const pad = (n: number) => String(n).padStart(2, "0");
+const EXTRACTION_MODAL = "proceso-extraccion";
 ---
 
 <Section id="proceso">
@@ -19,7 +23,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
         {
           PROCESS_STEPS.map((step, i) => (
             <li class="step" data-step data-reveal-self>
-              <span class="step__n">PASO {pad(i + 1)}</span>
+              <span class="step__n">PASO {twoDigits(i + 1)}</span>
               <h3>{step.title}</h3>
               <p set:html={step.html} />
               <span class:list={["step__tag", `step__tag--${step.knowledge}`]}>{KNOWLEDGE_LABELS[step.knowledge]}</span>
@@ -28,6 +32,19 @@ const pad = (n: number) => String(n).padStart(2, "0");
         }
       </ol>
     </div>
+
+    <div class="process__more">
+      <Button variant="outline" data-open-modal={EXTRACTION_MODAL} aria-haspopup="dialog">
+        <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+          <path d="M3 1.5 10.5 6 3 10.5Z" fill="currentColor"></path>
+        </svg>
+        Ver la extracción
+      </Button>
+    </div>
+
+    <Modal id={EXTRACTION_MODAL} eyebrow="Cómo hacemos un extracto" title="La extracción">
+      <ExtractionScene />
+    </Modal>
   </div>
 </Section>
 
@@ -131,6 +148,10 @@ const pad = (n: number) => String(n).padStart(2, "0");
   .step__tag--ambos {
     background: var(--surface-200);
     color: var(--ink);
+  }
+
+  .process__more {
+    margin-top: 48px;
   }
 
   @media (max-width: 900px) {

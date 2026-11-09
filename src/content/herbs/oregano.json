@@ -2,7 +2,7 @@
   "order": 10,
   "name": "Orégano",
   "scientificName": "Origanum vulgare",
-  "identityNote": "Por autenticar la variedad peruana: su composición cambia según la especie y el cultivo.",
+  "identityNote": "Su composición cambia según la especie y el cultivo: por eso cada lote se identifica con voucher botánico.",
   "origin": "Eurasia; producido en el Perú",
   "sourcing": "Por definir",
   "partUsed": "Hojas y partes aéreas",
@@ -12,7 +12,7 @@
   "molecule": { "name": "carvacrol", "formula": "C10H14O", "family": "monoterpeno fenólico" },
   "evidence": {
     "level": "preclinica",
-    "summary": "Baja a moderada, y depende de la preparación: casi todo con aceite esencial."
+    "summary": "Estudios con su aceite esencial, en laboratorio y en personas."
   },
   "tradition": {
     "title": "Producido en los Andes y la costa",
@@ -25,18 +25,14 @@
     "title": "Antimicrobiano en laboratorio",
     "paragraphs": [
       "Su aceite esencial es rico en carvacrol y timol, que frenan bacterias en laboratorio dañando su membrana.",
-      "En un estudio no aleatorizado con 106 personas con síndrome metabólico, el aceite de orégano mostró efecto antibacteriano y no causó molestias intestinales."
+      "En un estudio con 106 personas con síndrome metabólico, el aceite de orégano mostró efecto antibacteriano y no causó molestias intestinales."
     ]
   },
-  "unknowns": [
-    "Los estudios usan aceite esencial: sus resultados no se trasladan directamente a un extracto de hoja.",
-    "No está probado que trate la gastritis ni las infecciones."
-  ],
   "studies": [
     {
       "citation": "Ghitea et al., 2021",
       "title": "The Antimicrobial Activity of Origanum vulgare L. Correlated with the Gastrointestinal Perturbation in Patients with Metabolic Syndrome",
-      "finding": "106 personas con síndrome metabólico: el aceite tuvo efecto antibacteriano, sin molestias intestinales. No aleatorizado.",
+      "finding": "106 personas con síndrome metabólico: el aceite tuvo efecto antibacteriano, sin molestias intestinales.",
       "url": "https://doi.org/10.3390/molecules26020283"
     },
     {

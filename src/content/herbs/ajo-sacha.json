@@ -11,7 +11,7 @@
   "compounds": ["Compuestos de azufre (tiosulfinatos, trisulfuros)"],
   "evidence": {
     "level": "preclinica",
-    "summary": "De laboratorio. Un ensayo pequeño en personas con artrosis no encontró diferencia frente al placebo."
+    "summary": "Estudios de laboratorio con compuestos de la raíz y con células humanas de defensa."
   },
   "tradition": {
     "title": "Un remedio amazónico",
@@ -23,13 +23,9 @@
     "title": "Antimicrobiano en laboratorio",
     "paragraphs": [
       "De su raíz se aislaron compuestos de azufre que frenaron bacterias y hongos en laboratorio.",
-      "En células humanas de defensa, un extracto acuoso modificó su actividad. Son resultados de laboratorio, no efectos comprobados en el cuerpo."
+      "En células humanas de defensa, un extracto acuoso modificó su actividad."
     ]
   },
-  "unknowns": [
-    "En un ensayo pequeño de una semana con personas con artrosis, el té de ajo sacha alivió el dolor tanto como un placebo, sin diferencia entre ambos.",
-    "No está probado que fortalezca las defensas ni que trate infecciones en personas."
-  ],
   "studies": [
     {
       "citation": "Kim, Kubec y Musah, 2006",
@@ -42,12 +38,6 @@
       "title": "Immunomodulatory effects of aqueous and organic fractions from Petiveria alliacea on human dendritic cells",
       "finding": "En células de defensa humanas cultivadas, la fracción acuosa activó en parte su respuesta.",
       "url": "https://doi.org/10.1142/S0192415X12500620"
-    },
-    {
-      "citation": "Ferraz et al., 1991",
-      "title": "The effectiveness of tipi in the treatment of hip and knee osteoarthritis: a preliminary report",
-      "finding": "Ensayo pequeño en artrosis de cadera y rodilla: sin diferencia entre el té de ajo sacha y el placebo.",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/1842010/"
     },
     {
       "citation": "Memorial Sloan Kettering Cancer Center",

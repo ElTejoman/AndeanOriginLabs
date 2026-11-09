@@ -1,20 +1,21 @@
 ---
 import Button from "@/components/ui/Button.astro";
 import Jar from "@/components/ui/Jar.astro";
+import Modal from "@/components/ui/Modal.astro";
 import StudyButton from "@/components/ui/StudyButton.astro";
-import { FORMULA_CAUTION } from "@/data/content";
 import { PARTNERS_ANCHOR } from "@/data/site";
 import { formulaNumber, formatsLabel, type Formula } from "@/lib/formulas";
 
 /**
- * Una fórmula: lo esencial a la vista y, al desplegar, las capas del dossier:
- * por qué juntas (con los estudios de cada planta que lo respaldan), lo que aún no está probado y los cuidados.
+ * Una fórmula: lo esencial en la tarjeta y, en un modal, por qué juntas (con los estudios de cada planta
+ * que lo respaldan) y sus cuidados, si los tiene.
+ * Las tarjetas de una misma fila miden lo mismo: las plantas y los botones quedan alineados abajo.
  */
 type Props = { formula: Formula };
 const { formula } = Astro.props;
 
 const titleId = `formula-${formula.id}-titulo`;
-const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
+const modalId = `evidencia-${formula.id}`;
 ---
 
 <article class="formula" id={`formula-${formula.id}`} aria-labelledby={titleId}>
@@ -23,8 +24,9 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
   </div>
 
   <div class="formula__body">
-    <div class="eyebrow">{formulaNumber(formula)} · {formula.focus}</div>
+    <div class="eyebrow">{formulaNumber(formula)}</div>
     <h3 id={titleId}>{formula.name}</h3>
+    <p class="formula__focus">{formula.focus}</p>
     <p class="formula__summary">{formula.summary}</p>
 
     <div class="formula__herbs">
@@ -41,47 +43,65 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
         }
       </ul>
     </div>
+  </div>
 
-    <details class="formula__more">
-      <summary>Qué dice la evidencia</summary>
-      <h4>Por qué juntas</h4>
-      <ul>
-        {
-          formula.rationale.map((reason) => (
-            <li>
-              {reason.text}
-              {reason.studies.length > 0 && (
-                <span class="formula__studies">
-                  {reason.studies.map(({ herb, study }) => (
-                    <StudyButton url={study.url}>
-                      {herb.name} · {study.citation}
-                    </StudyButton>
-                  ))}
-                </span>
-              )}
-            </li>
-          ))
-        }
-      </ul>
-      <h4>Lo que aún no está probado</h4>
-      <ul>{formula.notProven.map((text) => <li>{text}</li>)}</ul>
-      <h4>Cuidados</h4>
-      <ul>{cautions.map((text) => <li>{text}</li>)}</ul>
-      <p class="formula__format">{formatsLabel(formula)}</p>
-    </details>
-
+  <div class="formula__actions">
     <Button href={PARTNERS_ANCHOR} variant="green" size="sm" arrow data-choose-formula={formula.id}>
       Solicitar {formula.name}
     </Button>
+    <Button variant="outline" size="sm" data-open-modal={modalId} aria-haspopup="dialog">
+      Qué dice la evidencia
+    </Button>
   </div>
+
+  <Modal id={modalId} eyebrow={`${formulaNumber(formula)} · ${formula.name}`} title="Qué dice la evidencia">
+    <h4>Por qué juntas</h4>
+    <ul class="formula__layer">
+      {
+        formula.rationale.map((reason) => (
+          <li>
+            {reason.text}
+            {reason.studies.length > 0 && (
+              <span class="formula__studies">
+                {reason.studies.map(({ herb, study }) => (
+                  <StudyButton url={study.url}>
+                    {herb.name} · {study.citation}
+                  </StudyButton>
+                ))}
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    {
+      formula.cautions && (
+        <>
+          <h4>Cuidados</h4>
+          <ul class="formula__layer">
+            {formula.cautions.map((text) => (
+              <li>{text}</li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    <div class="formula__modal-foot">
+      <p class="formula__format">{formatsLabel(formula)}</p>
+      <Button href={PARTNERS_ANCHOR} variant="green" size="sm" arrow data-choose-formula={formula.id}>
+        Solicitar {formula.name}
+      </Button>
+    </div>
+  </Modal>
 </article>
 
 <style>
   .formula {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
-    gap: 28px;
-    align-items: start;
+    grid-template-rows: 1fr auto;
+    gap: 24px 28px;
     padding: 28px;
     background: var(--surface-000);
     border: 1px solid var(--line);
@@ -90,6 +110,7 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
   }
 
   .formula__jar {
+    align-self: start;
     padding: 22px 18px;
     background: var(--surface-200);
     border-radius: var(--leaf);
@@ -99,26 +120,36 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
     min-width: 0;
   }
 
   h3 {
+    margin-top: 12px;
     font-size: clamp(32px, 3.4vw, 44px);
     line-height: 1;
     letter-spacing: -0.03em;
     font-weight: 300;
   }
 
+  .formula__focus {
+    margin-top: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--verde-hoja);
+  }
+
   .formula__summary {
+    margin-top: 12px;
     color: var(--ink-muted);
   }
 
+  /* Las plantas van al fondo de la columna: en una fila, quedan a la misma altura aunque el resumen sea más corto. */
   .formula__herbs {
+    margin-top: auto;
+    padding-top: 20px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px 12px;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .formula__label {
@@ -132,7 +163,7 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
   .formula__herbs ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -140,12 +171,12 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
 
   .formula__herbs a {
     display: inline-block;
-    padding: 7px 14px;
+    padding: 6px 12px;
     border-radius: var(--r-pill);
     border: 1px solid var(--line);
     background: var(--verde-tenue);
     color: var(--ink);
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 500;
     text-decoration: none;
     transition:
@@ -163,20 +194,20 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
     outline-offset: 2px;
   }
 
-  .formula__more {
-    width: 100%;
+  .formula__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 20px;
     border-top: 1px solid var(--line);
-    padding-top: 12px;
   }
 
-  .formula__more summary {
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--verde-hoja);
-  }
+  /* ───── modal de evidencia ───── */
 
-  .formula__more h4 {
-    margin-top: 16px;
+  h4 {
+    margin-top: 22px;
     font-family: var(--font-mono);
     font-size: 11px;
     font-weight: 500;
@@ -185,23 +216,37 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
     color: var(--ink-muted);
   }
 
-  .formula__more ul {
-    margin: 8px 0 0;
+  h4:first-child {
+    margin-top: 0;
+  }
+
+  .formula__layer {
+    margin: 10px 0 0;
     padding-left: 1.2em;
     display: grid;
-    gap: 6px;
-    font-size: 15px;
+    gap: 10px;
+    font-size: 15.5px;
   }
 
   .formula__studies {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin: 8px 0 4px;
+    margin: 8px 0 2px;
+  }
+
+  .formula__modal-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
   }
 
   .formula__format {
-    margin-top: 16px;
     font-family: var(--font-mono);
     font-size: 12px;
     color: var(--ink-muted);
@@ -210,11 +255,16 @@ const cautions = [...(formula.cautions ?? []), FORMULA_CAUTION];
   @media (max-width: 560px) {
     .formula {
       grid-template-columns: 1fr;
+      grid-template-rows: auto;
       padding: 22px;
     }
 
     .formula__jar {
       justify-self: center;
+    }
+
+    .formula__actions > :global(*) {
+      flex: 1 1 100%;
     }
   }
 </style>

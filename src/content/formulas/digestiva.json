@@ -6,7 +6,7 @@
   "herbs": ["oregano", "menta", "malva"],
   "rationale": [
     {
-      "text": "La menta tiene la evidencia en personas más fuerte de las cuatro fórmulas, aunque con aceite en cápsulas.",
+      "text": "La menta aporta la evidencia en personas más sólida de las cuatro fórmulas, con ensayos de aceite de menta en el colon irritable.",
       "studies": [
         { "herb": "menta", "study": 1 },
         { "herb": "menta", "study": 2 }
@@ -23,10 +23,6 @@
         { "herb": "oregano", "study": 3 }
       ]
     }
-  ],
-  "notProven": [
-    "La combinación no se ha probado en un estudio clínico.",
-    "Los ensayos de la menta usaron aceite en cápsulas: sus resultados no se trasladan directamente a un extracto de hoja."
   ],
   "cautions": [
     "La menta puede empeorar la acidez o el reflujo en algunas personas.",

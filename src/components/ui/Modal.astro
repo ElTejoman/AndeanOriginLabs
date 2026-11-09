@@ -1,0 +1,129 @@
+---
+/**
+ * Ventana modal sobre <dialog>. Se abre con un botón `data-open-modal="<id>"` (scripts/core/modal.ts).
+ * El contenido va en el slot y queda en el HTML aunque esté cerrada, así Google también lo indexa.
+ */
+type Props = { id: string; title: string; eyebrow?: string };
+const { id, title, eyebrow } = Astro.props;
+const titleId = `${id}-titulo`;
+---
+
+<dialog class="modal" id={id} aria-labelledby={titleId} data-modal>
+  <header class="modal__head">
+    <div>
+      {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+      <h2 class="modal__title" id={titleId}>{title}</h2>
+    </div>
+    <form method="dialog">
+      <button class="modal__close" aria-label="Cerrar">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+          <path d="M3 3 13 13 M13 3 3 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </form>
+  </header>
+  <div class="modal__body">
+    <slot />
+  </div>
+</dialog>
+
+<script>
+  import { initModals } from "@/scripts/core/modal";
+
+  initModals();
+</script>
+
+<style>
+  /* Con un modal abierto la página no se desplaza; el hueco de la barra se conserva para que nada salte. */
+  :global(html:has(dialog[data-modal][open])) {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+
+  .modal {
+    width: min(760px, calc(100% - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 32px);
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--surface-000);
+    color: var(--ink);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .modal[open] {
+    animation: modal-in 0.35s var(--ease);
+  }
+
+  .modal::backdrop {
+    background: rgb(6 12 8 / 0.62);
+    backdrop-filter: blur(3px);
+  }
+
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  .modal__head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 28px 18px;
+    background: var(--surface-000);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .modal__title {
+    margin-top: 8px;
+    font-size: clamp(26px, 3.2vw, 34px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .modal__close {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .modal__close:hover {
+    background: var(--surface-200);
+  }
+
+  .modal__body {
+    padding: 22px 28px 28px;
+  }
+
+  @media (max-width: 560px) {
+    .modal {
+      width: calc(100% - 20px);
+      max-height: calc(100dvh - 20px);
+      border-radius: var(--r-card);
+    }
+
+    .modal__head {
+      padding: 18px 18px 14px;
+    }
+
+    .modal__body {
+      padding: 18px;
+    }
+  }
+</style>

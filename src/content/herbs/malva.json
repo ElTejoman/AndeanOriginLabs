@@ -2,7 +2,6 @@
   "order": 12,
   "name": "Flores de malva",
   "scientificName": "Malva sylvestris",
-  "identityNote": "Identificación provisional.",
   "origin": "Europa, norte de África y Asia occidental",
   "sourcing": "Por definir",
   "partUsed": "Flores",
@@ -11,7 +10,7 @@
   "compounds": ["Mucílagos", "Compuestos fenólicos"],
   "evidence": {
     "level": "preclinica",
-    "summary": "Uso tradicional reconocido en Europa y estudios en animales. No hay ensayos clínicos."
+    "summary": "Uso tradicional reconocido por la Agencia Europea de Medicamentos y estudios en animales."
   },
   "tradition": {
     "title": "Flores que suavizan",
@@ -24,13 +23,9 @@
     "title": "Calmante en animales",
     "paragraphs": [
       "En ratas con colitis provocada, la fracción acuosa de la malva y su polisacárido redujeron la inflamación.",
-      "Las revisiones de la planta describen efectos antiinflamatorios y antioxidantes, sobre todo en laboratorio."
+      "Las revisiones de la planta describen efectos antiinflamatorios y antioxidantes."
     ]
   },
-  "unknowns": [
-    "No hay ensayos clínicos con la flor.",
-    "No está probado que trate la colitis ni las úlceras en personas."
-  ],
   "studies": [
     {
       "citation": "Hamedi et al., 2016",

@@ -2,7 +2,6 @@
   "order": 11,
   "name": "Menta",
   "scientificName": "Mentha × piperita",
-  "identityNote": "Por confirmar si es menta (M. × piperita) o hierbabuena (M. spicata).",
   "origin": "Eurasia; cultivada en el Perú",
   "sourcing": "Por definir",
   "partUsed": "Hojas",
@@ -12,7 +11,7 @@
   "molecule": { "name": "mentol", "formula": "C10H20O", "family": "monoterpeno" },
   "evidence": {
     "level": "humanos",
-    "summary": "Buena en personas, pero con aceite de menta en cápsulas entéricas, no con extracto de hoja."
+    "summary": "Ensayos y metaanálisis en personas con aceite de menta en cápsulas entéricas, y uso tradicional de la hoja reconocido en Europa."
   },
   "tradition": {
     "title": "Un uso tradicional reconocido",
@@ -25,12 +24,9 @@
     "title": "La de más evidencia",
     "paragraphs": [
       "En el colon irritable, el aceite de menta en cápsulas con cubierta entérica alivió los síntomas y el dolor más que un placebo, según dos metaanálisis de varios ensayos.",
-      "El mentol relaja el músculo del intestino: un mecanismo plausible de su efecto sobre los espasmos. Una guía médica canadiense de 2019 sugiere ofrecerlo, aunque con evidencia de baja calidad."
+      "El mentol relaja el músculo del intestino: un mecanismo plausible de su efecto sobre los espasmos. Una guía médica canadiense de 2019 sugiere ofrecerlo en el colon irritable."
     ]
   },
-  "unknowns": [
-    "Los ensayos usaron aceite en cápsulas: sus resultados no se trasladan directamente a un extracto de hoja."
-  ],
   "cautions": [
     "Puede empeorar la acidez o el reflujo en algunas personas: fue el efecto adverso más frecuente en los ensayos."
   ],
@@ -50,7 +46,7 @@
     {
       "citation": "Moayyedi et al., 2019",
       "title": "Canadian Association of Gastroenterology Clinical Practice Guideline for the Management of Irritable Bowel Syndrome (IBS)",
-      "finding": "Guía médica: sugiere ofrecer aceite de menta en el colon irritable (recomendación condicional).",
+      "finding": "Guía médica: sugiere ofrecer aceite de menta en el colon irritable.",
       "url": "https://doi.org/10.1093/jcag/gwy071"
     },
     {

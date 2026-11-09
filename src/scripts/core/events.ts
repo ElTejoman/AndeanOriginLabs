@@ -8,6 +8,8 @@ export type AppEvents = {
   "herb:select": { id: string; scroll: boolean };
   /** El usuario se interesa en esta fórmula: preseleccionarla en los formularios. */
   "formula:choose": { id: string };
+  /** Se abrió el modal con este id (ver scripts/core/modal.ts). */
+  "modal:open": { id: string };
 };
 
 type EventName = keyof AppEvents;

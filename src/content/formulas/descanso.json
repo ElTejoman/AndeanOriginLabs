@@ -7,7 +7,7 @@
   "rationale": [
     { "text": "No son dos calmantes: cada planta cumple un objetivo distinto." },
     {
-      "text": "Las hojas de naranja apuntan a la relajación. Inhalar aceite esencial de Citrus aurantium mejoró el sueño en ensayos con personas; para la hoja, la evidencia es débil y en animales.",
+      "text": "Las hojas de naranja apuntan a la relajación: inhalar aceite esencial de Citrus aurantium mejoró el sueño en ensayos con personas, y extractos de la hoja se estudiaron en animales.",
       "studies": [
         { "herb": "naranja", "study": 2 },
         { "herb": "naranja", "study": 3 },
@@ -21,9 +21,5 @@
         { "herb": "chancapiedra", "study": 2 }
       ]
     }
-  ],
-  "notProven": [
-    "No está demostrado que la fórmula mejore el insomnio.",
-    "No hay evidencia de que la chancapiedra mejore el sueño ni de que «proteja los riñones» en general."
   ]
 }

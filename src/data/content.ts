@@ -16,11 +16,11 @@ export const TWO_KNOWLEDGES = {
   science: {
     eyebrow: "Base científica",
     title: "Lo que dice la ciencia",
-    text: "Identificamos cada planta por su nombre botánico, revisamos los estudios publicados y te decimos qué está probado y qué todavía se investiga.",
+    text: "Identificamos cada planta por su nombre botánico, revisamos los estudios publicados y enlazamos cada uno a su fuente original.",
     items: [
       { label: "Compuestos activos", note: "moléculas" },
       { label: "Estudios citados", note: "fuente" },
-      { label: "Lo que aún no se sabe", note: "sin rodeos" },
+      { label: "Tipo de evidencia", note: "nivel" },
     ],
   },
   tradition: {
@@ -41,15 +41,18 @@ export const PRODUCT_SPECS = [
   { term: "Se mezcla con", detail: "Agua tibia, jugo, emoliente, avena o batido" },
 ] as const;
 
-/** Lo que conserva cada lote, como mínimo, según el dossier (trazabilidad de origen). */
+/**
+ * Lo que registra cada lote, en corto, según el dossier (trazabilidad de origen).
+ * El detalle de los controles está en el paso "Lote trazable" de PROCESS_STEPS.
+ */
 export const LOT_RECORD = [
-  "Nombre científico validado y nombre local",
+  "Nombre científico y local",
   "Parte de la planta",
-  "Localidad, fecha de cosecha y proveedor",
-  "Voucher botánico o certificado de identificación",
-  "Método de secado, almacenamiento y extracción",
-  "Controles microbiológicos, de metales pesados, pesticidas y adulteración",
-  "Huella química, cuando sea técnicamente viable",
+  "Lugar y fecha de cosecha",
+  "Proveedor",
+  "Voucher botánico",
+  "Secado y extracción",
+  "Controles de calidad",
 ] as const;
 
 export const RITUAL_STEPS = [
@@ -72,7 +75,7 @@ export const PROCESS_STEPS: ReadonlyArray<{ title: string; html: string; knowled
   },
   {
     title: "Parte y método definidos",
-    html: "Se fija la parte exacta de la planta y el método de extracción, porque muchos estudios usan una preparación distinta a la de un extracto.",
+    html: "Se fija la parte exacta de la planta y el método de extracción de cada fórmula, y ambos quedan registrados en cada lote.",
     knowledge: "ambos",
   },
   {
@@ -83,39 +86,42 @@ export const PROCESS_STEPS: ReadonlyArray<{ title: string; html: string; knowled
 ];
 
 /**
- * Cómo leer la evidencia: qué puede y qué no puede respaldar cada tipo de estudio.
+ * Pasos de la animación de la extracción (modal de Proceso). Son los pasos generales de un extracto
+ * hidroalcohólico, sin tiempos, proporciones ni temperaturas: ese detalle es del equipo técnico.
+ */
+export const EXTRACTION_STEPS = [
+  { title: "Planta seca y molida", text: "Entra al tanque la parte de la planta definida para la fórmula." },
+  { title: "Agua y alcohol", text: "La cubre una mezcla de agua y alcohol, que extrae sus compuestos." },
+  { title: "Tiempo", text: "Con el tiempo, los compuestos pasan de la planta al líquido." },
+  { title: "Filtrado", text: "Los restos de la planta quedan atrás; el líquido filtrado es el extracto." },
+] as const;
+
+/**
+ * Cómo leer la evidencia: qué aporta cada tipo de estudio.
  * `level` da el color, el mismo de la etiqueta de evidencia en las fichas.
  */
-export const EVIDENCE_GUIDE: ReadonlyArray<{ level: EvidenceLevel; title: string; supports: string; limits: string }> = [
+export const EVIDENCE_GUIDE: ReadonlyArray<{ level: EvidenceLevel; title: string; contribution: string }> = [
   {
     level: "humanos",
     title: "Estudios en personas",
-    supports: "Lo que se observó con esa preparación, esa dosis y ese grupo de personas.",
-    limits: "Que lo mismo pase con otro extracto, otra parte de la planta u otra combinación.",
+    contribution: "Resultados observados en personas, con una preparación y una dosis definidas.",
   },
   {
     level: "preclinica",
     title: "En animales",
-    supports: "Que el efecto es biológicamente posible y vale la pena estudiarlo en personas.",
-    limits: "Que el beneficio está probado en personas.",
+    contribution: "El efecto en un organismo vivo, con dosis y preparaciones controladas.",
   },
   {
     level: "preclinica",
     title: "En laboratorio",
-    supports: "Qué compuestos tiene la planta y cómo actúan sobre células o microbios.",
-    limits: "Que el producto trata una enfermedad en el cuerpo.",
+    contribution: "Los compuestos de la planta y cómo actúan sobre células o microbios.",
   },
   {
     level: "tradicional",
     title: "Uso tradicional",
-    supports: "La historia de la planta: quién la usa, dónde y cómo se prepara.",
-    limits: "Su eficacia o su seguridad según la ciencia de hoy.",
+    contribution: "El uso documentado de la planta: quién la usa, dónde y cómo se prepara.",
   },
 ];
-
-/** Cuidado que acompaña a todas las fórmulas, además de los propios de cada una (del dossier). */
-export const FORMULA_CAUTION =
-  "La seguridad de cada planta por separado no establece por sí sola la de un extracto concentrado que las combina: la combinación requiere sus propios estudios de seguridad y estabilidad.";
 
 /**
  * Zonas de abastecimiento del dossier, para el perfil de origen, en orden de la Amazonía a los Andes.
@@ -148,9 +154,9 @@ export const FAQ = [
       "Sí, es nuestro canal principal. Médicos y clínicas pueden asociarse para recibir nuestras fórmulas y recetarlas a sus pacientes, con la ficha científica de cada planta y la trazabilidad de cada lote. Escríbenos desde la sección Profesionales.",
   },
   {
-    question: "¿Las fórmulas están probadas clínicamente?",
+    question: "¿Qué respaldo científico tienen las fórmulas?",
     answer:
-      "Todavía no. No existe un estudio clínico de ninguna de las cuatro combinaciones. Lo que hay son estudios de cada planta por separado, en personas, en animales o en laboratorio según el caso, y su uso tradicional. En cada ficha indicamos de qué tipo es cada estudio y qué falta demostrar.",
+      "Cada fórmula reúne plantas con estudios publicados, en personas, en animales o en laboratorio según la planta, y con uso tradicional documentado. En cada ficha indicamos el tipo de estudio y enlazamos su fuente original.",
   },
   {
     question: "¿Qué diferencia hay entre un extracto y la hierba molida?",

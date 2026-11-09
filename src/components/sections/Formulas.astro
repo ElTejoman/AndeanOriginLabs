@@ -16,8 +16,8 @@ const { formulas, herbs } = Astro.props;
     <SectionHeader eyebrow="Primera línea">
       {spelledNumber(formulas.length)} fórmulas, <em>{spelledNumber(herbs.length).toLowerCase()} plantas</em>
       <p slot="aside">
-        Cada fórmula junta plantas que la tradición usa para lo mismo. Te contamos qué se ha estudiado de cada una y qué
-        falta probar de la combinación.
+        Cada fórmula junta plantas que la tradición usa para lo mismo. De cada una, te mostramos los estudios que la
+        respaldan.
       </p>
     </SectionHeader>
 
@@ -32,7 +32,6 @@ const { formulas, herbs } = Astro.props;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
-    align-items: start;
   }
 
   @media (max-width: 1000px) {

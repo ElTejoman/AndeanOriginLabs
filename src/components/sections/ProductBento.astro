@@ -3,6 +3,7 @@ import Jar from "@/components/ui/Jar.astro";
 import Section from "@/components/ui/Section.astro";
 import SectionHeader from "@/components/ui/SectionHeader.astro";
 import { LOT_RECORD, PRODUCT_SPECS, RITUAL_STEPS } from "@/data/content";
+import { twoDigits } from "@/lib/format";
 import type { Formula } from "@/lib/formulas";
 
 type Props = { formulas: Formula[] };
@@ -11,7 +12,6 @@ const { formulas } = Astro.props;
 /** Dos frascos de muestra: la primera fórmula al frente y la última al costado. */
 const front = formulas[0]!;
 const side = formulas.at(-1)!;
-const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
 <Section id="producto" flushTop>
@@ -68,7 +68,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
       <div class="tile tile--origin">
         <div class="eyebrow">Origen</div>
         <h3>Lote trazable</h3>
-        <ul class="lot-code" aria-label="Lo que registra cada lote">
+        <ul class="lot" aria-label="Lo que registra cada lote">
           {LOT_RECORD.map((item) => <li>{item}</li>)}
         </ul>
       </div>
@@ -79,7 +79,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
           {
             RITUAL_STEPS.map((step, i) => (
               <li>
-                <span class="ritual__n">{pad(i + 1)}</span>
+                <span class="ritual__n">{twoDigits(i + 1)}</span>
                 <h4>{step.title}</h4>
                 <p>{step.text}</p>
               </li>
@@ -202,15 +202,23 @@ const pad = (n: number) => String(n).padStart(2, "0");
     grid-column: span 4;
   }
 
-  .lot-code {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    margin: 20px 0 0;
-    padding: 14px;
+  .lot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 18px 0 0;
+    padding: 0;
     list-style: none;
-    border: 1px dashed var(--line);
-    border-radius: var(--r-md);
-    line-height: 1.8;
+  }
+
+  .lot li {
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    background: var(--surface-200);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1.5;
   }
 
   .tile--ritual {

@@ -1,0 +1,348 @@
+---
+import Button from "@/components/ui/Button.astro";
+import { EXTRACTION_STEPS } from "@/data/content";
+import { twoDigits } from "@/lib/format";
+
+/**
+ * Esquema animado de la extracción, en trazo de línea como los íconos de las plantas.
+ * El SVG está dibujado con todo a la vista (así se ve sin JS o con movimiento reducido);
+ * scripts/process/extractionAnimation.ts lo arma paso a paso cuando se abre su modal.
+ */
+
+const BOTTLE_WATER = "M40 340 V236 Q40 224 52 224 H62 V208 H74 V224 H84 Q96 224 96 236 V340 Z";
+const BOTTLE_ALCOHOL = "M116 340 V236 Q116 224 128 224 H138 V208 H150 V224 H160 Q172 224 172 236 V340 Z";
+const SOLVENT_PIPE = "M68 208 V150 H262 V172 M144 208 V150";
+const TANK = "M220 174 V284 Q220 300 236 300 H404 Q420 300 420 284 V174";
+const OUTLET_PIPE = "M420 288 H470 V328 H502 M530 328 H556 V188 H600 V202";
+const FLASK = "M590 274 V294 L564 334 Q562 340 569 340 H631 Q638 340 636 334 L610 294 V274";
+const LEAF = "M-7 0 Q0 -6 7 0 Q0 6 -7 0Z";
+
+/** Trozos de planta: dónde terminan en el tanque (x, y, giro) y dónde empiezan, en la tolva. */
+const FRAGMENTS = [
+  { x: 250, y: 288, r: 20, fromX: 314, fromY: 78 },
+  { x: 272, y: 281, r: -30, fromX: 330, fromY: 80 },
+  { x: 293, y: 290, r: 60, fromX: 348, fromY: 77 },
+  { x: 313, y: 283, r: 10, fromX: 364, fromY: 80 },
+  { x: 333, y: 290, r: -50, fromX: 322, fromY: 92 },
+  { x: 353, y: 281, r: 35, fromX: 338, fromY: 94 },
+  { x: 373, y: 289, r: -15, fromX: 354, fromY: 91 },
+  { x: 393, y: 283, r: 70, fromX: 330, fromY: 104 },
+  { x: 283, y: 271, r: -60, fromX: 346, fromY: 105 },
+  { x: 362, y: 270, r: 25, fromX: 340, fromY: 116 },
+];
+
+/** Compuestos ya disueltos en el líquido. */
+const COMPOUNDS = [
+  [242, 214], [268, 226], [290, 208], [306, 236], [330, 218], [352, 230], [376, 210],
+  [398, 226], [256, 240], [318, 206], [344, 242], [390, 242], [282, 232], [366, 238],
+];
+---
+
+<div class="extraction" data-extraction>
+  <svg class="scene" viewBox="0 28 720 352" role="img" aria-labelledby="extraccion-esquema">
+    <title id="extraccion-esquema">
+      Esquema de la extracción: la planta seca y molida entra a un tanque, se cubre con agua y alcohol, sus compuestos
+      pasan al líquido y el líquido se filtra y se recoge como extracto.
+    </title>
+    <defs>
+      <clipPath id="extraccion-agua"><path d={BOTTLE_WATER}></path></clipPath>
+      <clipPath id="extraccion-alcohol"><path d={BOTTLE_ALCOHOL}></path></clipPath>
+      <clipPath id="extraccion-tanque"><path d={`${TANK} Z`}></path></clipPath>
+      <clipPath id="extraccion-frasco"><path d={`${FLASK} Z`}></path></clipPath>
+    </defs>
+
+    <path class="scene__ground" d="M20 340 H700"></path>
+
+    <g clip-path="url(#extraccion-agua)">
+      <rect class="scene__solvent" data-bottle-level x="40" y="250" width="56" height="100"></rect>
+    </g>
+    <g clip-path="url(#extraccion-alcohol)">
+      <rect class="scene__solvent" data-bottle-level x="116" y="250" width="56" height="100"></rect>
+    </g>
+    <path class="scene__line" d={BOTTLE_WATER}></path>
+    <path class="scene__line" d={BOTTLE_ALCOHOL}></path>
+    <text class="scene__label" x="68" y="366" text-anchor="middle">Agua</text>
+    <text class="scene__label" x="144" y="366" text-anchor="middle">Alcohol</text>
+
+    <path class="scene__pipe" d={SOLVENT_PIPE}></path>
+    <path class="scene__pipe-inner" d={SOLVENT_PIPE}></path>
+    <path class="scene__flow" data-flow="solvent" d={SOLVENT_PIPE}></path>
+
+    <path class="scene__line" d="M296 64 H384 L352 112 V126 M296 64 L328 112 V126"></path>
+    <text class="scene__label" x="340" y="50" text-anchor="middle">Planta seca y molida</text>
+
+    <g clip-path="url(#extraccion-tanque)">
+      <path class="scene__stream" data-stream d="M262 174 V300"></path>
+      <g data-tank-liquid>
+        <rect class="scene__solvent" x="220" y="196" width="200" height="110"></rect>
+        <rect class="scene__extract" data-tint x="220" y="196" width="200" height="110"></rect>
+        <path class="scene__surface" d="M220 196 Q245 191 270 196 T320 196 T370 196 T420 196"></path>
+        {COMPOUNDS.map(([cx, cy]) => <circle class="scene__compound" data-compound cx={cx} cy={cy} r="2.6" />)}
+      </g>
+    </g>
+    {
+      FRAGMENTS.map((f) => (
+        <g transform={`translate(${f.x} ${f.y})`}>
+          <g class="scene__fragment" data-fragment data-x={f.x} data-y={f.y} data-from-x={f.fromX} data-from-y={f.fromY}>
+            <path d={LEAF} transform={`rotate(${f.r})`} />
+          </g>
+        </g>
+      ))
+    }
+    <path class="scene__line" d={TANK}></path>
+    <ellipse class="scene__line" cx="320" cy="174" rx="100" ry="12"></ellipse>
+    <path class="scene__line" d="M236 300 L230 340 M404 300 L410 340"></path>
+
+    <circle class="scene__line" cx="468" cy="120" r="16"></circle>
+    <path class="scene__line" d="M468 120 L476 124"></path>
+    <path class="scene__line scene__hand" data-clock-hand d="M468 120 V108"></path>
+    <text class="scene__label" x="468" y="156" text-anchor="middle">Tiempo</text>
+
+    <path class="scene__pipe" d={OUTLET_PIPE}></path>
+    <path class="scene__pipe-inner" d={OUTLET_PIPE}></path>
+    <path class="scene__flow" data-flow="outlet" d={OUTLET_PIPE}></path>
+    <path class="scene__line scene__fill" d="M434 280 L454 296 V280 L434 296 Z"></path>
+    <path class="scene__line" d="M444 288 V272"></path>
+    <path class="scene__line scene__valve" data-valve-handle d="M437 272 H451"></path>
+    <circle class="scene__line scene__fill" cx="516" cy="328" r="14"></circle>
+    <path class="scene__line scene__pump" data-pump d="M516 318 V338 M506 328 H526"></path>
+
+    <path class="scene__line scene__fill" d="M568 206 H632 L606 244 V284 H594 V244 Z"></path>
+    <path class="scene__filter" d="M574 210 L600 238 L626 210"></path>
+    <text class="scene__label" x="642" y="228">Filtro</text>
+
+    <g clip-path="url(#extraccion-frasco)">
+      <rect class="scene__extract scene__extract--flask" data-flask-liquid x="556" y="306" width="88" height="40"></rect>
+    </g>
+    <path class="scene__line" d={FLASK}></path>
+    <text class="scene__label scene__label--accent" data-extract-label x="600" y="366" text-anchor="middle">Extracto</text>
+  </svg>
+
+  <ol class="extraction__steps">
+    {
+      EXTRACTION_STEPS.map((step, i) => (
+        <li data-extraction-step>
+          <span class="extraction__n">{twoDigits(i + 1)}</span>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="extraction__foot">
+    <p class="extraction__note">Esquema ilustrativo, no a escala.</p>
+    <span data-extraction-replay hidden>
+      <Button variant="outline" size="sm">Ver de nuevo</Button>
+    </span>
+  </div>
+</div>
+
+<script>
+  import { mustQs } from "@/scripts/core/dom";
+  import { initExtraction } from "@/scripts/process/extractionAnimation";
+
+  initExtraction(mustQs("[data-extraction]"));
+</script>
+
+<style>
+  .scene {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: var(--verde-hoja);
+  }
+
+  .scene__line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .scene__fill {
+    fill: var(--surface-000);
+  }
+
+  .scene__ground {
+    stroke: var(--line);
+    stroke-width: 1.5;
+  }
+
+  /* Tubería hueca: un trazo grueso y encima uno más fino del color del fondo. */
+  .scene__pipe,
+  .scene__pipe-inner {
+    fill: none;
+    stroke-linejoin: round;
+  }
+
+  .scene__pipe {
+    stroke: currentColor;
+    stroke-width: 9;
+  }
+
+  .scene__pipe-inner {
+    stroke: var(--surface-000);
+    stroke-width: 5.4;
+  }
+
+  .scene__flow,
+  .scene__stream {
+    fill: none;
+    stroke-linecap: round;
+    opacity: 0;
+  }
+
+  .scene__flow {
+    stroke: var(--rojo-achiote);
+    stroke-width: 2.4;
+    stroke-dasharray: 5 9;
+  }
+
+  .scene__stream {
+    stroke: var(--verde-hoja);
+    stroke-width: 3;
+    stroke-dasharray: 4 8;
+  }
+
+  .scene__solvent {
+    fill: color-mix(in srgb, var(--verde-hoja) 16%, transparent);
+  }
+
+  .scene__extract {
+    fill: var(--ocre-maca);
+    opacity: 0.45;
+  }
+
+  .scene__extract--flask {
+    opacity: 0.8;
+  }
+
+  .scene__surface {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.2;
+    opacity: 0.7;
+  }
+
+  .scene__compound {
+    fill: var(--ocre-maca);
+  }
+
+  .scene__fragment {
+    fill: var(--verde-hoja);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .scene__filter {
+    fill: none;
+    stroke: var(--rojo-achiote);
+    stroke-width: 1.4;
+    stroke-dasharray: 3 4;
+  }
+
+  .scene__hand,
+  .scene__valve,
+  .scene__pump {
+    transform-box: fill-box;
+  }
+
+  .scene__hand {
+    transform-origin: 50% 100%;
+  }
+
+  /* La manija gira sobre su eje: vista de frente, la barra se angosta. */
+  .scene__valve,
+  .scene__pump {
+    transform-origin: center;
+  }
+
+  .scene__label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    fill: var(--ink-muted);
+  }
+
+  .scene__label--accent {
+    fill: var(--rojo-achiote);
+    font-weight: 600;
+  }
+
+  .extraction__steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .extraction__steps li {
+    padding-top: 12px;
+    border-top: 2px solid var(--line);
+    transition:
+      opacity 0.3s,
+      border-color 0.3s;
+  }
+
+  /* Mientras corre la animación, se resalta el paso en curso. */
+  .extraction__steps:has(.is-active) li:not(.is-active) {
+    opacity: 0.4;
+  }
+
+  .extraction__steps li.is-active {
+    border-color: var(--rojo-achiote);
+  }
+
+  .extraction__n {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--rojo-achiote);
+  }
+
+  .extraction__steps h3 {
+    margin-top: 4px;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .extraction__steps p {
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-muted);
+  }
+
+  .extraction__foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .extraction__note {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 640px) {
+    .extraction__steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* A este ancho las etiquetas del dibujo serían ilegibles: los pasos de abajo las reemplazan. */
+    .scene__label {
+      display: none;
+    }
+
+    /* El dibujo se achica; el trazo conserva su grosor para seguir legible. */
+    .scene__line {
+      vector-effect: non-scaling-stroke;
+    }
+  }
+</style>

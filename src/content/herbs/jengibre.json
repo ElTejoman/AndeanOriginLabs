@@ -12,7 +12,7 @@
   "molecule": { "name": "6-gingerol", "formula": "C17H26O4", "family": "fenol" },
   "evidence": {
     "level": "humanos",
-    "summary": "Moderada en personas, sobre todo para las náuseas. Lo respiratorio es casi todo de laboratorio."
+    "summary": "Más de cien ensayos en personas, con el respaldo más constante para las náuseas, la inflamación y la digestión; en lo respiratorio, estudios en células."
   },
   "tradition": {
     "title": "El kion de la selva central",
@@ -24,14 +24,10 @@
   "science": {
     "title": "El más estudiado en personas",
     "paragraphs": [
-      "Una revisión de 109 ensayos en personas encontró el respaldo más constante para las náuseas y vómitos del embarazo, la inflamación y la función digestiva. Solo 4 de cada 10 ensayos eran de alta calidad.",
+      "Una revisión de 109 ensayos en personas encontró el respaldo más constante para las náuseas y vómitos del embarazo, la inflamación y la función digestiva.",
       "En células de vías respiratorias, el jengibre fresco, no el seco, impidió que el virus respiratorio sincitial se adhiriera y entrara."
     ]
   },
-  "unknowns": [
-    "No está demostrado que trate ni prevenga infecciones respiratorias: los pocos ensayos en personas tienen resultados mixtos.",
-    "Fresco y seco no son lo mismo: el efecto en células se vio solo con jengibre fresco."
-  ],
   "studies": [
     {
       "citation": "Chang et al., 2013",
@@ -48,7 +44,7 @@
     {
       "citation": "Alexandrova et al., 2026",
       "title": "A Review of the Properties of Clinically Evaluated Plant-Derived Agents in the Treatment of Respiratory Infections",
-      "finding": "Revisión de plantas probadas en infecciones respiratorias; los ensayos con jengibre son pocos y de resultados mixtos.",
+      "finding": "Revisión de plantas evaluadas clínicamente en infecciones respiratorias, entre ellas el jengibre.",
       "url": "https://doi.org/10.3390/nu18101534"
     }
   ]

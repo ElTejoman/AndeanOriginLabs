@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button.astro";
 import Section from "@/components/ui/Section.astro";
 import SectionHeader from "@/components/ui/SectionHeader.astro";
 import { PARTNER_BENEFITS, PARTNER_KINDS, PARTNERS } from "@/data/content";
+import { twoDigits } from "@/lib/format";
 import type { Formula } from "@/lib/formulas";
 
 /** Sección B2B: médicos y clínicas asociados, qué reciben y formulario para asociarse. */
@@ -10,7 +11,6 @@ type Props = { formulas: Formula[] };
 const { formulas } = Astro.props;
 
 const webhookUrl = import.meta.env.PUBLIC_PARTNERS_WEBHOOK_URL ?? "";
-const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
 <Section id="aliados" surface="night" aria-labelledby="aliados-titulo">
@@ -63,7 +63,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
           {
             PARTNER_BENEFITS.map((benefit, i) => (
               <li>
-                <span class="benefits__n">{pad(i + 1)}</span>
+                <span class="benefits__n">{twoDigits(i + 1)}</span>
                 <div>
                   <h4>{benefit.title}</h4>
                   <p>{benefit.text}</p>

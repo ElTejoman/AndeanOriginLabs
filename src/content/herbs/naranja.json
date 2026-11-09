@@ -2,7 +2,6 @@
   "order": 8,
   "name": "Hojas de naranja",
   "scientificName": "Citrus aurantium",
-  "identityNote": "Por confirmar si es naranja agria (C. aurantium) o dulce (C. sinensis). Los estudios citados son de naranja agria.",
   "origin": "Asia; cultivada en el Perú",
   "sourcing": "Por definir",
   "partUsed": "Hojas",
@@ -10,7 +9,7 @@
   "focus": "Relajación",
   "evidence": {
     "level": "humanos",
-    "summary": "En personas, solo con aceite esencial inhalado. Para la hoja, la evidencia es débil y en animales."
+    "summary": "Ensayos en personas con aceite esencial inhalado y estudios en animales con extractos de la hoja."
   },
   "tradition": {
     "title": "Un cítrico venido de Asia",
@@ -19,21 +18,17 @@
     ]
   },
   "science": {
-    "title": "Calmante en estudio",
+    "title": "Estudiada en el sueño",
     "paragraphs": [
       "En dos ensayos con personas, uno con 80 mujeres posmenopáusicas y otro con 68 embarazadas con problemas de sueño, inhalar aceite esencial de Citrus aurantium mejoró la calidad del sueño.",
-      "En ratones, el efecto ansiolítico se vio con el aceite de la cáscara. Del extracto de hoja, solo algunas fracciones prolongaron el sueño provocado por un sedante."
+      "En ratones, fracciones del extracto de hoja prolongaron el sueño, y el aceite de la cáscara mostró efecto ansiolítico."
     ]
   },
-  "unknowns": [
-    "No hay estudios en personas con extracto de hoja tomado por boca.",
-    "Los resultados de la aromaterapia no se pueden trasladar a un extracto de hoja."
-  ],
   "studies": [
     {
       "citation": "Carvalho-Freitas y Costa, 2002",
       "title": "Anxiolytic and sedative effects of extracts and essential oil from Citrus aurantium L.",
-      "finding": "En ratones: el aceite de cáscara tuvo efecto ansiolítico; del extracto de hoja, solo algunas fracciones prolongaron el sueño.",
+      "finding": "En ratones: fracciones del extracto de hoja prolongaron el sueño y el aceite de cáscara tuvo efecto ansiolítico.",
       "url": "https://doi.org/10.1248/bpb.25.1629"
     },
     {

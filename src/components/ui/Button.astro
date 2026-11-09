@@ -3,10 +3,11 @@ import type { HTMLAttributes } from "astro/types";
 
 /**
  * Botón con forma de píldora. Con `href` se dibuja como enlace; sin él, como <button>.
- * Variantes: primary (achiote), light y line (sobre bandas nocturnas), green (selva).
+ * Variantes: primary (achiote), light y line (sobre bandas nocturnas), green (selva) y outline (secundario, sobre
+ * superficies claras).
  */
 type Props = (HTMLAttributes<"a"> & HTMLAttributes<"button">) & {
-  variant?: "primary" | "light" | "line" | "green";
+  variant?: "primary" | "light" | "line" | "green" | "outline";
   size?: "md" | "sm";
   arrow?: boolean;
 };
@@ -86,5 +87,15 @@ const classes = ["btn", `btn--${variant}`, `btn--${size}`, className];
   .btn--green {
     background: var(--verde-selva);
     color: var(--on-brand);
+  }
+
+  .btn--outline {
+    border-color: currentColor;
+    color: var(--verde-hoja);
+    background: transparent;
+  }
+
+  .btn--outline:hover {
+    background: var(--verde-tenue);
   }
 </style>

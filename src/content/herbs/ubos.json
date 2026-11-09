@@ -10,7 +10,7 @@
   "compounds": ["Polifenoles"],
   "evidence": {
     "level": "preclinica",
-    "summary": "Moderada en laboratorio y animales, aunque casi siempre con la hoja y no con la corteza."
+    "summary": "Estudios en laboratorio y en animales con extractos de la hoja."
   },
   "tradition": {
     "title": "Una corteza astringente",
@@ -26,10 +26,6 @@
       "En ratas también protegieron el estómago frente a úlceras. Entre sus compuestos se identificaron el ácido elágico y el ácido clorogénico."
     ]
   },
-  "unknowns": [
-    "Los estudios usan la hoja; la corteza, que es la que lleva la fórmula, está mucho menos estudiada.",
-    "No hay estudios en personas."
-  ],
   "studies": [
     {
       "citation": "Nworu et al., 2011",
